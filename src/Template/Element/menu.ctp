@@ -1,6 +1,6 @@
 <?php
 $name = $name ?: 'main';
-$renderAs = $renderAs ?: 'list';
+$renderAs = $renderAs ?: RENDER_AS_LIST;
 $menu = $menu ?: [];
 
 if (is_string($name) && empty($menu)) {
@@ -8,21 +8,21 @@ if (is_string($name) && empty($menu)) {
 }
 
 $renderFormats = [
-    'list' => [
+    RENDER_AS_LIST => [
         'menuStart' => '<ul>',
         'menuEnd' => '</ul>',
         'itemStart' => '<li>',
         'itemEnd' => '</li>',
         'item' => '<a href="%url%">%label%</a>',
     ],
-    'dropdown' => [
+    RENDER_AS_DROPDOWN => [
         'menuStart' => '<select>',
         'menuEnd' => '</select>',
         'itemStart' => '<option>',
         'itemEnd' => '</option>',
         'item' => '%label%',
     ],
-    'none' => [
+    RENDER_AS_NONE => [
         'menuStart' => '',
         'menuEnd' => '',
         'itemStart' => '',
