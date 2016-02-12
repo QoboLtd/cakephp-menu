@@ -1,4 +1,12 @@
 <?php
+if (!defined('MENU_SIDEBAR')) {
+    define('MENU_SIDEBAR', 'sidebar');
+}
+
+if (!defined('MENU_TOP')) {
+    define('MENU_TOP', 'top');
+}
+
 /**
  * Render As types
  */
