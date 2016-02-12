@@ -1,7 +1,7 @@
 <?php
 $name = $name ?: 'main';
 $renderAs = $renderAs ?: RENDER_AS_LIST;
-$menu = $menu ?: [];
+$menu = isset($menu) ? $menu : [];
 
 if (is_string($name) && empty($menu)) {
     $menu = $this->Menu->getMenu($name);
