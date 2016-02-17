@@ -7,7 +7,9 @@ use Cake\View\View;
 class MenuHelper extends Helper
 {
     /**
-     * Method that retrieves all defined capabilities
+     * Method that retrieves all defined capabilities.
+     *
+     * @param string $name of the menu
      * @return array capabilities
      */
     public function getMenu($name)
