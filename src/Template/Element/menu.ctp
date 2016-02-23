@@ -52,7 +52,14 @@ foreach ($menu as $item) {
     echo $format['itemStart'];
     $itemContent = $format['item'];
     foreach ($item as $key => $value) {
-        $itemContent = preg_replace('/%' . $key . '%/', $value, $itemContent);
+        switch ($key) {
+            case 'url' :
+                $itemContent = $this->Html->link($itemContent, $value);
+            case 'label':
+            default:
+                $itemContent = preg_replace('/%' . $key . '%/', $value, $itemContent);
+                break;
+        }
     }
     echo $itemContent;
     echo $format['itemEnd'];
