@@ -15,7 +15,7 @@ class MenuHelper extends Helper
      */
     public function getMenu($name)
     {
-        $allControllers = Configure::readOrFail('Menu.allControllers');
+        $allControllers = Configure::read('Menu.allControllers');
         $menu = [];
         // get all controllers
         $controllers = $this->_getAllControllers();
