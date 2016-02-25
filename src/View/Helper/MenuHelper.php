@@ -1,6 +1,7 @@
 <?php
 namespace Menu\View\Helper;
 
+use Cake\Core\Configure;
 use Cake\View\Helper;
 use Cake\View\View;
 
@@ -14,12 +15,17 @@ class MenuHelper extends Helper
      */
     public function getMenu($name)
     {
+        $allControllers = Configure::readOrFail('Menu.allControllers');
         $menu = [];
         // get all controllers
         $controllers = $this->_getAllControllers();
         foreach ($controllers as $controller) {
             if (is_callable([$controller, 'getMenu'])) {
                 $menu = array_merge($menu, $controller::getMenu($name));
+            }
+
+            if (!$allControllers) {
+                break;
             }
         }
         return $menu;
