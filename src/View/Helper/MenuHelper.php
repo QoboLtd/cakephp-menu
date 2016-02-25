@@ -8,11 +8,11 @@ class MenuHelper extends Helper
 {
     /**
      * Method that retrieves all defined capabilities.
-     *
-     * @param string $name of the menu
-     * @return array capabilities
+     * @param string $name           of the menu
+     * @param bool   $allControllers flag for calling getMenu method from all controllers or from a single one
+     * @return array                 capabilities
      */
-    public function getMenu($name)
+    public function getMenu($name, $allControllers = true)
     {
         $menu = [];
         // get all controllers
@@ -20,6 +20,10 @@ class MenuHelper extends Helper
         foreach ($controllers as $controller) {
             if (is_callable([$controller, 'getMenu'])) {
                 $menu = array_merge($menu, $controller::getMenu($name));
+            }
+
+            if (!$allControllers) {
+                break;
             }
         }
         return $menu;
