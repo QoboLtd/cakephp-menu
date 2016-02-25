@@ -1,10 +1,11 @@
 <?php
+$allControllers = !isset($allControllers) ? true : (bool)$allControllers;
 $name = $name ?: 'main';
 $renderAs = $renderAs ?: RENDER_AS_LIST;
 $menu = isset($menu) ? $menu : [];
 
 if (is_string($name) && empty($menu)) {
-    $menu = $this->Menu->getMenu($name);
+    $menu = $this->Menu->getMenu($name, $allControllers);
 }
 
 $renderFormats = [
