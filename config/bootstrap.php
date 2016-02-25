@@ -21,3 +21,10 @@ if (!defined('RENDER_AS_DROPDOWN')) {
 if (!defined('RENDER_AS_NONE')) {
     define('RENDER_AS_NONE', 'none');
 }
+
+use Cake\Core\Configure;
+
+/**
+ * flag for calling getMenu method from all controllers or from a single one
+ */
+Configure::write('Menu.allControllers', true);
