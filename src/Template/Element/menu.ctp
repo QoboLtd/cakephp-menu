@@ -38,6 +38,8 @@ elseif (is_array($renderAs)) {
     $defaults = [
         'menuStart' => '<ul>',
         'menuEnd' => '</ul>',
+        'childMenuStart' => '<ul>',
+        'childMenuEnd' => '</ul>',
         'itemStart' => '<li>',
         'itemEnd' => '</li>',
         'item' => '%label%',
@@ -47,15 +49,47 @@ elseif (is_array($renderAs)) {
 else {
     throw new InvalidArgumentException("Ooops!");
 }
+
+$itemDefaults = [
+    'url' => '#',
+    'label' => 'Undefined',
+    'icon' => 'cube'
+];
+
 echo $format['menuStart'];
 foreach ($menu as $item) {
     echo $format['itemStart'];
     $itemContent = $format['item'];
+    if (!empty($item['children'])) {
+        $itemContent = $format['itemWithChildren'];
+    }
+    $item = array_merge($itemDefaults, $item);
     foreach ($item as $key => $value) {
-        $itemContent = preg_replace('/%' . $key . '%/', $value, $itemContent);
+        if (false !== strpos($itemContent, $key)) {
+            $itemContent = preg_replace('/%' . $key . '%/', $value, $itemContent);
+        }
     }
     echo $itemContent;
+    if (!empty($item['children'])) {
+        echo $format['childMenuStart'];
+        foreach ($item['children'] as $child) {
+            echo $format['itemStart'];
+            $childItemContent = $format['item'];
+            foreach ($child as $key => $value) {
+                if (false !== strpos($childItemContent, $key)) {
+                    $childItemContent = str_replace('%' . $key . '%', $value, $childItemContent);
+                }
+            }
+            echo $childItemContent;
+            echo $format['itemEnd'];
+        }
+    }
+    if (!empty($item['children'])) {
+        echo $format['childMenuEnd'];
+    }
     echo $format['itemEnd'];
 }
 echo $format['menuEnd'];
+
+echo $this->Html->script('Menu.menu', ['block' => 'scriptBottom']);
 ?>
