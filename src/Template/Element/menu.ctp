@@ -13,14 +13,14 @@ $renderFormats = [
         'menuEnd' => '</ul>',
         'itemStart' => '<li>',
         'itemEnd' => '</li>',
-        'item' => '<a href="%url%">%label%</a>',
+        'item' => '<a href="%url%"><i class="fa fa-%icon%"></i> %label%</a>',
     ],
     RENDER_AS_DROPDOWN => [
         'menuStart' => '<select>',
         'menuEnd' => '</select>',
         'itemStart' => '<option>',
         'itemEnd' => '</option>',
-        'item' => '%label%',
+        'item' => '<i class="fa fa-%icon%"></i> %label%',
     ],
     RENDER_AS_NONE => [
         'menuStart' => '',
