@@ -1,4 +1,6 @@
-$(function() {
-    $('.metismenu').metisMenu();
-    $('.dropdown-toggle').dropdown();
-});
+(function($) {
+    $(function() {
+        $('.metismenu').metisMenu();
+        $('.dropdown-toggle').dropdown();
+    });
+})(jQuery);
