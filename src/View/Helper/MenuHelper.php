@@ -43,7 +43,7 @@ class MenuHelper extends Helper
     }
 
     /**
-     * Set the full base URL recursivelly for all the menu and their childs.
+     * Set the full base URL recursivelly for all the menu and their children.
      *
      * @param array $menu Given menu
      * @return array $menus
