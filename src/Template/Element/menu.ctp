@@ -2,9 +2,10 @@
 $name = $name ?: 'main';
 $renderAs = $renderAs ?: RENDER_AS_LIST;
 $menu = isset($menu) ? $menu : [];
+$fullBaseUrl = is_bool($fullBaseUrl) ? $fullBaseUrl : false;
 
 if (is_string($name) && empty($menu)) {
-    $menu = $this->Menu->getMenu($name);
+    $menu = $this->Menu->getMenu($name, ['fullBaseUrl' => $fullBaseUrl]);
 }
 
 $renderFormats = [
