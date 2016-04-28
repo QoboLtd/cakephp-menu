@@ -28,7 +28,7 @@ class MenuItemsTable extends Table
         parent::initialize($config);
 
         $this->table('menu_items');
-        $this->displayField('id');
+        $this->displayField('label');
         $this->primaryKey('id');
 
         $this->addBehavior('Tree');
