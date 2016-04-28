@@ -1,17 +1,14 @@
 <?php
 $this->extend('QoboAdminPanel./Common/panel-wrapper');
-$this->assign('panel-title', __d('QoboAdminPanel', 'Menu item information'));
+$this->assign('panel-title', __d('QoboAdminPanel', 'View all'));
 ?>
 <table class="table table-striped" cellpadding="0" cellspacing="0">
     <thead>
         <tr>
-            <th><?= $this->Paginator->sort('id'); ?></th>
             <th><?= $this->Paginator->sort('menu_id'); ?></th>
             <th><?= $this->Paginator->sort('label'); ?></th>
             <th><?= $this->Paginator->sort('url'); ?></th>
             <th><?= $this->Paginator->sort('new_window'); ?></th>
-            <th><?= $this->Paginator->sort('parent_id'); ?></th>
-            <th><?= $this->Paginator->sort('lft'); ?></th>
             <th class="actions"><?= __('Actions'); ?></th>
         </tr>
     </thead>
@@ -24,7 +21,7 @@ $this->assign('panel-title', __d('QoboAdminPanel', 'Menu item information'));
             </td>
             <td><?= h($menuItem->label) ?></td>
             <td><?= h($menuItem->url) ?></td>
-            <td><?= $menuItem->new_window ?></td>
+            <td><?= h($menuItem->new_window) ?></td>
             <td>
                 <?= $menuItem->has('parent_menu_item') ? $this->Html->link($menuItem->parent_menu_item->id, ['controller' => 'MenuItems', 'action' => 'view', $menuItem->parent_menu_item->id]) : '' ?>
             </td>
