@@ -17,6 +17,7 @@ $this->assign('panel-title', __d('QoboAdminPanel', 'View all'));
             <td><?= h($menu->active) ?></td>
             <td class="actions">
                 <?= $this->Html->link('', ['action' => 'view', $menu->id], ['title' => __('View'), 'class' => 'btn btn-default glyphicon glyphicon-eye-open']) ?>
+                <?= $this->Html->link('', ['controller' => 'MenuItems', 'action' => 'index', $menu->id], ['title' => __('View slides of {0}', $menu->title), 'class' => 'btn btn-default glyphicon glyphicon-list-alt']) ?>
                 <?= $this->Html->link('', ['action' => 'edit', $menu->id], ['title' => __('Edit'), 'class' => 'btn btn-default glyphicon glyphicon-pencil']) ?>
                 <?= $this->Form->postLink('', ['action' => 'delete', $menu->id], ['confirm' => __('Are you sure you want to delete # {0}?', $menu->id), 'title' => __('Delete'), 'class' => 'btn btn-default glyphicon glyphicon-trash']) ?>
             </td>
