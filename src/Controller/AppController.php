@@ -17,5 +17,4 @@ class AppController extends BaseController
         parent::initialize();
         $this->viewBuilder()->layout('QoboAdminPanel.basic');
     }
-
 }
