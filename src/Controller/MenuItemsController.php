@@ -10,6 +10,7 @@ use Menu\Controller\AppController;
  */
 class MenuItemsController extends AppController
 {
+    const TREE_SPACER = '&nbsp;&nbsp;&nbsp;&nbsp;';
 
     /**
      * Index method
