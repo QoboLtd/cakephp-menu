@@ -18,11 +18,18 @@ class MenuItemsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Menus', 'ParentMenuItems']
-        ];
-        $menuItems = $this->paginate($this->MenuItems);
-
+        $tree = $this->MenuItems
+            ->find('treeList', ['spacer' => self::TREE_SPACER])
+            ->toArray();
+        $menuItems = $this->MenuItems
+            ->find('all')
+            ->order(['lft' => 'ASC']);
+        //Create node property in the entity object
+        foreach ($menuItems as $menuItem) {
+            if (in_array($menuItem->id, array_keys($tree))) {
+                $menuItem->node = $tree[$menuItem->id];
+            }
+        }
         $this->set(compact('menuItems'));
         $this->set('_serialize', ['menuItems']);
     }
