@@ -120,4 +120,29 @@ class MenuItemsController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    /**
+     * Move the node.
+     *
+     * @param  string $id menu id
+     * @param  string $action move action
+     * @throws InvalidPrimaryKeyException When provided id is invalid.
+     * @return void
+     */
+    public function moveNode($id = null, $action = '')
+    {
+        $moveActions = ['up', 'down'];
+        if (!in_array($action, $moveActions)) {
+            $this->Flash->error(__('Unknown move action.'));
+            return $this->redirect(['action' => 'index']);
+        }
+        $node = $this->MenuItems->get($id);
+        $moveFunction = 'move' . $action;
+        if ($this->MenuItems->{$moveFunction}($node)) {
+            $this->Flash->success(__('{0} has been moved {1} successfully.', $node->label, $action));
+        } else {
+            $this->Flash->error(__('Fail to move {0} {1}.', $node->label, $action));
+        }
+        return $this->redirect(['action' => 'index']);
+    }
 }
