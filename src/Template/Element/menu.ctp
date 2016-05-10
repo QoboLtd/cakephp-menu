@@ -12,6 +12,13 @@ if (is_string($name) && empty($menu)) {
 }
 
 $renderFormats = [
+    RENDER_AS_PROVIDED => [
+        'menuStart' => '',
+        'menuEnd' => '',
+        'itemStart' => '',
+        'itemEnd' => '',
+        'item' => '%label%',
+    ],
     RENDER_AS_LIST => [
         'menuStart' => '<ul>',
         'menuEnd' => '</ul>',
@@ -32,7 +39,7 @@ $renderFormats = [
         'itemStart' => '',
         'itemEnd' => '',
         'item' => '',
-    ],
+    ]
 ];
 
 if (is_string($renderAs) && !empty($renderFormats[$renderAs])) {

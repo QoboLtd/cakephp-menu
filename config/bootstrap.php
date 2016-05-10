@@ -22,6 +22,10 @@ if (!defined('RENDER_AS_NONE')) {
     define('RENDER_AS_NONE', 'none');
 }
 
+if (!defined('RENDER_AS_PROVIDED')) {
+    define('RENDER_AS_PROVIDED', 'provided');
+}
+
 use Cake\Core\Configure;
 
 /**
