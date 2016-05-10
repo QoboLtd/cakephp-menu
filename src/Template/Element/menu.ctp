@@ -2,8 +2,8 @@
 use Cake\Network\Exception\ForbiddenException;
 use Cake\ORM\TableRegistry;
 
-$name = $name ?: 'main';
-$renderAs = $renderAs ?: RENDER_AS_LIST;
+$name = isset($name) ? $name : 'main';
+$renderAs = isset($renderAs) ? $renderAs : RENDER_AS_LIST;
 $menu = isset($menu) ? $menu : [];
 $fullBaseUrl = (isset($fullBaseUrl) && is_bool($fullBaseUrl)) ? $fullBaseUrl : false;
 
