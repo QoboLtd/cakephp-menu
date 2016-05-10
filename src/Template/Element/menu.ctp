@@ -79,6 +79,7 @@ foreach ($menu as $item) {
         foreach ($item['children'] as $child) {
             echo $format['itemStart'];
             $childItemContent = $format['item'];
+            $child = array_merge($itemDefaults, $child);
             if (is_array($child['url'])) {
                 $child['url'] = $this->Url->build($child['url']);
             }
