@@ -65,6 +65,9 @@ foreach ($menu as $item) {
         $itemContent = $format['itemWithChildren'];
     }
     $item = array_merge($itemDefaults, $item);
+    if (is_array($item['url'])) {
+        $item['url'] = $this->Url->build($item['url']);
+    }
     foreach ($item as $key => $value) {
         if (false !== strpos($itemContent, $key)) {
             $itemContent = preg_replace('/%' . $key . '%/', $value, $itemContent);
@@ -76,6 +79,9 @@ foreach ($menu as $item) {
         foreach ($item['children'] as $child) {
             echo $format['itemStart'];
             $childItemContent = $format['item'];
+            if (is_array($child['url'])) {
+                $child['url'] = $this->Url->build($child['url']);
+            }
             foreach ($child as $key => $value) {
                 if (false !== strpos($childItemContent, $key)) {
                     $childItemContent = str_replace('%' . $key . '%', $value, $childItemContent);
