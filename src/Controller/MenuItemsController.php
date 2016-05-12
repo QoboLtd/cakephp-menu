@@ -156,6 +156,6 @@ class MenuItemsController extends AppController
         } else {
             $this->Flash->error(__('Fail to move {0} {1}.', $node->label, $action));
         }
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 }
