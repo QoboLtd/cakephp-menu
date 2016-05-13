@@ -17,13 +17,26 @@ class MenuItemsController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
+    public function index($menuId = null)
     {
+        if (is_null($menuId)) {
+            $this->Flash->error(__d('menu', 'Please choose a menu to view its menu items'));
+            return $this->redirect(['controller' => 'Menus', 'action' => 'index']);
+        }
+
+        $menu = $this->MenuItems->Menus->get($menuId);
+        if (!$menu) {
+            $this->Flash->error(__d('menu', 'Given menu was not found.'));
+            return $this->redirect(['controller' => 'Menus', 'action' => 'index']);
+        }
+
         $tree = $this->MenuItems
             ->find('treeList', ['spacer' => self::TREE_SPACER])
+            ->where(['menu_id' => $menuId])
             ->toArray();
         $menuItems = $this->MenuItems
             ->find('all')
+            ->where(['menu_id' => $menuId])
             ->order(['lft' => 'ASC']);
         //Create node property in the entity object
         foreach ($menuItems as $menuItem) {
@@ -143,6 +156,6 @@ class MenuItemsController extends AppController
         } else {
             $this->Flash->error(__('Fail to move {0} {1}.', $node->label, $action));
         }
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 }
