@@ -77,7 +77,7 @@ class MenuItemsController extends AppController
             $menuItem = $this->MenuItems->patchEntity($menuItem, $this->request->data);
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success(__('The menu item has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index', $this->request->data['menu_id']]);
             } else {
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
@@ -104,7 +104,7 @@ class MenuItemsController extends AppController
             $menuItem = $this->MenuItems->patchEntity($menuItem, $this->request->data);
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success(__('The menu item has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index', $this->request->data['menu_id']]);
             } else {
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
@@ -131,7 +131,7 @@ class MenuItemsController extends AppController
         } else {
             $this->Flash->error(__('The menu item could not be deleted. Please, try again.'));
         }
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 
     /**
