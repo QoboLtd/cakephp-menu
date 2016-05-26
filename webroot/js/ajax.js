@@ -19,7 +19,7 @@
      *
      * @param  string id identifier
      */
-    var makeAjax = function(id, url) {
+    var ajax = function(id, url) {
         $.ajax({
             type: 'get',
             url: url,
@@ -43,17 +43,21 @@
         });
     };
 
+    /**
+     * Returns the url taken from the menus
+     *
+     * @return string
+     */
     var getUrl = function() {
         return $('#menus').attr('rel') + '?id=' + $('#menus').val() + '&parents_only=1';
     };
 
     //Register the change event.
     $('#menus').change(function() {
-        var id = $().attr('id');
         var url = $(this).attr('rel') + '?id=' + $(this).val() + '&parents_only=1';
-        makeAjax('#fetch-menu-items', url);
+        ajax('#fetch-menu-items', url);
     });
 
     //Run on load.
-    makeAjax('#fetch-menu-items', getUrl());
+    ajax('#fetch-menu-items', getUrl());
 })(jQuery);
