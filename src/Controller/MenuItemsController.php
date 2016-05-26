@@ -110,8 +110,7 @@ class MenuItemsController extends AppController
             }
         }
         $menus = $this->MenuItems->Menus->find('list', ['limit' => 200]);
-        $parentMenuItems = $this->MenuItems->ParentMenuItems->find('list', ['limit' => 200]);
-        $this->set(compact('menuItem', 'menus', 'parentMenuItems'));
+        $this->set(compact('menuItem', 'menus'));
         $this->set('_serialize', ['menuItem']);
     }
 
