@@ -77,7 +77,7 @@ class MenuItemsController extends AppController
             $menuItem = $this->MenuItems->patchEntity($menuItem, $this->request->data);
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success(__('The menu item has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index', $this->request->data['menu_id']]);
             } else {
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
@@ -104,14 +104,13 @@ class MenuItemsController extends AppController
             $menuItem = $this->MenuItems->patchEntity($menuItem, $this->request->data);
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success(__('The menu item has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index', $this->request->data['menu_id']]);
             } else {
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
         }
         $menus = $this->MenuItems->Menus->find('list', ['limit' => 200]);
-        $parentMenuItems = $this->MenuItems->ParentMenuItems->find('list', ['limit' => 200]);
-        $this->set(compact('menuItem', 'menus', 'parentMenuItems'));
+        $this->set(compact('menuItem', 'menus'));
         $this->set('_serialize', ['menuItem']);
     }
 
@@ -131,7 +130,7 @@ class MenuItemsController extends AppController
         } else {
             $this->Flash->error(__('The menu item could not be deleted. Please, try again.'));
         }
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 
     /**
@@ -157,5 +156,29 @@ class MenuItemsController extends AppController
             $this->Flash->error(__('Fail to move {0} {1}.', $node->label, $action));
         }
         return $this->redirect($this->referer());
+    }
+
+    /**
+     * Return the menu items of the given menu id.
+     * Expected params
+     * - id - parent menu id
+     * - parentsOnly - top level menu items.
+     *
+     * @return JSON Menu items
+     */
+    public function menuItems()
+    {
+        $this->request->allowMethod('ajax');
+        $id = $this->request->query('id');
+        $parentsOnly = (bool)$this->request->query('parents_only');
+        $conditions = ['menu_id' => $id];
+        if ($parentsOnly) {
+            $conditions['parent_id IS'] = null;
+        }
+        $content = $this->MenuItems->find('all')
+            ->where($conditions)
+            ->order(['label' => 'ASC']);
+        $this->set(compact('content'));
+        $this->set('_serialize', ['content']);
     }
 }
