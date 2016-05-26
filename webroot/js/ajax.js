@@ -58,6 +58,8 @@
         ajax('#fetch-menu-items', url);
     });
 
-    //Run on load.
-    ajax('#fetch-menu-items', getUrl());
+    if ($('#fetch-menu-items').length) {
+        //Run on load.
+        ajax('#fetch-menu-items', getUrl());
+    }
 })(jQuery);
