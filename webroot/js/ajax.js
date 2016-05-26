@@ -1,5 +1,15 @@
 (function($) {
     'use strict';
+
+    /**
+     * Define ids
+     * @type {Object}
+     */
+    var ids = {
+        monitor: '#menus', //Monitor on change
+        fetch: '#fetch-menu-items' //Fetches the data from the ajax.
+    };
+
     /**
      * Clear select options
      *
@@ -49,15 +59,17 @@
      * @return string
      */
     var getUrl = function() {
-        return $('#menus').attr('rel') + '?id=' + $('#menus').val() + '&parents_only=1';
+        return $(ids.monitor).attr('rel') + '?id=' + $(ids.monitor).val() + '&parents_only=1';
     };
 
     //Register the change event.
-    $('#menus').change(function() {
+    $(ids.monitor).change(function() {
         var url = $(this).attr('rel') + '?id=' + $(this).val() + '&parents_only=1';
-        ajax('#fetch-menu-items', url);
+        ajax(ids.fetch, url);
     });
 
-    //Run on load.
-    ajax('#fetch-menu-items', getUrl());
+    if ($(ids.fetch).length) {
+        //Run on load.
+        ajax(ids.fetch, getUrl());
+    }
 })(jQuery);
