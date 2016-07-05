@@ -15,6 +15,7 @@ class MenuItemsController extends AppController
     /**
      * Index method
      *
+     * @param mixed $menuId Menu ID
      * @return \Cake\Network\Response|null
      */
     public function index($menuId = null)
