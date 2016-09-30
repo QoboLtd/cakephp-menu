@@ -85,6 +85,7 @@ class MenuHelper extends Helper
                 $controllers = array_merge($controllers, $this->_getDirControllers($path, $plugin));
             }
         }
+
         return $controllers;
     }
 
@@ -114,6 +115,7 @@ class MenuHelper extends Helper
                 }
             }
         }
+
         return $controllers;
     }
 }
