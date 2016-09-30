@@ -68,8 +68,10 @@ $itemDefaults = [
 ];
 
 $capsTable = TableRegistry::get('RolesCapabilities.Capabilities');
-$user = [];
-if (isset($_SESSION['Auth']['User'])) {
+
+$user = isset($user) ? $user : [];
+
+if (empty($user) && isset($_SESSION['Auth']['User'])) {
     $user = $_SESSION['Auth']['User'];
 };
 
