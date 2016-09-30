@@ -14,7 +14,7 @@ class MenusController extends AppController
     /**
      * Index method
      *
-     * @return \Cake\Network\Response|null
+     * @return void
      */
     public function index()
     {
@@ -28,7 +28,7 @@ class MenusController extends AppController
      * View method
      *
      * @param string|null $id Menu id.
-     * @return \Cake\Network\Response|null
+     * @return void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
@@ -53,6 +53,7 @@ class MenusController extends AppController
             $menu = $this->Menus->patchEntity($menu, $this->request->data);
             if ($this->Menus->save($menu)) {
                 $this->Flash->success(__('The menu has been saved.'));
+
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The menu could not be saved. Please, try again.'));
@@ -78,6 +79,7 @@ class MenusController extends AppController
             $menu = $this->Menus->patchEntity($menu, $this->request->data);
             if ($this->Menus->save($menu)) {
                 $this->Flash->success(__('The menu has been saved.'));
+
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The menu could not be saved. Please, try again.'));
@@ -103,6 +105,7 @@ class MenusController extends AppController
         } else {
             $this->Flash->error(__('The menu could not be deleted. Please, try again.'));
         }
+
         return $this->redirect(['action' => 'index']);
     }
 }

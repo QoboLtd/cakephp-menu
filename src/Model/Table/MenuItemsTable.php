@@ -84,6 +84,7 @@ class MenuItemsTable extends Table
     {
         $rules->add($rules->existsIn(['menu_id'], 'Menus'));
         $rules->add($rules->existsIn(['parent_id'], 'ParentMenuItems'));
+
         return $rules;
     }
 }

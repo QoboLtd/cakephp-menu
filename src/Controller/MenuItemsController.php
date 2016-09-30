@@ -22,12 +22,14 @@ class MenuItemsController extends AppController
     {
         if (is_null($menuId)) {
             $this->Flash->error(__d('menu', 'Please choose a menu to view its menu items'));
+
             return $this->redirect(['controller' => 'Menus', 'action' => 'index']);
         }
 
         $menu = $this->MenuItems->Menus->get($menuId);
         if (!$menu) {
             $this->Flash->error(__d('menu', 'Given menu was not found.'));
+
             return $this->redirect(['controller' => 'Menus', 'action' => 'index']);
         }
 
@@ -53,7 +55,7 @@ class MenuItemsController extends AppController
      * View method
      *
      * @param string|null $id Menu Item id.
-     * @return \Cake\Network\Response|null
+     * @return void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
@@ -78,6 +80,7 @@ class MenuItemsController extends AppController
             $menuItem = $this->MenuItems->patchEntity($menuItem, $this->request->data);
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success(__('The menu item has been saved.'));
+
                 return $this->redirect(['action' => 'index', $this->request->data['menu_id']]);
             } else {
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
@@ -105,6 +108,7 @@ class MenuItemsController extends AppController
             $menuItem = $this->MenuItems->patchEntity($menuItem, $this->request->data);
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success(__('The menu item has been saved.'));
+
                 return $this->redirect(['action' => 'index', $this->request->data['menu_id']]);
             } else {
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
@@ -131,6 +135,7 @@ class MenuItemsController extends AppController
         } else {
             $this->Flash->error(__('The menu item could not be deleted. Please, try again.'));
         }
+
         return $this->redirect($this->referer());
     }
 
@@ -140,13 +145,14 @@ class MenuItemsController extends AppController
      * @param  string $id menu id
      * @param  string $action move action
      * @throws InvalidPrimaryKeyException When provided id is invalid.
-     * @return void
+     * @return \Cake\Network\Response|null Redirects to index or referer.
      */
     public function moveNode($id = null, $action = '')
     {
         $moveActions = ['up', 'down'];
         if (!in_array($action, $moveActions)) {
             $this->Flash->error(__('Unknown move action.'));
+
             return $this->redirect(['action' => 'index']);
         }
         $node = $this->MenuItems->get($id);
@@ -156,6 +162,7 @@ class MenuItemsController extends AppController
         } else {
             $this->Flash->error(__('Fail to move {0} {1}.', $node->label, $action));
         }
+
         return $this->redirect($this->referer());
     }
 
@@ -165,7 +172,7 @@ class MenuItemsController extends AppController
      * - id - parent menu id
      * - parentsOnly - top level menu items.
      *
-     * @return JSON Menu items
+     * @return void
      */
     public function menuItems()
     {
