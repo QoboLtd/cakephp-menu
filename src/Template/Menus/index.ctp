@@ -14,7 +14,7 @@ $this->assign('panel-title', __d('QoboAdminPanel', 'View all'));
         <?php foreach ($menus as $menu): ?>
         <tr>
             <td><?= h($menu->name) ?></td>
-            <td><?= h($menu->active) ?></td>
+            <td><?= $this->Html->icon($menu->active_icon) ?></td>
             <td class="actions">
                 <?= $this->Html->link('', ['action' => 'view', $menu->id], ['title' => __('View'), 'class' => 'btn btn-default glyphicon glyphicon-eye-open']) ?>
                 <?= $this->Html->link('', ['controller' => 'MenuItems', 'action' => 'index', $menu->id], ['title' => __('View menu items of {0}', $menu->name), 'class' => 'btn btn-default glyphicon glyphicon-list-alt']) ?>
