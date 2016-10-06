@@ -29,4 +29,14 @@ class Menu extends Entity
         '*' => true,
         'id' => false,
     ];
+
+    /**
+     * Set active icon
+     *
+     * @return string Corresponding icon based on active.
+     */
+    protected function _getActiveIcon()
+    {
+        return ($this->_properties['active']) ? 'ok' : 'remove';
+    }
 }
