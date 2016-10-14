@@ -27,9 +27,11 @@ class MenuHelper extends Helper
         // get all controllers
         $controllers = $this->_getAllControllers();
         foreach ($controllers as $controller) {
-            if (is_callable([$controller, 'getMenu'])) {
-                $menu = array_merge($menu, $controller::getMenu($name));
+            if (!is_callable([$controller, 'getMenu'])) {
+                continue;
             }
+
+            $menu = array_merge($menu, $controller::getMenu($name));
 
             if (!$allControllers) {
                 break;
