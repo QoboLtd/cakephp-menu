@@ -78,6 +78,10 @@ $menu = $event->result;
 
 echo $format['menuStart'];
 foreach ($menu as $item) {
+    // skip empty menu item
+    if (empty($item)) {
+        continue;
+    }
     echo $format['itemStart'];
     $itemContent = $format['item'];
     if (!empty($item['children'])) {
@@ -96,6 +100,9 @@ foreach ($menu as $item) {
     if (!empty($item['children'])) {
         echo $format['childMenuStart'];
         foreach ($item['children'] as $child) {
+            if (empty($child)) {
+                continue;
+            }
             echo $format['itemStart'];
             $childItemContent = $format['item'];
             $child = array_merge($itemDefaults, $child);
