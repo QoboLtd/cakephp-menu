@@ -74,7 +74,9 @@ if (empty($user) && isset($_SESSION['Auth']['User'])) {
 
 $event = new Event('Menu.Menu.beforeRender', $this, ['menu' => $menu, 'user' => $user]);
 $this->eventManager()->dispatch($event);
-$menu = $event->result;
+if (!empty($event->result)) {
+    $menu = $event->result;
+}
 
 echo $format['menuStart'];
 foreach ($menu as $item) {
