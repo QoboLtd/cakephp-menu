@@ -16,7 +16,8 @@ class MenusControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'plugin.menu.menus'
+        'plugin.menu.menus',
+        'plugin.menu.menu_items'
     ];
 
     /**

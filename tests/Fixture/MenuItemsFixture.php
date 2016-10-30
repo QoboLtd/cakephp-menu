@@ -42,12 +42,12 @@ class MenuItemsFixture extends TestFixture
      */
     public $records = [
         [
-            'id' => '82d5f956-cee5-4387-ab7e-06f4e4be087d',
-            'menu_id' => 'd2a065d9-8aac-4430-be9b-6e5f1e72cc2a',
-            'label' => 'Lorem ipsum dolor sit amet',
-            'url' => 'Lorem ipsum dolor sit amet',
+            'id' => '00000000-0000-0000-0000-000000000001',
+            'menu_id' => '00000000-0000-0000-0000-000000000001',
+            'label' => 'menu 1 item 1',
+            'url' => 'http://www.google.com',
             'new_window' => 1,
-            'parent_id' => '60ffb573-5ac8-43a9-b76b-07573c07753b',
+            'parent_id' => '00000000-0000-0000-0000-000000000001',
             'lft' => 1,
             'rght' => 1
         ],

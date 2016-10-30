@@ -46,8 +46,8 @@ class MenusFixture extends TestFixture
      */
     public $records = [
         [
-            'id' => '72ece5a2-a1c7-418d-865f-2c1ce9b10d4d',
-            'name' => 'Lorem ipsum dolor sit amet',
+            'id' => '00000000-0000-0000-0000-000000000001',
+            'name' => 'menu1',
             'active' => 1,
             'created' => '2016-04-28',
             'modified' => '2016-04-28'
