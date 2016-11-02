@@ -68,7 +68,7 @@ $itemDefaults = [
 
 $user = isset($user) ? $user : [];
 
-if (empty($user) && isset($_SESSION['Auth']['User'])) {
+if (empty($user) || isset($_SESSION['Auth']['User'])) {
     $user = $_SESSION['Auth']['User'];
 };
 
