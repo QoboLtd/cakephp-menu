@@ -41,7 +41,8 @@
                     var i;
                     var $toPopulate = $(id);
                     clear($toPopulate, true);
-                    for (i = 0; i < response.content.length; i++) {
+                    responseContentLength = response.content.length;
+                    for (i = 0; i < responseContentLength; i++) {
                         $toPopulate.append('<option value="' + response.content[i].id + '">' + response.content[i].label + '</option>')
                     }
                 }
