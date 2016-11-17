@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
     'use strict';
 
     /**
@@ -16,7 +16,7 @@
      * @param  string id        identifier
      * @param  bool exceptFirst flag to exclude first option
      */
-    var clear = function(id, exceptFirst) {
+    var clear = function (id, exceptFirst) {
         var option = 'option';
         if (exceptFirst === true) {
             option = 'option:gt(0)';
@@ -29,24 +29,25 @@
      *
      * @param  string id identifier
      */
-    var ajax = function(id, url) {
+    var ajax = function (id, url) {
         $.ajax({
             type: 'get',
             url: url,
-            beforeSend: function(xhr) {
+            beforeSend: function (xhr) {
                 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             },
-            success: function(response) {
+            success: function (response) {
                 if (response.content) {
                     var i;
                     var $toPopulate = $(id);
                     clear($toPopulate, true);
-                    for (i = 0; i < response.content.length; i++) {
+                    responseContentLength = response.content.length;
+                    for (i = 0; i < responseContentLength; i++) {
                         $toPopulate.append('<option value="' + response.content[i].id + '">' + response.content[i].label + '</option>')
                     }
                 }
             },
-            error: function(e) {
+            error: function (e) {
                 alert("An error occurred: " + e.responseText.message);
                 console.log(e);
             }
@@ -58,12 +59,12 @@
      *
      * @return string
      */
-    var getUrl = function() {
+    var getUrl = function () {
         return $(ids.monitor).attr('rel') + '?id=' + $(ids.monitor).val() + '&parents_only=1';
     };
 
     //Register the change event.
-    $(ids.monitor).change(function() {
+    $(ids.monitor).change(function () {
         var url = $(this).attr('rel') + '?id=' + $(this).val() + '&parents_only=1';
         ajax(ids.fetch, url);
     });

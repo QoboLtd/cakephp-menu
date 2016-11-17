@@ -1,5 +1,5 @@
-(function($) {
-    $(function() {
+(function ($) {
+    $(function () {
         $('.metismenu').metisMenu();
         $('.dropdown-toggle').dropdown();
     });

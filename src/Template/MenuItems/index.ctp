@@ -10,7 +10,7 @@ $this->assign('panel-title', __d('QoboAdminPanel', 'View all'));
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($menuItems as $menuItem): ?>
+        <?php foreach ($menuItems as $menuItem) : ?>
         <tr>
             <td><?= $menuItem->node ?></td>
             <td class="actions">
