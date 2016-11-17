@@ -43,8 +43,7 @@ $renderFormats = [
 
 if (is_string($renderAs) && !empty($renderFormats[$renderAs])) {
     $format = $renderFormats[$renderAs];
-}
-elseif (is_array($renderAs)) {
+} elseif (is_array($renderAs)) {
     $defaults = [
         'menuStart' => '<ul>',
         'menuEnd' => '</ul>',
@@ -55,8 +54,7 @@ elseif (is_array($renderAs)) {
         'item' => '%label%',
     ];
     $format = array_merge($defaults, $renderAs);
-}
-else {
+} else {
     throw new InvalidArgumentException("Ooops!");
 }
 
@@ -128,4 +126,3 @@ foreach ($menu as $item) {
 echo $format['menuEnd'];
 
 echo $this->Html->script('Menu.menu', ['block' => 'scriptBottom']);
-?>

@@ -11,7 +11,7 @@ $this->assign('panel-title', __d('QoboAdminPanel', 'View all'));
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($menus as $menu): ?>
+        <?php foreach ($menus as $menu) : ?>
         <tr>
             <td><?= h($menu->name) ?></td>
             <td><?= $this->Html->icon($menu->active_icon) ?></td>

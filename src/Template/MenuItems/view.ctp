@@ -41,7 +41,7 @@ $this->assign('panel-title', __d('QoboAdminPanel', 'View {0}', $menuItem->label)
     <div class="panel-heading">
         <h3 class="panel-title"><?= __('Related MenuItems') ?></h3>
     </div>
-    <?php if (!empty($menuItem->child_menu_items)): ?>
+    <?php if (!empty($menuItem->child_menu_items)) : ?>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -57,7 +57,7 @@ $this->assign('panel-title', __d('QoboAdminPanel', 'View {0}', $menuItem->label)
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($menuItem->child_menu_items as $childMenuItems): ?>
+            <?php foreach ($menuItem->child_menu_items as $childMenuItems) : ?>
                 <tr>
                     <td><?= h($childMenuItems->id) ?></td>
                     <td><?= h($childMenuItems->menu_id) ?></td>
@@ -76,7 +76,7 @@ $this->assign('panel-title', __d('QoboAdminPanel', 'View {0}', $menuItem->label)
             <?php endforeach; ?>
             </tbody>
         </table>
-    <?php else: ?>
+    <?php else : ?>
         <p class="panel-body">no related MenuItems</p>
     <?php endif; ?>
 </div>
