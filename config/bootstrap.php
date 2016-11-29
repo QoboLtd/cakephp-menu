@@ -1,4 +1,6 @@
 <?php
+use Cake\Core\Configure;
+
 if (!defined('MENU_SIDEBAR')) {
     define('MENU_SIDEBAR', 'sidebar');
 }
@@ -26,9 +28,9 @@ if (!defined('RENDER_AS_PROVIDED')) {
     define('RENDER_AS_PROVIDED', 'provided');
 }
 
-use Cake\Core\Configure;
-
 /**
  * flag for calling getMenu method from all controllers or from a single one
  */
-Configure::write('Menu.allControllers', true);
+if (!Configure::check('Menu.allControllers')) {
+    Configure::write('Menu.allControllers', true);
+}
