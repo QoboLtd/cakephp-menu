@@ -15,10 +15,15 @@ if (empty($user) || isset($_SESSION['Auth']['User'])) {
 
 $renderAs = isset($renderAs) ? $renderAs : RENDER_AS_LIST;
 $menu = isset($menu) ? $menu : [];
-$fullBaseUrl = (isset($fullBaseUrl) && is_bool($fullBaseUrl)) ? $fullBaseUrl : false;
 
-if (is_string($name) && empty($menu)) {
-    $menu = $this->Menu->getMenu($name, ['fullBaseUrl' => $fullBaseUrl]);
+if (empty($menu)) {
+    $event = new Event('Menu.Menu.getMenu', $this, [
+        'name' => $name,
+        'user' => $user,
+        'fullBaseUrl' => isset($fullBaseUrl) ? (bool)$fullBaseUrl : false
+    ]);
+    $this->eventManager()->dispatch($event);
+    $menu = $event->result;
 }
 
 $renderFormats = [
