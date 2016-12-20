@@ -2,12 +2,28 @@
 use Cake\Event\Event;
 
 $name = isset($name) ? $name : 'main';
+
+if (!is_string($name)) {
+    throw new InvalidArgumentException('Menu [name] must be a string');
+}
+
+$user = isset($user) ? $user : [];
+
+if (empty($user) || isset($_SESSION['Auth']['User'])) {
+    $user = $_SESSION['Auth']['User'];
+};
+
 $renderAs = isset($renderAs) ? $renderAs : RENDER_AS_LIST;
 $menu = isset($menu) ? $menu : [];
-$fullBaseUrl = (isset($fullBaseUrl) && is_bool($fullBaseUrl)) ? $fullBaseUrl : false;
 
-if (is_string($name) && empty($menu)) {
-    $menu = $this->Menu->getMenu($name, ['fullBaseUrl' => $fullBaseUrl]);
+if (empty($menu)) {
+    $event = new Event('Menu.Menu.getMenu', $this, [
+        'name' => $name,
+        'user' => $user,
+        'fullBaseUrl' => isset($fullBaseUrl) ? (bool)$fullBaseUrl : false
+    ]);
+    $this->eventManager()->dispatch($event);
+    $menu = $event->result;
 }
 
 $renderFormats = [
@@ -63,12 +79,6 @@ $itemDefaults = [
     'label' => 'Undefined',
     'icon' => 'cube'
 ];
-
-$user = isset($user) ? $user : [];
-
-if (empty($user) || isset($_SESSION['Auth']['User'])) {
-    $user = $_SESSION['Auth']['User'];
-};
 
 $event = new Event('Menu.Menu.beforeRender', $this, ['menu' => $menu, 'user' => $user]);
 $this->eventManager()->dispatch($event);
