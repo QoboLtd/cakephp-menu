@@ -2,6 +2,11 @@
 use Cake\Event\Event;
 
 $name = isset($name) ? $name : 'main';
+
+if (!is_string($name)) {
+    throw new InvalidArgumentException('Menu [name] must be a string');
+}
+
 $renderAs = isset($renderAs) ? $renderAs : RENDER_AS_LIST;
 $menu = isset($menu) ? $menu : [];
 $fullBaseUrl = (isset($fullBaseUrl) && is_bool($fullBaseUrl)) ? $fullBaseUrl : false;
