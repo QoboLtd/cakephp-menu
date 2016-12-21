@@ -87,6 +87,9 @@ if (!empty($event->result)) {
 }
 
 echo $format['menuStart'];
+if (!empty($format['header'])) {
+    echo $format['header'];
+}
 foreach ($menu as $item) {
     // skip empty menu item
     if (empty($item)) {
