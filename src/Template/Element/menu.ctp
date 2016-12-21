@@ -77,7 +77,7 @@ if (is_string($renderAs) && !empty($renderFormats[$renderAs])) {
 $itemDefaults = [
     'url' => '#',
     'label' => 'Undefined',
-    'icon' => 'cube'
+    'icon' => 'circle-o'
 ];
 
 $event = new Event('Menu.Menu.beforeRender', $this, ['menu' => $menu, 'user' => $user]);
