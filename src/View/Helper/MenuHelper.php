@@ -9,58 +9,25 @@ use Cake\View\View;
 
 class MenuHelper extends Helper
 {
-
-    /**
-     * Method that retrieves all defined capabilities.
-     * Available options:
-     * - fullBaseUrl Boolean value
-     *
-     * @param string $name of the menu
-     * @param array $options Options of handling the menu
-     * @return array menu
-     */
-    public function getMenu($name, array $options = [])
-    {
-        $allControllers = Configure::read('Menu.allControllers');
-        $fullBaseUrl = Hash::get($options, 'fullBaseUrl');
-        $menu = [];
-        // get all controllers
-        $controllers = $this->_getAllControllers();
-        foreach ($controllers as $controller) {
-            if (!is_callable([$controller, 'getMenu'])) {
-                continue;
-            }
-
-            $menu = array_merge($menu, $controller::getMenu($name));
-
-            if (!$allControllers) {
-                break;
-            }
-        }
-        if ($fullBaseUrl) {
-            $menu = $this->_setFullBaseUrl($menu);
-        }
-
-        return $menu;
-    }
-
     /**
      * Set the full base URL recursivelly for all the menu and their children.
      *
      * @param array $menu Given menu
      * @return array $menus
      */
-    protected function _setFullBaseUrl(array $menu = [])
+    public function setFullBaseUrl(array $menu = [])
     {
         $menu = array_map(
             function ($v) {
                 $url = Hash::get($v, 'url');
                 $children = Hash::get($v, 'children');
                 if ($url) {
-                    $v['url'] = UrlHelper::build($url, true);
+                    $v['url'] = UrlHelper::build($url, [
+                        'fullBase' => true
+                    ]);
                 }
                 if (is_array($children)) {
-                    $v['children'] = $this->_setFullBaseUrl($children);
+                    $v['children'] = $this->setFullBaseUrl($children);
                 }
 
                 return $v;

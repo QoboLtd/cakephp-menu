@@ -13,10 +13,4 @@ class MenuHelperTest extends TestCase
         $View = new View();
         $this->Menu = new MenuHelper($View);
     }
-
-    public function testgetMenu()
-    {
-        $menu = $this->Menu->getMenu('main');
-        $this->assertTrue(is_array($menu));
-    }
 }
