@@ -39,26 +39,6 @@ class MenuHelper extends Helper
     }
 
     /**
-     * Method that returns all controller names.
-     * @param  bool  $includePlugins flag for including plugin controllers
-     * @return array                 controller names
-     */
-    protected function _getAllControllers($includePlugins = true)
-    {
-        $controllers = $this->_getDirControllers(APP . 'Controller' . DS);
-        if ($includePlugins === true) {
-            $plugins = \Cake\Core\Plugin::loaded();
-            foreach ($plugins as $plugin) {
-                // plugin path
-                $path = \Cake\Core\Plugin::path($plugin) . 'src' . DS . 'Controller' . DS;
-                $controllers = array_merge($controllers, $this->_getDirControllers($path, $plugin));
-            }
-        }
-
-        return $controllers;
-    }
-
-    /**
      * Method that retrieves controller names
      * found on the provided directory path.
      * @param  string $path   directory path
