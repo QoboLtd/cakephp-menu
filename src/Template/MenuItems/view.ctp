@@ -1,7 +1,10 @@
 <section class="content-header">
     <div class="row">
         <div class="col-xs-12 col-md-6">
-            <h4><?= $this->Html->link(__('Menu Items'), ['action' => 'index']) . ' &raquo; ' . h($menuItem->label) ?></h4>
+            <h4><?= $this->Html->link(
+                __('Menu Items'),
+                ['action' => 'index', $menuItem->menu->id]
+            ) . ' &raquo; ' . h($menuItem->label) ?></h4>
         </div>
     </div>
 </section>
