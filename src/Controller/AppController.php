@@ -6,6 +6,8 @@ use App\Controller\AppController as BaseController;
 
 class AppController extends BaseController
 {
+    const TREE_SPACER = '&nbsp;&nbsp;&nbsp;&nbsp;';
+
     /**
      * {inheritedDoc}
      * Loads Request handler.

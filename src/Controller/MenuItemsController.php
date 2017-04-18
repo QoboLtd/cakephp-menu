@@ -10,48 +10,6 @@ use Menu\Controller\AppController;
  */
 class MenuItemsController extends AppController
 {
-    const TREE_SPACER = '&nbsp;&nbsp;&nbsp;&nbsp;';
-
-    /**
-     * Index method
-     *
-     * @param mixed $menuId Menu ID
-     * @return \Cake\Network\Response|null
-     */
-    public function index($menuId = null)
-    {
-        if (is_null($menuId)) {
-            $this->Flash->error(__d('menu', 'Please choose a menu to view its menu items'));
-
-            return $this->redirect(['controller' => 'Menus', 'action' => 'index']);
-        }
-
-        $menu = $this->MenuItems->Menus->get($menuId);
-        if (!$menu) {
-            $this->Flash->error(__d('menu', 'Given menu was not found.'));
-
-            return $this->redirect(['controller' => 'Menus', 'action' => 'index']);
-        }
-
-        $tree = $this->MenuItems
-            ->find('treeList', ['spacer' => self::TREE_SPACER])
-            ->where(['menu_id' => $menuId])
-            ->toArray();
-        $menuItems = $this->MenuItems
-            ->find('all')
-            ->where(['menu_id' => $menuId])
-            ->order(['lft' => 'ASC']);
-        //Create node property in the entity object
-        foreach ($menuItems as $menuItem) {
-            if (in_array($menuItem->id, array_keys($tree))) {
-                $menuItem->node = $tree[$menuItem->id];
-            }
-        }
-        $this->set('navMenu', $menu);
-        $this->set(compact('menuItems'));
-        $this->set('_serialize', ['menuItems']);
-    }
-
     /**
      * View method
      *
