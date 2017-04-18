@@ -44,7 +44,7 @@ class MenuItemsController extends AppController
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success(__('The menu item has been saved.'));
 
-                return $this->redirect(['action' => 'index', $menu->id]);
+                return $this->redirect(['controller' => 'Menus', 'action' => 'view', $menu->id]);
             } else {
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
@@ -73,7 +73,7 @@ class MenuItemsController extends AppController
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success(__('The menu item has been saved.'));
 
-                return $this->redirect(['action' => 'index', $menuItem->menu->id]);
+                return $this->redirect(['controller' => 'Menus', 'action' => 'view', $menuItem->menu->id]);
             } else {
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
