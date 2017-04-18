@@ -18,7 +18,7 @@ class MenusController extends AppController
      */
     public function index()
     {
-        $menus = $this->paginate($this->Menus);
+        $menus = $this->Menus->find('all');
 
         $this->set(compact('menus'));
         $this->set('_serialize', ['navMenu']);
@@ -34,7 +34,7 @@ class MenusController extends AppController
     public function view($id = null)
     {
         $menu = $this->Menus->get($id, [
-            'contain' => ['MenuItems']
+            'contain' => ['MenuItems' => ['ParentMenuItems']]
         ]);
 
         $this->set('navMenu', $menu);
@@ -60,7 +60,7 @@ class MenusController extends AppController
             }
         }
         $this->set('navMenu', $menu);
-        $this->set('_serialize', ['menu']);
+        $this->set('_serialize', ['navMenu']);
     }
 
     /**
@@ -86,7 +86,7 @@ class MenusController extends AppController
             }
         }
         $this->set('navMenu', $menu);
-        $this->set('_serialize', ['menu']);
+        $this->set('_serialize', ['navMenu']);
     }
 
     /**

@@ -1,82 +1,108 @@
-<?php
-$this->extend('QoboAdminPanel./Common/panel-wrapper');
-$this->assign('panel-title', __d('QoboAdminPanel', 'View {0}', $menuItem->label));
-?>
-<table class="table table-striped" cellpadding="0" cellspacing="0">
-    <tr>
-        <td><?= __('Id') ?></td>
-        <td><?= h($menuItem->id) ?></td>
-    </tr>
-    <tr>
-        <td><?= __('Menu') ?></td>
-        <td><?= $menuItem->has('menu') ? $this->Html->link($menuItem->menu->name, ['controller' => 'Menus', 'action' => 'view', $menuItem->menu->id]) : '' ?></td>
-    </tr>
-    <tr>
-        <td><?= __('Label') ?></td>
-        <td><?= h($menuItem->label) ?></td>
-    </tr>
-    <tr>
-        <td><?= __('Url') ?></td>
-        <td><?= h($menuItem->url) ?></td>
-    </tr>
-    <tr>
-        <td><?= __('Parent Menu Item') ?></td>
-        <td><?= $menuItem->has('parent_menu_item') ? $this->Html->link($menuItem->parent_menu_item->id, ['controller' => 'MenuItems', 'action' => 'view', $menuItem->parent_menu_item->id]) : '' ?></td>
-    </tr>
-    <tr>
-        <td><?= __('Lft') ?></td>
-        <td><?= $this->Number->format($menuItem->lft) ?></td>
-    </tr>
-    <tr>
-        <td><?= __('Rght') ?></td>
-        <td><?= $this->Number->format($menuItem->rght) ?></td>
-    </tr>
-    <tr>
-        <td><?= __('New Window') ?></td>
-        <td><?= $menuItem->new_window ? __('Yes') : __('No'); ?></td>
-    </tr>
-</table>
-<div class="panel panel-default">
-    <!-- Panel header -->
-    <div class="panel-heading">
-        <h3 class="panel-title"><?= __('Related MenuItems') ?></h3>
+<section class="content-header">
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <h4><?= $this->Html->link(
+                __('Menu Items'),
+                ['action' => 'index', $menuItem->menu->id]
+            ) . ' &raquo; ' . h($menuItem->label) ?></h4>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-info-circle"></i>
+                    <h3 class="box-title">Details</h3>
+                </div>
+                <div class="box-body">
+                    <dl class="dl-horizontal">
+                        <dt><?= __('Label') ?></dt>
+                        <dd><?= h($menuItem->label) ?></dd>
+                        <dt><?= __('Url') ?></dt>
+                        <dd><?= $this->Html->link($menuItem->url, $menuItem->url, ['target' => '_blank']) ?></dd>
+                        <dt><?= __('Menu') ?></dt>
+                        <dd><?= $menuItem->has('menu') ?
+                            $this->Html->link($menuItem->menu->name, [
+                                'controller' => 'Menus',
+                                'action' => 'view',
+                                $menuItem->menu->id
+                            ]) : __('No') ?>
+                        </dd>
+                        <dt><?= __('Parent Menu Item') ?></dt>
+                        <dd><?= $menuItem->has('parent_menu_item') ?
+                            $this->Html->link($menuItem->parent_menu_item->label, [
+                                'controller' => 'MenuItems',
+                                'action' => 'view',
+                                $menuItem->parent_menu_item->id
+                            ]) : __('No') ?>
+                        </dd>
+                        <dt><?= __('New Window') ?></dt>
+                        <dd><?= $menuItem->new_window ? __('Yes') : __('No') ?></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
     </div>
     <?php if (!empty($menuItem->child_menu_items)) : ?>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Menu Id') ?></th>
-                <th><?= __('Label') ?></th>
-                <th><?= __('Url') ?></th>
-                <th><?= __('New Window') ?></th>
-                <th><?= __('Parent Id') ?></th>
-                <th><?= __('Lft') ?></th>
-                <th><?= __('Rght') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($menuItem->child_menu_items as $childMenuItems) : ?>
-                <tr>
-                    <td><?= h($childMenuItems->id) ?></td>
-                    <td><?= h($childMenuItems->menu_id) ?></td>
-                    <td><?= h($childMenuItems->label) ?></td>
-                    <td><?= h($childMenuItems->url) ?></td>
-                    <td><?= h($childMenuItems->new_window) ?></td>
-                    <td><?= h($childMenuItems->parent_id) ?></td>
-                    <td><?= h($childMenuItems->lft) ?></td>
-                    <td><?= h($childMenuItems->rght) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link('', ['controller' => 'MenuItems', 'action' => 'view', $childMenuItems->id], ['title' => __('View'), 'class' => 'btn btn-default glyphicon glyphicon-eye-open']) ?>
-                        <?= $this->Html->link('', ['controller' => 'MenuItems', 'action' => 'edit', $childMenuItems->id], ['title' => __('Edit'), 'class' => 'btn btn-default glyphicon glyphicon-pencil']) ?>
-                        <?= $this->Form->postLink('', ['controller' => 'MenuItems', 'action' => 'delete', $childMenuItems->id], ['confirm' => __('Are you sure you want to delete # {0}?', $childMenuItems->id), 'title' => __('Delete'), 'class' => 'btn btn-default glyphicon glyphicon-trash']) ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else : ?>
-        <p class="panel-body">no related MenuItems</p>
+    <div class="box box-solid">
+        <div class="box-header with-border">
+            <h3 class="box-title"><?= __('Related Menu Items') ?></h3>
+        </div>
+        <div class="box-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th><?= __('Label') ?></th>
+                        <th><?= __('Url') ?></th>
+                        <th><?= __('New Window') ?></th>
+                        <th><?= __('Menu') ?></th>
+                        <th class="actions"><?= __('Actions') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($menuItem->child_menu_items as $childMenuItem) : ?>
+                    <tr>
+                        <td><?= h($childMenuItem->label) ?></td>
+                        <td><?= $this->Html->link($childMenuItem->url, $childMenuItem->url, ['target' => '_blank']) ?></td>
+                        <td><?= $childMenuItem->new_window ? __('Yes') : __('No') ?></td>
+                        <td><?= $childMenuItem->has('menu') ?
+                            $this->Html->link($childMenuItem->menu->name, [
+                                'controller' => 'Menus',
+                                'action' => 'view',
+                                $childMenuItem->menu->id
+                            ]) : __('No') ?>
+                        </td>
+                        <td class="actions">
+                            <div class="btn-group btn-group-xs" role="group">
+                            <?= $this->Html->link(
+                                '<i class="fa fa-eye"></i>',
+                                ['action' => 'view', $childMenuItem->id],
+                                ['title' => __('View'), 'class' => 'btn btn-default', 'escape' => false]
+                            ) ?>
+                            <?= $this->Html->link(
+                                '<i class="fa fa-pencil"></i>',
+                                ['action' => 'edit', $childMenuItem->id],
+                                ['title' => __('Edit'), 'class' => 'btn btn-default', 'escape' => false]
+                            ) ?>
+                            <?= $this->Form->postLink(
+                                '<i class="fa fa-trash"></i>',
+                                ['action' => 'delete', $childMenuItem->id],
+                                [
+                                    'confirm' => __('Are you sure you want to delete # {0}?', $childMenuItem->label),
+                                    'title' => __('Delete'),
+                                    'class' => 'btn btn-default',
+                                    'escape' => false
+                                ]
+                            ) ?>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
     <?php endif; ?>
-</div>
+</section>
