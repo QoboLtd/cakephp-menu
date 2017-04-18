@@ -24,7 +24,6 @@ echo $this->Html->script(
             <div class="box box-solid">
                 <div class="box-header with-border">
                     <i class="fa fa-info-circle"></i>
-
                     <h3 class="box-title">Details</h3>
                 </div>
                 <div class="box-body">
@@ -48,6 +47,7 @@ echo $this->Html->script(
                 <thead>
                     <tr>
                         <th><?= __('Label') ?></th>
+                        <th><?= __('Icon') ?></th>
                         <th><?= __('Url') ?></th>
                         <th><?= __('New Window') ?></th>
                         <th class="actions"><?= __('Actions') ?></th>
@@ -57,6 +57,7 @@ echo $this->Html->script(
                 <?php foreach ($navMenu->menu_items as $menuItem) : ?>
                     <tr>
                         <td><?= $menuItem->node ?></td>
+                        <td><i class="fa fa-<?= $menuItem->icon ?>"></i></td>
                         <td><?= $this->Html->link($menuItem->url, $menuItem->url, ['target' => '_blank']) ?></td>
                         <td><?= $menuItem->new_window ? __('Yes') : __('No') ?></td>
                         <td class="actions">
