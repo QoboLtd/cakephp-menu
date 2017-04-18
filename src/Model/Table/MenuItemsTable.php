@@ -70,6 +70,9 @@ class MenuItemsTable extends Table
             ->boolean('new_window')
             ->allowEmpty('new_window');
 
+        $validator
+            ->allowEmpty('icon');
+
         return $validator;
     }
 
