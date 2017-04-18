@@ -47,6 +47,7 @@ class MenuItemsController extends AppController
                 $menuItem->node = $tree[$menuItem->id];
             }
         }
+        $this->set('navMenu', $menu);
         $this->set(compact('menuItems'));
         $this->set('_serialize', ['menuItems']);
     }

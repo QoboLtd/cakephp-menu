@@ -60,7 +60,7 @@ class MenusController extends AppController
             }
         }
         $this->set('navMenu', $menu);
-        $this->set('_serialize', ['menu']);
+        $this->set('_serialize', ['navMenu']);
     }
 
     /**
@@ -86,7 +86,7 @@ class MenusController extends AppController
             }
         }
         $this->set('navMenu', $menu);
-        $this->set('_serialize', ['menu']);
+        $this->set('_serialize', ['navMenu']);
     }
 
     /**
