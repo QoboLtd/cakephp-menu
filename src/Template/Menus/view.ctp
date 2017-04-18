@@ -1,3 +1,16 @@
+<?php
+echo $this->Html->css('AdminLTE./plugins/datatables/dataTables.bootstrap', ['block' => 'css']);
+echo $this->Html->script(
+    [
+        'AdminLTE./plugins/datatables/jquery.dataTables.min',
+        'AdminLTE./plugins/datatables/dataTables.bootstrap.min',
+        'Menu.datatables.init'
+    ],
+    [
+        'block' => 'scriptBotton'
+    ]
+);
+?>
 <section class="content-header">
     <div class="row">
         <div class="col-xs-12 col-md-6">
@@ -31,48 +44,59 @@
             <h3 class="box-title"><?= __('Related Menu Items') ?></h3>
         </div>
         <div class="box-body">
-            <table class="table table-striped">
+            <table class="table table-hover table-condensed table-vertical-align table-datatable">
                 <thead>
                     <tr>
                         <th><?= __('Label') ?></th>
                         <th><?= __('Url') ?></th>
                         <th><?= __('New Window') ?></th>
-                        <th><?= __('Parent Id') ?></th>
                         <th class="actions"><?= __('Actions') ?></th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($navMenu->menu_items as $menuItem) : ?>
                     <tr>
-                        <td><?= h($menuItem->label) ?></td>
+                        <td><?= $menuItem->node ?></td>
                         <td><?= $this->Html->link($menuItem->url, $menuItem->url, ['target' => '_blank']) ?></td>
                         <td><?= $menuItem->new_window ? __('Yes') : __('No') ?></td>
-                        <td><?= $menuItem->has('parent_menu_item')
-                            ? h($menuItem->parent_menu_item->label)
-                            : null ?>
-                        </td>
                         <td class="actions">
-                            <div class="btn-group btn-group-xs" role="group">
-                            <?= $this->Html->link(
-                                '<i class="fa fa-eye"></i>',
-                                ['controller' => 'MenuItems', 'action' => 'view', $menuItem->id],
-                                ['title' => __('View'), 'class' => 'btn btn-default', 'escape' => false]
-                            ) ?>
-                            <?= $this->Html->link(
-                                '<i class="fa fa-pencil"></i>',
-                                ['controller' => 'MenuItems', 'action' => 'edit', $menuItem->id],
-                                ['title' => __('Edit'), 'class' => 'btn btn-default', 'escape' => false]
-                            ) ?>
-                            <?= $this->Form->postLink(
-                                '<i class="fa fa-trash"></i>',
-                                ['controller' => 'MenuItems', 'action' => 'delete', $menuItem->id],
-                                [
-                                    'confirm' => __('Are you sure you want to delete # {0}?', $menuItem->label),
-                                    'title' => __('Delete'),
-                                    'class' => 'btn btn-default',
-                                    'escape' => false
-                                ]
-                            ) ?>
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="btn-group btn-group-xs" role="group">
+                                <?= $this->Html->link(
+                                    '<i class="fa fa-eye"></i>',
+                                    ['controller' => 'MenuItems', 'action' => 'view', $menuItem->id],
+                                    ['title' => __('View'), 'class' => 'btn btn-default', 'escape' => false]
+                                ) ?>
+                                <?= $this->Html->link(
+                                    '<i class="fa fa-pencil"></i>',
+                                    ['controller' => 'MenuItems', 'action' => 'edit', $menuItem->id],
+                                    ['title' => __('Edit'), 'class' => 'btn btn-default', 'escape' => false]
+                                ) ?>
+                                <?= $this->Form->postLink(
+                                    '<i class="fa fa-trash"></i>',
+                                    ['controller' => 'MenuItems', 'action' => 'delete', $menuItem->id],
+                                    [
+                                        'confirm' => __('Are you sure you want to delete # {0}?', $menuItem->label),
+                                        'title' => __('Delete'),
+                                        'class' => 'btn btn-default',
+                                        'escape' => false
+                                    ]
+                                ) ?>
+                                </div>
+                                <?php if ($menuItem->parent_id) : ?>
+                                <div class="btn-group btn-group-xs" role="group">
+                                    <?= $this->Form->postLink(
+                                        '<i class="fa fa-arrow-up"></i>',
+                                        ['controller' => 'MenuItems', 'action' => 'moveNode', $menuItem->id, 'up'],
+                                        ['title' => __('Move up'), 'class' => 'btn btn-default', 'escape' => false]
+                                    ) ?>
+                                    <?= $this->Form->postLink(
+                                        '<i class="fa fa-arrow-down"></i>',
+                                        ['controller' => 'MenuItems', 'action' => 'moveNode', $menuItem->id, 'down'],
+                                        ['title' => __('Move down'), 'class' => 'btn btn-default', 'escape' => false]
+                                    ) ?>
+                                </div>
+                                <?php endif; ?>
                             </div>
                         </td>
                     </tr>

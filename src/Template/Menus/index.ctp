@@ -3,15 +3,12 @@ echo $this->Html->css('AdminLTE./plugins/datatables/dataTables.bootstrap', ['blo
 echo $this->Html->script(
     [
         'AdminLTE./plugins/datatables/jquery.dataTables.min',
-        'AdminLTE./plugins/datatables/dataTables.bootstrap.min'
+        'AdminLTE./plugins/datatables/dataTables.bootstrap.min',
+        'Menu.datatables.init'
     ],
     [
         'block' => 'scriptBotton'
     ]
-);
-echo $this->Html->scriptBlock(
-    '$(".table-datatable").DataTable({});',
-    ['block' => 'scriptBotton']
 );
 ?>
 <section class="content-header">
@@ -74,9 +71,9 @@ echo $this->Html->scriptBlock(
                                 </div>
                                 <div class="btn-group btn-group-xs" role="group">
                                 <?= $this->Html->link(
-                                    '<i class="fa fa-list-alt"></i>',
-                                    ['controller' => 'MenuItems', 'action' => 'index', $menu->id],
-                                    ['title' => __('Menu items'), 'class' => 'btn btn-default', 'escape' => false]
+                                    '<i class="fa fa-circle-o"></i>',
+                                    ['controller' => 'MenuItems', 'action' => 'add', $menu->id],
+                                    ['title' => __('Create menu item'), 'class' => 'btn btn-default', 'escape' => false]
                                 ) ?>
                                 </div>
                             </div>

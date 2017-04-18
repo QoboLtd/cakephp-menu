@@ -34,8 +34,26 @@ class MenusController extends AppController
     public function view($id = null)
     {
         $menu = $this->Menus->get($id, [
-            'contain' => ['MenuItems' => ['ParentMenuItems']]
+            'contain' => [
+                'MenuItems' => function ($q) {
+                    return $q->order(['MenuItems.lft' => 'ASC']);
+                }
+            ]
         ]);
+
+        if ($menu->menu_items) {
+            $tree = $this->Menus->MenuItems
+                ->find('treeList', ['spacer' => self::TREE_SPACER])
+                ->where(['MenuItems.menu_id' => $menu->id])
+                ->toArray();
+            // create node property in the entity object
+            foreach ($menu->menu_items as $menuItem) {
+                if (!array_key_exists($menuItem->id, $tree)) {
+                    continue;
+                }
+                $menuItem->node = $tree[$menuItem->id];
+            }
+        }
 
         $this->set('navMenu', $menu);
         $this->set('_serialize', ['navMenu']);
