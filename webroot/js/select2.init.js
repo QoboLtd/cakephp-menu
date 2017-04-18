@@ -3,6 +3,7 @@
         theme: 'bootstrap',
         width: '100%',
         placeholder: '-- Please choose --',
+        allowClear: true,
         escapeMarkup: function (text) {
             return text;
         }
