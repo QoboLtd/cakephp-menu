@@ -61,7 +61,8 @@ class MenuItemsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('label');
+            ->requirePresence('label', 'create')
+            ->notEmpty('label');
 
         $validator
             ->allowEmpty('url');
@@ -69,6 +70,10 @@ class MenuItemsTable extends Table
         $validator
             ->boolean('new_window')
             ->allowEmpty('new_window');
+
+        $validator
+            ->requirePresence('menu_id', 'create')
+            ->notEmpty('menu_id');
 
         return $validator;
     }
