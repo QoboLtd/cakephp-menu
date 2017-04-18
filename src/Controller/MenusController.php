@@ -18,7 +18,7 @@ class MenusController extends AppController
      */
     public function index()
     {
-        $menus = $this->paginate($this->Menus);
+        $menus = $this->Menus->find('all');
 
         $this->set(compact('menus'));
         $this->set('_serialize', ['navMenu']);
