@@ -34,7 +34,11 @@ class MenusController extends AppController
     public function view($id = null)
     {
         $menu = $this->Menus->get($id, [
-            'contain' => ['MenuItems' => ['ParentMenuItems']]
+            'contain' => [
+                'MenuItems' => function ($q) {
+                    return $q->order(['MenuItems.lft' => 'ASC']);
+                }
+            ]
         ]);
 
         if ($menu->menu_items) {
