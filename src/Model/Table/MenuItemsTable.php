@@ -1,6 +1,10 @@
 <?php
 namespace Menu\Model\Table;
 
+use ArrayObject;
+use Cake\Core\Configure;
+use Cake\Datasource\EntityInterface;
+use Cake\Event\Event;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -16,6 +20,18 @@ use Menu\Model\Entity\MenuItem;
  */
 class MenuItemsTable extends Table
 {
+    /**
+     * List of ignored icons.
+     *
+     * @var array
+     */
+    protected $_ignoreIcons = [
+        'lg',
+        '2x',
+        '3x',
+        '4x',
+        '5x'
+    ];
 
     /**
      * Initialize method
@@ -94,5 +110,39 @@ class MenuItemsTable extends Table
         $rules->add($rules->existsIn(['parent_id'], 'ParentMenuItems'));
 
         return $rules;
+    }
+
+    /**
+     * Icons list getter.
+     *
+     * @return array
+     */
+    public function getIcons()
+    {
+        $result = [];
+
+        $data = file_get_contents('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+        preg_match_all('/\.fa-([\w|-]+)/', $data, $matches);
+
+        if (empty($matches[1])) {
+            return $result;
+        }
+
+        $result = array_unique($matches[1]);
+        $result = array_diff($result, $this->_ignoreIcons);
+        sort($result);
+
+        return $result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options)
+    {
+        // fallback to default icon
+        if (!$entity->icon) {
+            $entity->icon = Configure::read('Menu.default_icon');
+        }
     }
 }
