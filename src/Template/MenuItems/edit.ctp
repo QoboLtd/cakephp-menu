@@ -14,7 +14,6 @@ echo $this->Html->scriptBlock(
     });',
     ['block' => 'scriptBotton']
 );
-$menusUrl = $this->Url->build(['controller' => $this->request->controller, 'action' => 'menuItems', '_ext' => 'json']);
 ?>
 <section class="content-header">
     <div class="row">
@@ -31,11 +30,7 @@ $menusUrl = $this->Url->build(['controller' => $this->request->controller, 'acti
                 <?= $this->Form->create($menuItem); ?>
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $this->Form->input('menu_id', [
-                                'id' => 'menus',
-                                'rel' => $menusUrl,
-                                'options' => $menus
-                            ]) ?>
+                            <?= $this->Form->input('url', ['label' => __('URL')]) ?>
                         </div>
                         <div class="col-md-6">
                             <?= $this->Form->input('parent_id', [
@@ -44,11 +39,6 @@ $menusUrl = $this->Url->build(['controller' => $this->request->controller, 'acti
                                 'escape' => false,
                                 'default' => $menuItem->parent_id
                             ]) ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <?= $this->Form->input('url') ?>
                         </div>
                     </div>
                     <div class="row">

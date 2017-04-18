@@ -72,24 +72,29 @@ class MenuItemsController extends AppController
     /**
      * Add method
      *
+     * @param string $menuId Menu id
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($menuId)
     {
+        $menu = $this->MenuItems->Menus->get($menuId);
         $menuItem = $this->MenuItems->newEntity();
         if ($this->request->is('post')) {
-            $menuItem = $this->MenuItems->patchEntity($menuItem, $this->request->data);
+            $data = $this->request->data;
+            $data['menu_id'] = $menu->id;
+            $menuItem = $this->MenuItems->patchEntity($menuItem, $data);
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success(__('The menu item has been saved.'));
 
-                return $this->redirect(['action' => 'index', $this->request->data['menu_id']]);
+                return $this->redirect(['action' => 'index', $menu->id]);
             } else {
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
         }
-        $menus = $this->MenuItems->Menus->find('list', ['limit' => 200]);
-        $parentMenuItems = $this->MenuItems->find('treeList', ['spacer' => self::TREE_SPACER]);
-        $this->set(compact('menuItem', 'menus', 'parentMenuItems'));
+        $parentMenuItems = $this->MenuItems
+            ->find('treeList', ['spacer' => self::TREE_SPACER])
+            ->where(['MenuItems.menu_id' => $menu->id]);
+        $this->set(compact('menuItem', 'parentMenuItems'));
         $this->set('_serialize', ['menuItem']);
     }
 
@@ -103,20 +108,22 @@ class MenuItemsController extends AppController
     public function edit($id = null)
     {
         $menuItem = $this->MenuItems->get($id, [
-            'contain' => []
+            'contain' => ['Menus']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $menuItem = $this->MenuItems->patchEntity($menuItem, $this->request->data);
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success(__('The menu item has been saved.'));
 
-                return $this->redirect(['action' => 'index', $this->request->data['menu_id']]);
+                return $this->redirect(['action' => 'index', $menuItem->menu->id]);
             } else {
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
         }
-        $menus = $this->MenuItems->Menus->find('list', ['limit' => 200]);
-        $this->set(compact('menuItem', 'menus'));
+        $parentMenuItems = $this->MenuItems
+            ->find('treeList', ['spacer' => self::TREE_SPACER])
+            ->where(['MenuItems.menu_id' => $menuItem->menu->id]);
+        $this->set(compact('menuItem', 'parentMenuItems'));
         $this->set('_serialize', ['menuItem']);
     }
 
