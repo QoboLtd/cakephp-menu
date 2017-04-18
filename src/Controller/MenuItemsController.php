@@ -20,22 +20,6 @@ class MenuItemsController extends AppController
 
         $this->set('icons', $icons);
     }
-    /**
-     * View method
-     *
-     * @param string|null $id Menu Item id.
-     * @return void
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $menuItem = $this->MenuItems->get($id, [
-            'contain' => ['Menus', 'ParentMenuItems', 'ChildMenuItems' => ['Menus']]
-        ]);
-
-        $this->set('menuItem', $menuItem);
-        $this->set('_serialize', ['menuItem']);
-    }
 
     /**
      * Add method

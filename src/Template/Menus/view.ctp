@@ -64,11 +64,6 @@ echo $this->Html->script(
                             <div class="btn-toolbar" role="toolbar">
                                 <div class="btn-group btn-group-xs" role="group">
                                 <?= $this->Html->link(
-                                    '<i class="fa fa-eye"></i>',
-                                    ['controller' => 'MenuItems', 'action' => 'view', $menuItem->id],
-                                    ['title' => __('View'), 'class' => 'btn btn-default', 'escape' => false]
-                                ) ?>
-                                <?= $this->Html->link(
                                     '<i class="fa fa-pencil"></i>',
                                     ['controller' => 'MenuItems', 'action' => 'edit', $menuItem->id],
                                     ['title' => __('Edit'), 'class' => 'btn btn-default', 'escape' => false]
