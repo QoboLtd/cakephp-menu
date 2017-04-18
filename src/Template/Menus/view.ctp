@@ -1,3 +1,16 @@
+<?php
+echo $this->Html->css('AdminLTE./plugins/datatables/dataTables.bootstrap', ['block' => 'css']);
+echo $this->Html->script(
+    [
+        'AdminLTE./plugins/datatables/jquery.dataTables.min',
+        'AdminLTE./plugins/datatables/dataTables.bootstrap.min',
+        'Menu.datatables.init'
+    ],
+    [
+        'block' => 'scriptBotton'
+    ]
+);
+?>
 <section class="content-header">
     <div class="row">
         <div class="col-xs-12 col-md-6">

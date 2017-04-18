@@ -3,15 +3,12 @@ echo $this->Html->css('AdminLTE./plugins/datatables/dataTables.bootstrap', ['blo
 echo $this->Html->script(
     [
         'AdminLTE./plugins/datatables/jquery.dataTables.min',
-        'AdminLTE./plugins/datatables/dataTables.bootstrap.min'
+        'AdminLTE./plugins/datatables/dataTables.bootstrap.min',
+        'Menu.datatables.init'
     ],
     [
         'block' => 'scriptBotton'
     ]
-);
-echo $this->Html->scriptBlock(
-    '$(".table-datatable").DataTable({});',
-    ['block' => 'scriptBotton']
 );
 ?>
 <section class="content-header">
