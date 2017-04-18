@@ -121,12 +121,12 @@ class MenuItemsController extends AppController
 
             return $this->redirect(['action' => 'index']);
         }
-        $node = $this->MenuItems->get($id);
+        $menuItem = $this->MenuItems->get($id);
         $moveFunction = 'move' . $action;
-        if ($this->MenuItems->{$moveFunction}($node)) {
-            $this->Flash->success(__('{0} has been moved {1} successfully.', $node->label, $action));
+        if ($this->MenuItems->{$moveFunction}($menuItem)) {
+            $this->Flash->success(__('{0} has been moved {1} successfully.', $menuItem->label, $action));
         } else {
-            $this->Flash->error(__('Fail to move {0} {1}.', $node->label, $action));
+            $this->Flash->error(__('Fail to move {0} {1}.', $menuItem->label, $action));
         }
 
         return $this->redirect($this->referer());
