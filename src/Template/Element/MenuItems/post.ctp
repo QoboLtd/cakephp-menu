@@ -32,7 +32,7 @@ foreach ($icons as $k => $v) {
 <section class="content-header">
     <div class="row">
         <div class="col-xs-12 col-md-6">
-            <h4><?= __('Create {0}', ['Menu']) ?></h4>
+            <h4><?= __(('add' === $this->request->action ? 'Create' : 'Edit') . ' {0}', ['Menu Item']) ?></h4>
         </div>
     </div>
 </section>
