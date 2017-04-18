@@ -1,9 +1,18 @@
 <?php
-echo $this->Html->css('AdminLTE./plugins/iCheck/all', ['block' => 'css']);
+echo $this->Html->css(
+    [
+        'AdminLTE./plugins/iCheck/all',
+        'AdminLTE./plugins/select2/select2.min',
+        'Menu.select2-bootstrap.min',
+        'Menu.select2-style'
+    ],
+    ['block' => 'css']
+);
 echo $this->Html->script(
     [
         'AdminLTE./plugins/iCheck/icheck.min',
-        'Menu.ajax'
+        'AdminLTE./plugins/select2/select2.full.min',
+        'Menu.select2.init'
     ],
     ['block' => 'scriptBotton']
 );
@@ -14,7 +23,6 @@ echo $this->Html->scriptBlock(
     });',
     ['block' => 'scriptBotton']
 );
-$menusUrl = $this->Url->build(['controller' => $this->request->controller, 'action' => 'menuItems', '_ext' => 'json']);
 ?>
 <section class="content-header">
     <div class="row">
@@ -35,9 +43,9 @@ $menusUrl = $this->Url->build(['controller' => $this->request->controller, 'acti
                         </div>
                         <div class="col-md-6">
                             <?= $this->Form->input('parent_id', [
-                                'id' => 'fetch-menu-items',
-                                'empty' => true,
-                                'escape' => false
+                                'type' => 'select',
+                                'options' => $parentMenuItems,
+                                'class' => 'select2'
                             ]) ?>
                         </div>
                     </div>
