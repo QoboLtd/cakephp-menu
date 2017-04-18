@@ -74,9 +74,9 @@ echo $this->Html->scriptBlock(
                                 </div>
                                 <div class="btn-group btn-group-xs" role="group">
                                 <?= $this->Html->link(
-                                    '<i class="fa fa-list-alt"></i>',
-                                    ['controller' => 'MenuItems', 'action' => 'index', $menu->id],
-                                    ['title' => __('Menu items'), 'class' => 'btn btn-default', 'escape' => false]
+                                    '<i class="fa fa-circle-o"></i>',
+                                    ['controller' => 'MenuItems', 'action' => 'add', $menu->id],
+                                    ['title' => __('Create menu item'), 'class' => 'btn btn-default', 'escape' => false]
                                 ) ?>
                                 </div>
                             </div>
