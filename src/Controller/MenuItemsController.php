@@ -166,28 +166,4 @@ class MenuItemsController extends AppController
 
         return $this->redirect($this->referer());
     }
-
-    /**
-     * Return the menu items of the given menu id.
-     * Expected params
-     * - id - parent menu id
-     * - parentsOnly - top level menu items.
-     *
-     * @return void
-     */
-    public function menuItems()
-    {
-        $this->request->allowMethod('ajax');
-        $id = $this->request->query('id');
-        $parentsOnly = (bool)$this->request->query('parents_only');
-        $conditions = ['menu_id' => $id];
-        if ($parentsOnly) {
-            $conditions['parent_id IS'] = null;
-        }
-        $content = $this->MenuItems->find('all')
-            ->where($conditions)
-            ->order(['label' => 'ASC']);
-        $this->set(compact('content'));
-        $this->set('_serialize', ['content']);
-    }
 }
