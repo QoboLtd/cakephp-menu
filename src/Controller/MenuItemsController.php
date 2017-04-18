@@ -1,6 +1,7 @@
 <?php
 namespace Menu\Controller;
 
+use Cake\Event\Event;
 use Menu\Controller\AppController;
 
 /**
@@ -10,6 +11,15 @@ use Menu\Controller\AppController;
  */
 class MenuItemsController extends AppController
 {
+    /**
+     * {@inheritDoc}
+     */
+    public function beforeFilter(Event $event)
+    {
+        $icons = $this->MenuItems->getIcons();
+
+        $this->set('icons', $icons);
+    }
     /**
      * View method
      *
@@ -49,9 +59,11 @@ class MenuItemsController extends AppController
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
         }
+
         $parentMenuItems = $this->MenuItems
             ->find('treeList', ['spacer' => self::TREE_SPACER])
             ->where(['MenuItems.menu_id' => $menu->id]);
+
         $this->set(compact('menuItem', 'parentMenuItems'));
         $this->set('_serialize', ['menuItem']);
     }
@@ -78,9 +90,11 @@ class MenuItemsController extends AppController
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
         }
+
         $parentMenuItems = $this->MenuItems
             ->find('treeList', ['spacer' => self::TREE_SPACER])
             ->where(['MenuItems.menu_id' => $menuItem->menu->id]);
+
         $this->set(compact('menuItem', 'parentMenuItems'));
         $this->set('_serialize', ['menuItem']);
     }
