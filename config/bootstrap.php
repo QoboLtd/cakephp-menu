@@ -1,6 +1,20 @@
 <?php
 use Cake\Core\Configure;
 
+/**
+ * Menu configuration
+ */
+// get app level config
+$config = Configure::read('Menu');
+$config = $config ? $config : [];
+// load default plugin config
+Configure::load('Menu.menu');
+// overwrite default plugin config by app level config
+Configure::write('Menu', array_replace_recursive(
+    Configure::read('Menu'),
+    $config
+));
+
 if (!defined('MENU_SIDEBAR')) {
     define('MENU_SIDEBAR', 'sidebar');
 }
@@ -26,11 +40,4 @@ if (!defined('RENDER_AS_NONE')) {
 
 if (!defined('RENDER_AS_PROVIDED')) {
     define('RENDER_AS_PROVIDED', 'provided');
-}
-
-/**
- * flag for calling getMenu method from all controllers or from a single one
- */
-if (!Configure::check('Menu.allControllers')) {
-    Configure::write('Menu.allControllers', true);
 }

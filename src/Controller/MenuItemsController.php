@@ -1,6 +1,7 @@
 <?php
 namespace Menu\Controller;
 
+use Cake\Event\Event;
 use Menu\Controller\AppController;
 
 /**
@@ -11,20 +12,13 @@ use Menu\Controller\AppController;
 class MenuItemsController extends AppController
 {
     /**
-     * View method
-     *
-     * @param string|null $id Menu Item id.
-     * @return void
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * {@inheritDoc}
      */
-    public function view($id = null)
+    public function beforeFilter(Event $event)
     {
-        $menuItem = $this->MenuItems->get($id, [
-            'contain' => ['Menus', 'ParentMenuItems', 'ChildMenuItems' => ['Menus']]
-        ]);
+        $icons = $this->MenuItems->getIcons();
 
-        $this->set('menuItem', $menuItem);
-        $this->set('_serialize', ['menuItem']);
+        $this->set('icons', $icons);
     }
 
     /**
@@ -49,9 +43,11 @@ class MenuItemsController extends AppController
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
         }
+
         $parentMenuItems = $this->MenuItems
             ->find('treeList', ['spacer' => self::TREE_SPACER])
             ->where(['MenuItems.menu_id' => $menu->id]);
+
         $this->set(compact('menuItem', 'parentMenuItems'));
         $this->set('_serialize', ['menuItem']);
     }
@@ -78,9 +74,11 @@ class MenuItemsController extends AppController
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
         }
+
         $parentMenuItems = $this->MenuItems
             ->find('treeList', ['spacer' => self::TREE_SPACER])
             ->where(['MenuItems.menu_id' => $menuItem->menu->id]);
+
         $this->set(compact('menuItem', 'parentMenuItems'));
         $this->set('_serialize', ['menuItem']);
     }
