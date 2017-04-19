@@ -92,6 +92,10 @@ class MenuItemsTable extends Table
         $validator
             ->allowEmpty('icon');
 
+        $validator
+            ->requirePresence('type', 'create')
+            ->notEmpty('type');
+
         return $validator;
     }
 

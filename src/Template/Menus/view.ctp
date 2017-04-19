@@ -48,6 +48,7 @@ echo $this->Html->script(
                     <tr>
                         <th><?= __('Label') ?></th>
                         <th><?= __('Icon') ?></th>
+                        <th><?= __('Type') ?></th>
                         <th><?= __('URL') ?></th>
                         <th><?= __('New Window') ?></th>
                         <th class="actions"><?= __('Actions') ?></th>
@@ -58,7 +59,11 @@ echo $this->Html->script(
                     <tr>
                         <td><?= $menuItem->node ?></td>
                         <td><i class="fa fa-<?= h($menuItem->icon) ?>"></i></td>
-                        <td><?= $this->Html->link($menuItem->url, $menuItem->url, ['target' => '_blank']) ?></td>
+                        <td><?= h($menuItem->type) ?></td>
+                        <td><?= $menuItem->url ?
+                            $this->Html->link($menuItem->url, $menuItem->url, ['target' => '_blank']) :
+                            ''
+                        ?></td>
                         <td><?= $menuItem->new_window ? __('Yes') : __('No') ?></td>
                         <td class="actions">
                             <div class="btn-toolbar" role="toolbar">
