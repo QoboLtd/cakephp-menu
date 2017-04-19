@@ -1,4 +1,6 @@
 <?php
+use Menu\Type\TypeFactory;
+
 echo $this->Html->css(
     [
         'AdminLTE./plugins/iCheck/all',
@@ -12,7 +14,8 @@ echo $this->Html->script(
     [
         'AdminLTE./plugins/iCheck/icheck.min',
         'AdminLTE./plugins/select2/select2.full.min',
-        'Menu.select2.init'
+        'Menu.select2.init',
+        'Menu.view-post'
     ],
     ['block' => 'scriptBotton']
 );
@@ -28,6 +31,8 @@ foreach ($icons as $k => $v) {
     $icons[$v] = '<i class="fa fa-' . $v . '"></i>&nbsp;&nbsp;' . $v;
     unset($icons[$k]);
 }
+
+$moduleType = TypeFactory::create('module');
 ?>
 <section class="content-header">
     <div class="row">
@@ -44,12 +49,12 @@ foreach ($icons as $k => $v) {
                 <?= $this->Form->create($menuItem); ?>
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $this->Form->input('url', ['label' => __('URL')]) ?>
+                            <?= $this->Form->input('label') ?>
                         </div>
                         <div class="col-md-6">
-                            <?= $this->Form->input('parent_id', [
+                            <?= $this->Form->input('icon', [
                                 'type' => 'select',
-                                'options' => $parentMenuItems,
+                                'options' => $icons,
                                 'class' => 'select2',
                                 'empty' => true
                             ]) ?>
@@ -57,7 +62,46 @@ foreach ($icons as $k => $v) {
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $this->Form->input('label') ?>
+                            <?= $this->Form->input('type', [
+                                'type' => 'select',
+                                'options' => TypeFactory::getList(),
+                                'class' => 'select2',
+                                'empty' => true,
+                                'id' => 'item-type'
+                            ]) ?>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="type-inner-container">
+                            <?php if ('custom' === $menuItem->type) : ?>
+                                <div id="item-<?= $menuItem->type ?>">
+                                    <?= $this->Form->input('url', [
+                                        'label' => __('URL')
+                                    ]) ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if ('module' === $menuItem->type) : ?>
+                                <div id="item-<?= $menuItem->type ?>">
+                                    <?= $this->Form->input('url', [
+                                        'type' => 'select',
+                                        'options' => $moduleType->getList(),
+                                        'class' => 'select2',
+                                        'empty' => true,
+                                        'label' => __('Module'),
+                                        'id' => 'item-module'
+                                    ]) ?>
+                                </div>
+                            <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <?= $this->Form->input('parent_id', [
+                                'type' => 'select',
+                                'options' => $parentMenuItems,
+                                'class' => 'select2',
+                                'empty' => true
+                            ]) ?>
                         </div>
                         <div class="col-md-6">
                             <?= $this->Form->input('new_window', [
@@ -70,21 +114,32 @@ foreach ($icons as $k => $v) {
                             ]); ?>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <?= $this->Form->input('icon', [
-                                'type' => 'select',
-                                'options' => $icons,
-                                'class' => 'select2',
-                                'empty' => true
-                            ]) ?>
-                        </div>
-                    </div>
                 </div>
                 <div class="box-footer">
                     <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
                 </div>
                 <?= $this->Form->end() ?>
+                <div class="hidden" id="type-outer-container">
+                <?php if ('custom' !== $menuItem->type) : ?>
+                    <div id="item-custom">
+                        <?= $this->Form->input('url', [
+                            'label' => __('URL')
+                        ]) ?>
+                    </div>
+                <?php endif; ?>
+                <?php if ('module' !== $menuItem->type) : ?>
+                    <div id="item-module">
+                        <?= $this->Form->input('url', [
+                            'type' => 'select',
+                            'options' => $moduleType->getList(),
+                            'class' => 'select2',
+                            'empty' => true,
+                            'label' => __('Module'),
+                            'id' => 'item-module'
+                        ]) ?>
+                    </div>
+                <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>
