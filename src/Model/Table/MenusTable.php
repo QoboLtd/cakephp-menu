@@ -57,6 +57,10 @@ class MenusTable extends Table
             ->boolean('active')
             ->allowEmpty('active');
 
+        $validator
+            ->boolean('default')
+            ->allowEmpty('default');
+
         return $validator;
     }
 }

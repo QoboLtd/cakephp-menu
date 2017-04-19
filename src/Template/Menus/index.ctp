@@ -37,6 +37,7 @@ echo $this->Html->script(
                     <tr>
                         <th><?= __('Name') ?></th>
                         <th><?= __('Active') ?></th>
+                        <th><?= __('Default') ?></th>
                         <th class="actions"><?= __('Actions'); ?></th>
                     </tr>
                 </thead>
@@ -45,6 +46,7 @@ echo $this->Html->script(
                     <tr>
                         <td><?= h($menu->name) ?></td>
                         <td><?= $menu->active ? __('Yes') : __('No') ?></td>
+                        <td><?= $menu->default ? __('Yes') : __('No') ?></td>
                         <td class="actions">
                             <div class="btn-toolbar" role="toolbar">
                                 <div class="btn-group btn-group-xs" role="group">
