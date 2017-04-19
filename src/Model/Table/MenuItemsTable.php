@@ -21,16 +21,14 @@ use Menu\Model\Entity\MenuItem;
 class MenuItemsTable extends Table
 {
     /**
-     * List of ignored icons.
+     * Required parameters for fetching icons.
      *
      * @var array
      */
-    protected $_ignoreIcons = [
-        'lg',
-        '2x',
-        '3x',
-        '4x',
-        '5x'
+    protected $_requiredIconParams = [
+        'url',
+        'pattern',
+        'default'
     ];
 
     /**
@@ -121,15 +119,25 @@ class MenuItemsTable extends Table
     {
         $result = [];
 
-        $data = file_get_contents('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
-        preg_match_all('/\.fa-([\w|-]+)/', $data, $matches);
+        $config = Configure::read('Menu.Icons');
+
+        $diff = array_diff($this->_requiredIconParams, array_keys($config));
+        if (!empty($diff)) {
+            return $result;
+        }
+
+        $data = file_get_contents($config['url']);
+        preg_match_all($config['pattern'], $data, $matches);
 
         if (empty($matches[1])) {
             return $result;
         }
 
         $result = array_unique($matches[1]);
-        $result = array_diff($result, $this->_ignoreIcons);
+
+        if (!empty($config['ignored'])) {
+            $result = array_diff($result, $config['ignored']);
+        }
         sort($result);
 
         return $result;
@@ -142,7 +150,7 @@ class MenuItemsTable extends Table
     {
         // fallback to default icon
         if (!$entity->icon) {
-            $entity->icon = Configure::read('Menu.default_icon');
+            $entity->icon = Configure::read('Menu.Icons.default');
         }
     }
 }
