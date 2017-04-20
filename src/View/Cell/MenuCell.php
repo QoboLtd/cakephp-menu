@@ -69,7 +69,6 @@ class MenuCell extends Cell
             $this->_getMenuItemsFromEvent($menu, $user, (bool)$fullBaseUrl) :
             $this->_getMenuItemsFromTable($menu);
 
-
         $this->set('menuItems', $menuItems);
         $this->set('user', !empty($user) ? $user : $this->_getUser());
         $this->set('format', $this->_getFormat($renderAs));
