@@ -44,11 +44,23 @@ class MenuCell extends Cell
         ]
     ];
 
-    public function display($name, $renderAs, $user = [], $fullBaseUrl = false)
+    /**
+     * Default display method.
+     *
+     * Retrieves menu items and rendering format and passes them to the Cell View.
+     *
+     * @param string $name Menu name
+     * @param string|array $renderAs Rendering format name or data array
+     * @param array $user User info
+     * @param bool $fullBaseUrl Full-base URL flag
+     * @return void
+     */
+    public function display($name, $renderAs, array $user = [], $fullBaseUrl = false)
     {
         $this->loadModel('Menu.Menus');
 
-        $name = $this->_validateName($name);
+        // validate menu name
+        $this->_validateName($name);
 
         // get menu
         $menu = $this->Menus->findByName($name)->firstOrFail();
@@ -59,12 +71,20 @@ class MenuCell extends Cell
 
 
         $this->set('menuItems', $menuItems);
-        $this->set('user', $this->_normalizeUser($user));
+        $this->set('user', !empty($user) ? $user : $this->_getUser());
         $this->set('format', $this->_getFormat($renderAs));
         $this->set('fullBaseUrl', (bool)$fullBaseUrl);
     }
 
-    protected function _getMenuItemsFromEvent(EntityInterface $menu, $user, $fullBaseUrl)
+    /**
+     * Menu items getter using Event.
+     *
+     * @param \Cake\Datasource\EntityInterface $menu Menu entity
+     * @param array $user User info
+     * @param bool $fullBaseUrl Full-base URL flag
+     * @return array
+     */
+    protected function _getMenuItemsFromEvent(EntityInterface $menu, array $user, $fullBaseUrl)
     {
         $event = new Event('Menu.Menu.getMenu', $this, [
             'name' => $menu->name,
@@ -76,6 +96,12 @@ class MenuCell extends Cell
         return $event->result ? $event->result : [];
     }
 
+    /**
+     * Menu items getter using database table.
+     *
+     * @param \Cake\Datasource\EntityInterface $menu Menu entity
+     * @return array
+     */
     protected function _getMenuItemsFromTable(EntityInterface $menu)
     {
         $this->loadModel('Menu.MenuItems');
@@ -107,6 +133,14 @@ class MenuCell extends Cell
         return $result;
     }
 
+    /**
+     * Validates menu name and throws appropriate
+     * exceptions if the validation fails.
+     *
+     * @param string $name Menu name
+     * @return void
+     * @throws \InvalidArgumentException
+     */
     protected function _validateName($name)
     {
         if (!is_string($name)) {
@@ -116,23 +150,31 @@ class MenuCell extends Cell
         if (empty($name)) {
             throw new InvalidArgumentException('Menu [name] cannot be empty.');
         }
-
-        return $name;
     }
 
-    protected function _normalizeUser($user)
+    /**
+     * Current session user getter method.
+     *
+     * Uses PHP's $_SESSION global variable to fetch current session user.
+     *
+     * @return array
+     */
+    protected function _getUser()
     {
-        if (!empty($user)) {
-            return $user;
-        }
-
         if (isset($_SESSION['Auth']['User'])) {
-            $user = $_SESSION['Auth']['User'];
+            return $_SESSION['Auth']['User'];
         };
 
-        return $user;
+        return [];
     }
 
+    /**
+     * Menu rendering format getter.
+     *
+     * @param string|array $renderAs Rendering format name or data array
+     * @return array
+     * @throws \InvalidArgumentException
+     */
     protected function _getFormat($renderAs)
     {
         $defaults = [
