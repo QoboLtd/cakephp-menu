@@ -86,7 +86,6 @@ echo $this->Html->script(
                                     ]
                                 ) ?>
                                 </div>
-                                <?php if ($menuItem->parent_id) : ?>
                                 <div class="btn-group btn-group-xs" role="group">
                                     <?= $this->Form->postLink(
                                         '<i class="fa fa-arrow-up"></i>',
@@ -99,7 +98,6 @@ echo $this->Html->script(
                                         ['title' => __('Move down'), 'class' => 'btn btn-default', 'escape' => false]
                                     ) ?>
                                 </div>
-                                <?php endif; ?>
                             </div>
                         </td>
                     </tr>
