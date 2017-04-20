@@ -115,6 +115,8 @@ class MenuCell extends Cell
             $this->_getMenuItemsFromEvent($menu) :
             $this->_getMenuItemsFromTable($menu);
 
+        $menuItems = $this->_normalizeItems($menuItems);
+
         if ($menu->default) {
             $menuItems = $this->_sortItems($menuItems);
         }
@@ -254,6 +256,41 @@ class MenuCell extends Cell
         }
 
         throw new InvalidArgumentException('[renderAs] variable must be an array or string.');
+    }
+
+    /**
+     * Menu items normalization method.
+     *
+     * @param array $items Menu items
+     * @return array
+     */
+    protected function _normalizeItems(array $items)
+    {
+        // merge item properties with defaults
+        $func = function (&$item, $k) use (&$func) {
+            if (!empty($item['children'])) {
+                array_walk($item['children'], $func);
+            }
+
+            $item = array_merge($this->_defaults, $item);
+        };
+        array_walk($items, $func);
+
+        // merge duplicated labels recursively
+        $result = [];
+        foreach ($items as $item) {
+            if (!array_key_exists($item['label'], $result)) {
+                $result[$item['label']] = $item;
+                continue;
+            }
+
+            $result[$item['label']]['children'] = array_merge_recursive(
+                $item['children'],
+                $result[$item['label']]['children']
+            );
+        }
+
+        return $result;
     }
 
     /**
