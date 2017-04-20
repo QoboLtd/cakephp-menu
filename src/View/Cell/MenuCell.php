@@ -30,6 +30,21 @@ class MenuCell extends Cell
     protected $_fullBaseUrl = false;
 
     /**
+     * Menu item defaults.
+     *
+     * @var array
+     */
+    protected $_defaults = [
+        'url' => '#',
+        'label' => 'Undefined',
+        'icon' => 'circle-o',
+        'order' => 0,
+        'target' => '_self',
+        'children' => [],
+        'desc' => ''
+    ];
+
+    /**
      * Supported render formats.
      *
      * @var array
