@@ -76,6 +76,37 @@ class MenuCell extends Cell
         return $event->result ? $event->result : [];
     }
 
+    protected function _getMenuItemsFromTable(EntityInterface $menu)
+    {
+        $this->loadModel('Menu.MenuItems');
+
+        $query = $this->MenuItems
+            ->find('all')
+            ->where(['MenuItems.menu_id' => $menu->id, 'MenuItems.parent_id IS NULL']);
+
+        if ($query->isEmpty()) {
+            return [];
+        }
+
+        $result = [];
+        foreach ($query->all() as $entity) {
+            $item = $entity->toArray();
+
+            // fetch children
+            $query = $this->MenuItems->find('children', ['for' => $entity->id]);
+            if (!$query->isEmpty()) {
+                $item['children'] = [];
+                foreach ($query->all() as $child) {
+                    $item['children'][] = $child->toArray();
+                }
+            }
+
+            $result[] = $item;
+        }
+
+        return $result;
+    }
+
     protected function _validateName($name)
     {
         if (!is_string($name)) {
