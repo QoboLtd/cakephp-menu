@@ -76,6 +76,11 @@ class MenusTable extends Table
     {
         $rules->add($rules->isUnique(['name']));
 
+        // don't allow deletion of non-deletable menu
+        $rules->addDelete(function ($entity, $options) {
+            return !$entity->deny_delete;
+        }, 'systemCheck');
+
         return $rules;
     }
 }
