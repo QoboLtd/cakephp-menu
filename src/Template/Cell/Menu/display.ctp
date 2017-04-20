@@ -1,18 +1,6 @@
 <?php
 use Cake\Event\Event;
 
-$renderAs = isset($renderAs) ? $renderAs : RENDER_AS_LIST;
-
-if ((bool)$menu->default) {
-    $event = new Event('Menu.Menu.getMenu', $this, [
-        'name' => $menu->name,
-        'user' => $user,
-        'fullBaseUrl' => $fullBaseUrl
-    ]);
-    $this->eventManager()->dispatch($event);
-    $menu = $event->result;
-}
-
 $itemDefaults = [
     'url' => '#',
     'label' => 'Undefined',

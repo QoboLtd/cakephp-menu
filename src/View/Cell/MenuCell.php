@@ -1,7 +1,8 @@
 <?php
 namespace Menu\View\Cell;
 
-use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Datasource\EntityInterface;
+use Cake\Event\Event;
 use Cake\View\Cell;
 use InvalidArgumentException;
 
@@ -49,17 +50,30 @@ class MenuCell extends Cell
 
         $name = $this->_validateName($name);
 
-        $query = $this->Menus->findByName($name)->contain('MenuItems');
-        if ($query->isEmpty()) {
-            throw new RecordNotFoundException('Menu [' . $name . '] not found.');
-        }
+        // get menu
+        $menu = $this->Menus->findByName($name)->firstOrFail();
 
-        $menu = $query->first();
+        $menuItems = (bool)$menu->default ?
+            $this->_getMenuItemsFromEvent($menu, $user, (bool)$fullBaseUrl) :
+            $this->_getMenuItemsFromTable($menu);
 
-        $this->set('menu', $menu);
+
+        $this->set('menuItems', $menuItems);
         $this->set('user', $this->_normalizeUser($user));
         $this->set('format', $this->_getFormat($renderAs));
         $this->set('fullBaseUrl', (bool)$fullBaseUrl);
+    }
+
+    protected function _getMenuItemsFromEvent(EntityInterface $menu, $user, $fullBaseUrl)
+    {
+        $event = new Event('Menu.Menu.getMenu', $this, [
+            'name' => $menu->name,
+            'user' => $user,
+            'fullBaseUrl' => $fullBaseUrl
+        ]);
+        $this->eventManager()->dispatch($event);
+
+        return $event->result ? $event->result : [];
     }
 
     protected function _validateName($name)
