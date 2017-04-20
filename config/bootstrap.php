@@ -15,12 +15,12 @@ Configure::write('Menu', array_replace_recursive(
     $config
 ));
 
-if (!defined('MENU_SIDEBAR')) {
-    define('MENU_SIDEBAR', 'sidebar');
+if (!defined('MENU_ADMIN')) {
+    define('MENU_ADMIN', 'admin_menu');
 }
 
-if (!defined('MENU_TOP')) {
-    define('MENU_TOP', 'top');
+if (!defined('MENU_MAIN')) {
+    define('MENU_MAIN', 'main_menu');
 }
 
 /**
