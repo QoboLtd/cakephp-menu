@@ -156,5 +156,10 @@ class MenuItemsTable extends Table
         if (!$entity->icon) {
             $entity->icon = Configure::read('Menu.Icons.default');
         }
+
+        // fallback to hashtag as default url
+        if (!$entity->url) {
+            $entity->url = '#';
+        }
     }
 }
