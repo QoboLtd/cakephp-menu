@@ -24,11 +24,14 @@ echo $this->Html->scriptBlock(
                 <?= $this->Form->create($navMenu); ?>
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $this->Form->input('name'); ?>
+                            <?= $this->Form->input('name', [
+                                'disabled' => $navMenu->deny_edit
+                            ]); ?>
                         </div>
                         <div class="col-md-6">
                             <?= $this->Form->input('active', [
                                 'type' => 'checkbox',
+                                'disabled' => $navMenu->deny_edit,
                                 'class' => 'square',
                                 'label' => false,
                                 'templates' => [
