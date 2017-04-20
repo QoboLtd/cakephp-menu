@@ -128,7 +128,7 @@ class MenuCell extends Cell
      */
     protected function _getMenuItemsFromEvent(EntityInterface $menu, array $modules = [])
     {
-        $event = new Event('Menu.Menu.getMenu', $this, [
+        $event = new Event('Menu.Menu.getMenuItems', $this, [
             'name' => $menu->name,
             'user' => $this->_user,
             'fullBaseUrl' => $this->_fullBaseUrl,
