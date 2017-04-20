@@ -9,17 +9,17 @@ $itemDefaults = [
     'desc' => ''
 ];
 
-$event = new Event('Menu.Menu.beforeRender', $this, ['menu' => $menu, 'user' => $user]);
+$event = new Event('Menu.Menu.beforeRender', $this, ['menu' => $menuItems, 'user' => $user]);
 $this->eventManager()->dispatch($event);
 if (!empty($event->result)) {
-    $menu = $event->result;
+    $menuItems = $event->result;
 }
 
 echo $format['menuStart'];
 if (!empty($format['header'])) {
     echo $format['header'];
 }
-foreach ($menu as $item) {
+foreach ($menuItems as $item) {
     // skip empty menu item
     if (empty($item)) {
         continue;
