@@ -32,6 +32,8 @@ echo $this->Html->script(
                         <dd><?= h($navMenu->name) ?></dd>
                         <dt><?= __('Active') ?></dt>
                         <dd><?= $navMenu->active ? __('Yes') : __('No') ?></dd>
+                        <dt><?= __('Default') ?></dt>
+                        <dd><?= $navMenu->default ? __('Yes') : __('No') ?></dd>
                     </dl>
                 </div>
             </div>

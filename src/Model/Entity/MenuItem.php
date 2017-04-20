@@ -20,6 +20,7 @@ use Cake\ORM\Entity;
  */
 class MenuItem extends Entity
 {
+    protected $_virtual = ['target'];
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -34,4 +35,14 @@ class MenuItem extends Entity
         '*' => true,
         'id' => false,
     ];
+
+    /**
+     * Virtual Field: target
+     *
+     * @return string
+     */
+    protected function _getTarget()
+    {
+        return $this->new_window ? '_blank' : '_self';
+    }
 }
