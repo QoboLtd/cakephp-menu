@@ -4,7 +4,9 @@ use Cake\Event\Event;
 $itemDefaults = [
     'url' => '#',
     'label' => 'Undefined',
-    'icon' => 'circle-o'
+    'icon' => 'circle-o',
+    'target' => '_self',
+    'desc' => ''
 ];
 
 $event = new Event('Menu.Menu.beforeRender', $this, ['menu' => $menu, 'user' => $user]);
