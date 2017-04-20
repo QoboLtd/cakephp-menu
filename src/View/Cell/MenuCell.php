@@ -9,6 +9,11 @@ use InvalidArgumentException;
 class MenuCell extends Cell
 {
     /**
+     * Module type identifier
+     */
+    const TYPE_MODULE = 'module';
+
+    /**
      * Current session user.
      *
      * @var array
@@ -160,11 +165,20 @@ class MenuCell extends Cell
 
         $result = [];
         foreach ($query->all() as $entity) {
-            if ('module' === $entity->type) {
+            $item = $entity->toArray();
+
+            if (static::TYPE_MODULE === $entity->type) {
                 $item = $this->_getMenuItemsFromEvent($menu, [$entity->url]);
                 $item = current($item);
-            } else {
-                $item = $entity->toArray();
+            }
+
+            if (empty($item)) {
+                continue;
+            }
+
+            if (static::TYPE_MODULE === $entity->type) {
+                $item['label'] = $entity->label;
+                $item['icon'] = $entity->icon;
             }
 
             $result[] = $item;
