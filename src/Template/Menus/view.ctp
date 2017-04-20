@@ -62,9 +62,9 @@ echo $this->Html->script(
                         <td><?= $menuItem->node ?></td>
                         <td><i class="fa fa-<?= h($menuItem->icon) ?>"></i></td>
                         <td><?= h($menuItem->type) ?></td>
-                        <td><?= $menuItem->url ?
+                        <td><?= 'module' !== $menuItem->type ?
                             $this->Html->link($menuItem->url, $menuItem->url, ['target' => '_blank']) :
-                            ''
+                            h($menuItem->url)
                         ?></td>
                         <td><?= $menuItem->new_window ? __('Yes') : __('No') ?></td>
                         <td class="actions">
