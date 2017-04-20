@@ -9,6 +9,27 @@ use InvalidArgumentException;
 class MenuCell extends Cell
 {
     /**
+     * Current session user.
+     *
+     * @var array
+     */
+    protected $_user = [];
+
+    /**
+     * Menu rendering format.
+     *
+     * @var array
+     */
+    protected $_format = [];
+
+    /**
+     * Full-base URL flag.
+     *
+     * @var boolean
+     */
+    protected $_fullBaseUrl = false;
+
+    /**
      * Supported render formats.
      *
      * @var array
@@ -57,38 +78,42 @@ class MenuCell extends Cell
      */
     public function display($name, $renderAs, array $user = [], $fullBaseUrl = false)
     {
-        $this->loadModel('Menu.Menus');
-
         // validate menu name
         $this->_validateName($name);
+
+        $this->_format = $this->_getFormat($renderAs);
+
+        $this->loadModel('Menu.Menus');
+
+        $this->_user = !empty($user) ? $user : $this->_getUser($user);
+        $this->_fullBaseUrl = (bool)$fullBaseUrl;
 
         // get menu
         $menu = $this->Menus->findByName($name)->firstOrFail();
 
         $menuItems = (bool)$menu->default ?
-            $this->_getMenuItemsFromEvent($menu, $user, (bool)$fullBaseUrl) :
+            $this->_getMenuItemsFromEvent($menu) :
             $this->_getMenuItemsFromTable($menu);
 
         $this->set('menuItems', $menuItems);
-        $this->set('user', !empty($user) ? $user : $this->_getUser());
-        $this->set('format', $this->_getFormat($renderAs));
-        $this->set('fullBaseUrl', (bool)$fullBaseUrl);
+        $this->set('user', $this->_user);
+        $this->set('format', $this->_format);
     }
 
     /**
      * Menu items getter using Event.
      *
      * @param \Cake\Datasource\EntityInterface $menu Menu entity
-     * @param array $user User info
-     * @param bool $fullBaseUrl Full-base URL flag
+     * @param array $modules Modules to fetch menu items for
      * @return array
      */
-    protected function _getMenuItemsFromEvent(EntityInterface $menu, array $user, $fullBaseUrl)
+    protected function _getMenuItemsFromEvent(EntityInterface $menu, array $modules = [])
     {
         $event = new Event('Menu.Menu.getMenu', $this, [
             'name' => $menu->name,
-            'user' => $user,
-            'fullBaseUrl' => $fullBaseUrl
+            'user' => $this->_user,
+            'fullBaseUrl' => $this->_fullBaseUrl,
+            'modules' => $modules
         ]);
         $this->eventManager()->dispatch($event);
 
