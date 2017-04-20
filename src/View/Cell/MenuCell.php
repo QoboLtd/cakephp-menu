@@ -302,20 +302,19 @@ class MenuCell extends Cell
      */
     protected function _sortItems(array $items, $key = 'order')
     {
-        $count = 0;
-
-        // normalize items before sorting
-        foreach ($items as &$item) {
-            if (array_key_exists($key, $item)) {
-                continue;
+        $cmp = function (&$a, &$b) use (&$cmp, $key) {
+            if (!empty($a['children'])) {
+                usort($a['children'], $cmp);
             }
-            $item[$key] = $count;
-            $count++;
-        }
 
-        usort($items, function ($a, $b) use ($key) {
+            if (!empty($b['children'])) {
+                usort($b['children'], $cmp);
+            }
+
             return $a[$key] > $b[$key];
-        });
+        };
+
+        usort($items, $cmp);
 
         return $items;
     }
