@@ -137,5 +137,3 @@ foreach ($menu as $item) {
     echo $format['itemEnd'];
 }
 echo $format['menuEnd'];
-
-echo $this->Html->script('Menu.menu', ['block' => 'scriptBottom']);
