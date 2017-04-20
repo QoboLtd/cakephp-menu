@@ -130,9 +130,10 @@ class MenuCell extends Cell
     {
         $this->loadModel('Menu.MenuItems');
 
-        $query = $this->MenuItems
-            ->find('all')
-            ->where(['MenuItems.menu_id' => $menu->id, 'MenuItems.parent_id IS NULL']);
+        $query = $this->MenuItems->find('threaded', [
+            'conditions' => ['MenuItems.menu_id' => $menu->id],
+            'order' => ['MenuItems.lft']
+        ]);
 
         if ($query->isEmpty()) {
             return [];
@@ -141,15 +142,6 @@ class MenuCell extends Cell
         $result = [];
         foreach ($query->all() as $entity) {
             $item = $entity->toArray();
-
-            // fetch children
-            $query = $this->MenuItems->find('children', ['for' => $entity->id]);
-            if (!$query->isEmpty()) {
-                $item['children'] = [];
-                foreach ($query->all() as $child) {
-                    $item['children'][] = $child->toArray();
-                }
-            }
 
             $result[] = $item;
         }
