@@ -91,9 +91,13 @@ class MenuCell extends Cell
         // get menu
         $menu = $this->Menus->findByName($name)->firstOrFail();
 
-        $menuItems = (bool)$menu->default ?
+        $menuItems = $menu->default ?
             $this->_getMenuItemsFromEvent($menu) :
             $this->_getMenuItemsFromTable($menu);
+
+        if ($menu->default) {
+            $menuItems = $this->_sortItems($menuItems);
+        }
 
         $this->set('menuItems', $menuItems);
         $this->set('user', $this->_user);
@@ -221,5 +225,32 @@ class MenuCell extends Cell
         }
 
         throw new InvalidArgumentException('[renderAs] variable must be an array or string.');
+    }
+
+    /**
+     * Method for sorting array items by specified key.
+     *
+     * @param array $items List of items to be sorted
+     * @param string $key Sort-by key
+     * @return array
+     */
+    protected function _sortItems(array $items, $key = 'order')
+    {
+        $count = 0;
+
+        // normalize items before sorting
+        foreach ($items as &$item) {
+            if (array_key_exists($key, $item)) {
+                continue;
+            }
+            $item[$key] = $count;
+            $count++;
+        }
+
+        usort($items, function ($a, $b) use ($key) {
+            return $a[$key] > $b[$key];
+        });
+
+        return $items;
     }
 }
