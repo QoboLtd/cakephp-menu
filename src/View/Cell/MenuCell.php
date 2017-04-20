@@ -141,7 +141,12 @@ class MenuCell extends Cell
 
         $result = [];
         foreach ($query->all() as $entity) {
-            $item = $entity->toArray();
+            if ('module' === $entity->type) {
+                $item = $this->_getMenuItemsFromEvent($menu, [$entity->url]);
+                $item = current($item);
+            } else {
+                $item = $entity->toArray();
+            }
 
             $result[] = $item;
         }
