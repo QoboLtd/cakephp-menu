@@ -1,0 +1,68 @@
+<?php
+use Cake\Event\Event;
+
+$itemDefaults = [
+    'url' => '#',
+    'label' => 'Undefined',
+    'icon' => 'circle-o',
+    'target' => '_self',
+    'desc' => ''
+];
+
+$event = new Event('Menu.Menu.beforeRender', $this, ['menu' => $menuItems, 'user' => $user]);
+$this->eventManager()->dispatch($event);
+if (!empty($event->result)) {
+    $menuItems = $event->result;
+}
+
+echo $format['menuStart'];
+if (!empty($format['header'])) {
+    echo $format['header'];
+}
+foreach ($menuItems as $item) {
+    // skip empty menu item
+    if (empty($item)) {
+        continue;
+    }
+    echo $format['itemStart'];
+    $itemContent = $format['item'];
+    if (!empty($item['children'])) {
+        $itemContent = $format['itemWithChildren'];
+    }
+    $item = array_merge($itemDefaults, $item);
+    if (is_array($item['url'])) {
+        $item['url'] = $this->Url->build($item['url']);
+    }
+    foreach ($item as $key => $value) {
+        if (false !== strpos($itemContent, $key)) {
+            $itemContent = preg_replace('/%' . $key . '%/', $value, $itemContent);
+        }
+    }
+    echo $itemContent;
+    if (!empty($item['children'])) {
+        echo $format['childMenuStart'];
+        foreach ($item['children'] as $child) {
+            if (empty($child)) {
+                continue;
+            }
+            echo $format['itemStart'];
+            $childItemContent = $format['item'];
+            $child = array_merge($itemDefaults, $child);
+            if (is_array($child['url'])) {
+                $child['url'] = $this->Url->build($child['url']);
+            }
+            foreach ($child as $key => $value) {
+                if (false !== strpos($childItemContent, $key)) {
+                    $childItemContent = str_replace('%' . $key . '%', $value, $childItemContent);
+                }
+            }
+            echo $childItemContent;
+            echo $format['itemEnd'];
+        }
+    }
+    if (!empty($item['children'])) {
+        echo $format['childMenuEnd'];
+    }
+    echo $format['itemEnd'];
+}
+echo $format['menuEnd'];

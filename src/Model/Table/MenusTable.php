@@ -51,12 +51,36 @@ class MenusTable extends Table
 
         $validator
             ->requirePresence('name', 'create')
-            ->notEmpty('name');
+            ->notEmpty('name')
+            ->add('name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->boolean('active')
             ->allowEmpty('active');
 
+        $validator
+            ->boolean('default')
+            ->allowEmpty('default');
+
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->isUnique(['name']));
+
+        // don't allow deletion of non-deletable menu
+        $rules->addDelete(function ($entity, $options) {
+            return !$entity->deny_delete;
+        }, 'systemCheck');
+
+        return $rules;
     }
 }
