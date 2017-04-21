@@ -16,6 +16,17 @@ echo $this->Html->script(
         <div class="col-xs-12 col-md-6">
             <h4><?= $this->Html->link(__('Menu'), ['action' => 'index']) . ' &raquo; ' . h($navMenu->name) ?></h4>
         </div>
+        <div class="col-xs-12 col-md-6">
+            <div class="pull-right">
+                <div class="btn-group btn-group-sm" role="group">
+                <?= $this->Html->link(
+                    '<i class="fa fa-plus"></i> ' . __('Add'),
+                    ['controller' => 'MenuItems', 'action' => 'add', $navMenu->id],
+                    ['escape' => false, 'title' => __('Add'), 'class' => 'btn btn-default']
+                ); ?>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 <section class="content">

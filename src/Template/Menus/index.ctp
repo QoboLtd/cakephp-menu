@@ -13,19 +13,8 @@ echo $this->Html->script(
 ?>
 <section class="content-header">
     <div class="row">
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12">
             <h4><?= __('Menus'); ?></h4>
-        </div>
-        <div class="col-xs-12 col-md-6">
-            <div class="pull-right">
-                <div class="btn-group btn-group-sm" role="group">
-                <?= $this->Html->link(
-                    '<i class="fa fa-plus"></i> ' . __('Add'),
-                    ['action' => 'add'],
-                    ['escape' => false, 'title' => __('Add'), 'class' => 'btn btn-default']
-                ); ?>
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -72,13 +61,6 @@ echo $this->Html->script(
                                     ]
                                 ) ?>
                                 <?php endif; ?>
-                                </div>
-                                <div class="btn-group btn-group-xs" role="group">
-                                <?= $this->Html->link(
-                                    '<i class="fa fa-circle-o"></i>',
-                                    ['controller' => 'MenuItems', 'action' => 'add', $menu->id],
-                                    ['title' => __('Create menu item'), 'class' => 'btn btn-default', 'escape' => false]
-                                ) ?>
                                 </div>
                             </div>
                         </td>
