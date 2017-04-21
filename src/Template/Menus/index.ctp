@@ -60,6 +60,7 @@ echo $this->Html->script(
                                     ['action' => 'edit', $menu->id],
                                     ['title' => __('Edit'), 'class' => 'btn btn-default', 'escape' => false]
                                 ) ?>
+                                <?php if (!$menu->deny_delete) : ?>
                                 <?= $this->Form->postLink(
                                     '<i class="fa fa-trash"></i>',
                                     ['action' => 'delete', $menu->id],
@@ -70,6 +71,7 @@ echo $this->Html->script(
                                         'escape' => false
                                     ]
                                 ) ?>
+                                <?php endif; ?>
                                 </div>
                                 <div class="btn-group btn-group-xs" role="group">
                                 <?= $this->Html->link(

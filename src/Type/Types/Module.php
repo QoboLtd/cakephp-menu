@@ -1,6 +1,7 @@
 <?php
 namespace Menu\Type\Types;
 
+use Cake\Core\App;
 use Cake\Utility\Inflector;
 use Menu\Type\TypeInterface;
 use Qobo\Utils\Utility;
@@ -35,7 +36,10 @@ class Module implements TypeInterface
 
             // remove empty values
             $parts = array_filter($parts);
-            $result[$controller] = implode(' - ', $parts);
+
+            $key = App::shortName($controller, 'Controller', 'Controller');
+            $value = implode(' - ', $parts);
+            $result[$key] = $value;
         }
 
         // sort by value

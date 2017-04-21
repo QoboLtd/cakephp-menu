@@ -46,7 +46,7 @@ class MenuItemsController extends AppController
 
         $parentMenuItems = $this->MenuItems
             ->find('treeList', ['spacer' => self::TREE_SPACER])
-            ->where(['MenuItems.menu_id' => $menu->id]);
+            ->where(['MenuItems.menu_id' => $menu->id, 'MenuItems.parent_id IS NULL']);
 
         $this->set(compact('menuItem', 'parentMenuItems'));
         $this->set('_serialize', ['menuItem']);
@@ -77,7 +77,7 @@ class MenuItemsController extends AppController
 
         $parentMenuItems = $this->MenuItems
             ->find('treeList', ['spacer' => self::TREE_SPACER])
-            ->where(['MenuItems.menu_id' => $menuItem->menu->id]);
+            ->where(['MenuItems.menu_id' => $menuItem->menu->id, 'MenuItems.parent_id IS NULL']);
 
         $this->set(compact('menuItem', 'parentMenuItems'));
         $this->set('_serialize', ['menuItem']);

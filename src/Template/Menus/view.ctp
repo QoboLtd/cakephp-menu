@@ -62,9 +62,9 @@ echo $this->Html->script(
                         <td><?= $menuItem->node ?></td>
                         <td><i class="fa fa-<?= h($menuItem->icon) ?>"></i></td>
                         <td><?= h($menuItem->type) ?></td>
-                        <td><?= $menuItem->url ?
+                        <td><?= 'module' !== $menuItem->type ?
                             $this->Html->link($menuItem->url, $menuItem->url, ['target' => '_blank']) :
-                            ''
+                            h($menuItem->url)
                         ?></td>
                         <td><?= $menuItem->new_window ? __('Yes') : __('No') ?></td>
                         <td class="actions">
@@ -86,7 +86,6 @@ echo $this->Html->script(
                                     ]
                                 ) ?>
                                 </div>
-                                <?php if ($menuItem->parent_id) : ?>
                                 <div class="btn-group btn-group-xs" role="group">
                                     <?= $this->Form->postLink(
                                         '<i class="fa fa-arrow-up"></i>',
@@ -99,7 +98,6 @@ echo $this->Html->script(
                                         ['title' => __('Move down'), 'class' => 'btn btn-default', 'escape' => false]
                                     ) ?>
                                 </div>
-                                <?php endif; ?>
                             </div>
                         </td>
                     </tr>
