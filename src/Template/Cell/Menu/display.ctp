@@ -9,6 +9,45 @@ $itemDefaults = [
     'desc' => ''
 ];
 
+$renderMenuItem = function ($item) use ($format, $itemDefaults, &$renderMenuItem) {
+    // skip empty menu item
+    if (empty($item)) {
+        return;
+    }
+
+    echo $format['itemStart'];
+
+    $html = !empty($item['children']) ? $format['itemWithChildren'] : $format['item'];
+
+    $item = array_merge($itemDefaults, $item);
+
+    // prepare url
+    $item['url'] = is_array($item['url']) ? $this->Url->build($item['url']) : $item['url'];
+
+    foreach ($item as $attr => $val) {
+        // skip if attribute is not found in the html
+        if (false === strpos($html, $attr)) {
+            continue;
+        }
+        $html = str_replace('%' . $attr . '%', $val, $html);
+    }
+
+    echo $html;
+
+    // handle children
+    if (!empty($item['children'])) {
+        echo $format['childMenuStart'];
+
+        foreach ($item['children'] as $child) {
+            $renderMenuItem($child);
+        }
+
+        echo $format['childMenuEnd'];
+    }
+
+    echo $format['itemEnd'];
+};
+
 $event = new Event('Menu.Menu.beforeRender', $this, ['menu' => $menuItems, 'user' => $user]);
 $this->eventManager()->dispatch($event);
 if (!empty($event->result)) {
@@ -19,50 +58,9 @@ echo $format['menuStart'];
 if (!empty($format['header'])) {
     echo $format['header'];
 }
+
 foreach ($menuItems as $item) {
-    // skip empty menu item
-    if (empty($item)) {
-        continue;
-    }
-    echo $format['itemStart'];
-    $itemContent = $format['item'];
-    if (!empty($item['children'])) {
-        $itemContent = $format['itemWithChildren'];
-    }
-    $item = array_merge($itemDefaults, $item);
-    if (is_array($item['url'])) {
-        $item['url'] = $this->Url->build($item['url']);
-    }
-    foreach ($item as $key => $value) {
-        if (false !== strpos($itemContent, $key)) {
-            $itemContent = preg_replace('/%' . $key . '%/', $value, $itemContent);
-        }
-    }
-    echo $itemContent;
-    if (!empty($item['children'])) {
-        echo $format['childMenuStart'];
-        foreach ($item['children'] as $child) {
-            if (empty($child)) {
-                continue;
-            }
-            echo $format['itemStart'];
-            $childItemContent = $format['item'];
-            $child = array_merge($itemDefaults, $child);
-            if (is_array($child['url'])) {
-                $child['url'] = $this->Url->build($child['url']);
-            }
-            foreach ($child as $key => $value) {
-                if (false !== strpos($childItemContent, $key)) {
-                    $childItemContent = str_replace('%' . $key . '%', $value, $childItemContent);
-                }
-            }
-            echo $childItemContent;
-            echo $format['itemEnd'];
-        }
-    }
-    if (!empty($item['children'])) {
-        echo $format['childMenuEnd'];
-    }
-    echo $format['itemEnd'];
+    $renderMenuItem($item, $itemDefaults, $format);
 }
+
 echo $format['menuEnd'];
