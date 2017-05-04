@@ -1,6 +1,7 @@
 <?php
 namespace Menu\Test\TestCase\Model\Table;
 
+use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Menu\Model\Table\MenuItemsTable;
@@ -50,5 +51,15 @@ class MenuItemsTableTest extends TestCase
         unset($this->MenuItems);
 
         parent::tearDown();
+    }
+
+    public function testGetIcons()
+    {
+        Configure::load('Menu.menu');
+
+        $result = $this->MenuItems->getIcons();
+
+        $this->assertInternalType('array', $result);
+        $this->assertNotEmpty($result);
     }
 }
