@@ -52,14 +52,4 @@ class MenuItemsTableTest extends TestCase
 
         parent::tearDown();
     }
-
-    public function testGetIcons()
-    {
-        Configure::load('Menu.menu');
-
-        $result = $this->MenuItems->getIcons();
-
-        $this->assertInternalType('array', $result);
-        $this->assertNotEmpty($result);
-    }
 }

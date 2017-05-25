@@ -3,6 +3,7 @@ namespace Menu\Controller;
 
 use Cake\Event\Event;
 use Menu\Controller\AppController;
+use Qobo\Utils\Utility;
 
 /**
  * MenuItems Controller
@@ -16,7 +17,7 @@ class MenuItemsController extends AppController
      */
     public function beforeFilter(Event $event)
     {
-        $icons = $this->MenuItems->getIcons();
+        $icons = Utility::getIcons();
 
         $this->set('icons', $icons);
     }
