@@ -5,8 +5,8 @@ echo $this->Html->css(
     [
         'AdminLTE./plugins/iCheck/all',
         'AdminLTE./plugins/select2/select2.min',
-        'Menu.select2-bootstrap.min',
-        'Menu.select2-style'
+        'Qobo/Utils.select2-bootstrap.min',
+        'Qobo/Utils.select2-style'
     ],
     ['block' => 'css']
 );
@@ -14,7 +14,7 @@ echo $this->Html->script(
     [
         'AdminLTE./plugins/iCheck/icheck.min',
         'AdminLTE./plugins/select2/select2.full.min',
-        'Menu.select2.init',
+        'Qobo/Utils.select2.init',
         'Menu.view-post'
     ],
     ['block' => 'scriptBotton']
