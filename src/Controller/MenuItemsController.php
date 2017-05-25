@@ -1,6 +1,7 @@
 <?php
 namespace Menu\Controller;
 
+use Cake\Core\Configure;
 use Cake\Event\Event;
 use Menu\Controller\AppController;
 use Qobo\Utils\Utility;
@@ -17,7 +18,10 @@ class MenuItemsController extends AppController
      */
     public function beforeFilter(Event $event)
     {
-        $icons = Utility::getIcons();
+        Configure::load('Qobo/Utils.icons');
+        $config = Configure::read('Icons');
+
+        $icons = Utility::getIcons($config);
 
         $this->set('icons', $icons);
     }
