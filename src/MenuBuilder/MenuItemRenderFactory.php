@@ -10,6 +10,14 @@ final class MenuItemRenderFactory
 
     const INTERFACE_CLASS = 'MenuItemRenderInterface';
 
+    /**
+     *  render method
+     *
+     * @param string $type type of menu item
+     * @param mixed $param menu item object
+     * @param array $format list of menu formats
+     * @return string rendered HTML
+     */
     public static function render($type, $param = null, $format = [])
     {
         $obj = static::create($type);

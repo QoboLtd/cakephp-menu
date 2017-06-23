@@ -13,7 +13,6 @@ final class MenuItemFactory
      *  createMenuItem method
      *
      * @param array $item menu item definition
-     * @param array $format menu item rendering format
      * @return MenuItem object
      */
     public static function createMenuItem($item)

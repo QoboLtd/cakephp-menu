@@ -29,6 +29,12 @@ class Menu
         array_push($this->menuItems, $item);
     }
 
+    /**
+     *  addFormat method
+     *
+     * @param array $format list of parameters to format menu structure
+     * @return void
+     */
     public function addFormat($format)
     {
         $this->format = $format;
@@ -37,7 +43,7 @@ class Menu
     /**
      *  render method
      *
-     *
+     * @return string rendered menu
      */
     public function render()
     {

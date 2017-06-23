@@ -6,12 +6,13 @@ use Cake\View\Helper\UrlHelper;
 
 class MenuItemRender extends BaseMenuItemRenderClass
 {
-    private $itemBody = '<a href="%url%" target="%target%"><i class="fa fa-%icon%"></i> <span>%label%</span><i class="fa fa-angle-left pull-right"></i></a>';
-
-    private $itemStart = '<li class="treeview">';
-
-    private $itemEnd = '</li>';
-
+    /**
+     *  render method
+     *
+     * @param Menu\MenuBuilder\MenuItem $menuItem menu item object
+     * @param array $format list of parameters to format menu structure
+     * @return string
+     */
     public function render($menuItem, $format)
     {
         $children = $menuItem->getChildren();

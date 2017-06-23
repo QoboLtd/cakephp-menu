@@ -45,8 +45,8 @@ class MenuItem extends BaseMenuItem
     /**
      *  set method
      *
-     * @param string $attr property name
-     * @param string $value property value
+     * @param string $attr attribute name
+     * @param string $value attribute value
      * @return void
      */
     public function set($attr, $value)
@@ -56,6 +56,12 @@ class MenuItem extends BaseMenuItem
         }
     }
 
+    /**
+     *  get method
+     *
+     * @param string $attr attribute name
+     * @return mixed result
+     */
     public function get($attr)
     {
         $result = '';
@@ -78,11 +84,21 @@ class MenuItem extends BaseMenuItem
         array_push($this->children, $child);
     }
 
+    /**
+     *  getProperties method
+     *
+     * @return array list of menu properties
+     */
     public function getProperties()
     {
         return $this->propertiesList;
     }
 
+    /**
+     *  getChildren method
+     *
+     * @result array list of child items
+     */
     public function getChildren()
     {
         return $this->children;
