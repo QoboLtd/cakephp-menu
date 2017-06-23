@@ -7,7 +7,7 @@ use Cake\View\Helper\UrlHelper;
 class MenuItemRender extends BaseMenuItemRenderClass
 {
     private $itemBody = '<a href="%url%" target="%target%"><i class="fa fa-%icon%"></i> <span>%label%</span><i class="fa fa-angle-left pull-right"></i></a>';
-    
+
     private $itemStart = '<li class="treeview">';
 
     private $itemEnd = '</li>';
@@ -15,11 +15,10 @@ class MenuItemRender extends BaseMenuItemRenderClass
     public function render($menuItem, $format)
     {
         $children = $menuItem->getChildren();
-        
+
         $html = $format['itemStart'];
-        $item = !empty($children) ? $format['itemWithChildren'] : $format['item']; 
+        $item = !empty($children) ? $format['itemWithChildren'] : $format['item'];
         foreach ($menuItem->getProperties() as $attr) {
-               
             if (false === strpos($item, $attr)) {
                 continue;
             }
@@ -28,10 +27,10 @@ class MenuItemRender extends BaseMenuItemRenderClass
                 $val = is_array($val) ? UrlHelper::build($val) : $val;
             }
             $item = str_replace('%' . $attr . '%', $val, $item);
-        }       
-        
-        $html .= $item; 
-        
+        }
+
+        $html .= $item;
+
         if (!empty($children)) {
             $html .= $format['childMenuStart'];
             foreach ($children as $childItem) {
@@ -40,7 +39,7 @@ class MenuItemRender extends BaseMenuItemRenderClass
             $html .= $format['childMenuEnd'];
         }
         $format['itemEnd'];
-        
+
         return $html;
     }
 }

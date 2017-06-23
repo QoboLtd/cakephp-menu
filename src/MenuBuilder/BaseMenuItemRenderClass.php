@@ -3,16 +3,16 @@
 namespace Menu\MenuBuilder;
 
 /**
- *  BaseMenuRenderClass class
+ *  BaseMenuItemRenderClass class
  *
  * abstract base class for menu rendering
  */
-abstract class BaseMenuRenderClass implements MenuRenderInterface
+abstract class BaseMenuItemRenderClass implements MenuItemRenderInterface
 {
     /**
      *  render method
      *
-     * @param $menu Menu\MenuBuilder\Menu   menu object
+     * @param Menu\MenuBuilder\MenuItem $menuItem  menu item object
      */
-    abstract public function render(Menu $menu);
+    abstract public function render($menuItem, $format);
 }

@@ -3,15 +3,15 @@
 namespace Menu\MenuBuilder;
 
 /**
- *  MenuRenderInterface interface
+ *  MenuItemRenderInterface interface
  *
  */
-interface MenuRenderInterface
+interface MenuItemRenderInterface
 {
     /**
      *  render method
      *
-     * @param $menu Menu\MenuBuilder\Menu  menu object
+     * @param Menu\MenuBuilder\MenuItem $menuItems  menu item object
      */
-    public function render(Menu $menu);
+    public function render($menuItems, $format);
 }

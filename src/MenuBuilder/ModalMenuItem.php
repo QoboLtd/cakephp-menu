@@ -7,5 +7,5 @@ class ModalMenuItem extends MenuItem
     /**
      * @var $modal
      */
-    protected $modal = null; 
+    protected $modal = null;
 }

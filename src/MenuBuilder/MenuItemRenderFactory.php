@@ -5,13 +5,15 @@ namespace Menu\MenuBuilder;
 use Cake\Utility\Inflector;
 use RuntimeException;
 
-final class MenuItemRenderFactory {
-    
+final class MenuItemRenderFactory
+{
+
     const INTERFACE_CLASS = 'MenuItemRenderInterface';
 
     public static function render($type, $param = null, $format = [])
     {
         $obj = static::create($type);
+
         return $obj->render($param, $format);
     }
 
@@ -41,5 +43,4 @@ final class MenuItemRenderFactory {
 
         return new $className();
     }
-
 }

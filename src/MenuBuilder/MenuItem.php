@@ -17,14 +17,14 @@ class MenuItem extends BaseMenuItem
      * @var $icon
      */
     protected $icon = 'circle-o';
-    
+
     /**
      * @var $target
      */
     protected $target = '_self';
-    
+
     /**
-     * @var $desc 
+     * @var $desc
      */
     protected $desc = '';
 
@@ -38,22 +38,37 @@ class MenuItem extends BaseMenuItem
      */
     protected $children = [];
 
+    protected $propertiesList = ['label', 'icon', 'target', 'desc', 'url', 'children'];
+
+    protected $viewObj;
+
     /**
      *  set method
      *
-     * @param string $property property name
+     * @param string $attr property name
      * @param string $value property value
      * @return void
      */
-    public function set($property, $value)
+    public function set($attr, $value)
     {
-        if (property_exists($this, $property)) {
-            $this->$property = $value;
+        if (property_exists($this, $attr)) {
+            $this->$attr = $value;
         }
     }
 
+    public function get($attr)
+    {
+        $result = '';
+
+        if (property_exists($this, $attr)) {
+            $result = !empty($this->$attr) ? $this->$attr : '';
+        }
+
+        return $result;
+    }
+
     /**
-     *  addChild method  
+     *  addChild method
      *
      * @param MenuItem $child menu item
      * @return void
@@ -61,5 +76,15 @@ class MenuItem extends BaseMenuItem
     public function addChild(MenuItem $child)
     {
         array_push($this->children, $child);
+    }
+
+    public function getProperties()
+    {
+        return $this->propertiesList;
+    }
+
+    public function getChildren()
+    {
+        return $this->children;
     }
 }

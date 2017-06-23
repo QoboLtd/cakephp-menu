@@ -16,7 +16,7 @@ final class MenuItemFactory
      * @param array $format menu item rendering format
      * @return MenuItem object
      */
-    public static function createMenuItem($item, $format = [])
+    public static function createMenuItem($item)
     {
         $menuItem = new MenuItem();
 
@@ -25,10 +25,10 @@ final class MenuItemFactory
                 foreach ($value as $k => $v) {
                     $childItem = static::createMenuItem($v);
                     $menuItem->addChild($childItem);
-                }    
+                }
             } else {
                 $menuItem->set($key, $value);
-            }    
+            }
         }
 
         return $menuItem;
