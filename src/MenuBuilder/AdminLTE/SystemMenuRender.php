@@ -2,28 +2,20 @@
 
 namespace Menu\MenuBuilder;
 
-use Cake\View\Helper\UrlHelper;
-
-/**
- *  MenuLinkRender class
- *
- *  rendering menu with links
- */
-class MenuLinkRender extends BaseMenuRenderClass
+class MenuLinksSystemBuilder extends BaseMenuRenderClass
 {
     public function __construct(Menu $menu)
     {
         parent::__construct($menu);
+        
         $this->format = [
-            'menuStart' => '<ul class="sidebar-menu">',
+            'menuStart' => '<ul class="control-sidebar-menu">',
             'menuEnd' => '</ul>',
-            'childMenuStart' => '<ul class="treeview-menu">',
+            'childMenuStart' => '<ul>',
             'childMenuEnd' => '</ul>',
-            'itemStart' => '<li class="treeview">',
-            'itemEnd' => ' /li>',
-            'item' => '<a href="%url%" target="%target%"><i class="fa fa-%icon%"></i> <span>%label%</span></a>',
-            'header' => '<li class="header">MAIN NAVIGATION</li>',
-            'itemWithChildren' => '<a href="%url%" target="%target%"><i class="fa fa-%icon%"></i> <span>%label%</span><i class="fa fa-angle-left pull-right"></i></a>',
+            'itemStart' => '<li>',
+            'itemEnd' => '</li>',
+            'item' => '<a href="%url%"><i class="menu-icon fa fa-%icon%"></i> <div class="menu-info"><h4 class="control-sidebar-subheading">%label%</h4><p>%desc%</p></div></a>',
         ];
     }
 }
