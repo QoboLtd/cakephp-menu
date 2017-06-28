@@ -3,6 +3,7 @@
 namespace Menu\MenuBuilder;
 
 use Cake\View\Helper\UrlHelper;
+use Menu\MenuBuilder\Menu;
 
 /**
  *  BaseMenuRenderClass class
@@ -28,7 +29,7 @@ class BaseMenuRenderClass
      * @param array $format optional options to format menu
      * @return void
      */
-    public function __construct(Menu $menu, array $format=[])
+    public function __construct($menu, array $format=[])
     {
         $this->menu = $menu;
         if (!empty($format)) {
@@ -43,8 +44,8 @@ class BaseMenuRenderClass
      */
     public function render()
     {
-        $html = !empty($this->format['header']) ? $this->format['header'] : '';
-        $html .= $this->format['menuStart'];
+        $html = $this->format['menuStart'];
+        $html .= !empty($this->menu->title()) ? $this->menu->title() : '';
 
         foreach ($this->menu->getMenuItems() as $index => $menuItem) {
             $html .= $this->_renderMenuItem($menuItem);

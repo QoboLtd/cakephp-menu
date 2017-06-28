@@ -2,15 +2,19 @@
 
 namespace Menu\MenuBuilder;
 
-use Cake\View\Helper\UrlHelper;
-
 /**
- *  MenuLinkRender class
+ *  MainMenuRender class
  *
- *  rendering menu with links
+ *  rendering Main Admin LTE menu
  */
-class MenuLinkRender extends BaseMenuRenderClass
+class MainMenuRenderAdminLte extends BaseMenuRenderClass
 {
+    /**
+     *  __construct method
+     *
+     * @param Menu\MenuBuilder\Menu $menu collection of menu items
+     * @return void
+     */
     public function __construct(Menu $menu)
     {
         parent::__construct($menu);

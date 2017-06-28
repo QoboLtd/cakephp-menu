@@ -2,8 +2,19 @@
 
 namespace Menu\MenuBuilder;
 
-class MenuLinksSystemBuilder extends BaseMenuRenderClass
+/**
+ *  SystemMenuBuilder class
+ *
+ *  System Admin LTE menu render
+ */
+class SystemMenuRenderAdminLte extends BaseMenuRenderClass
 {
+    /**
+     *  __construct method
+     *
+     * @param Menu\MenuBuilder\Menu $menu collection of menu items
+     * @return void
+     */
     public function __construct(Menu $menu)
     {
         parent::__construct($menu);

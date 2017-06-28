@@ -11,13 +11,15 @@ use Menu\MenuBuilder\MenuItemRenderFactory;
  */
 class Menu
 {
+    /**
+     * @var $title
+     */
+    protected $title = ''; 
 
     /**
      * @var $menuItems
      */
     protected $menuItems = [];
-
-    protected $format = [];
 
     /**
      *  addMenuItem method
@@ -30,31 +32,20 @@ class Menu
     }
 
     /**
-     *  addFormat method
+     *  getMenuItems method
      *
-     * @param array $format list of parameters to format menu structure
-     * @return void
+     * @return array of menu items
      */
-    public function addFormat($format)
+    public function getMenuItems()
     {
-        $this->format = $format;
+        return $this->menuItems;
     }
 
-    /**
-     *  render method
-     *
-     * @return string rendered menu
-     */
-    public function render()
+    public function title($title=null)
     {
-        $html = !empty($this->format['header']) ? $this->format['header'] : '';
-        $html .= $this->format['menuStart'];
-
-        foreach ($this->menuItems as $index => $menuItem) {
-            $html .= MenuItemRenderFactory::render('menu_item', $menuItem, $this->format);
+        if (!empty($title)) {
+            $this->title = $title;
         }
-        $html .= $this->format['menuEnd'];
-
-        return $html;
+        return $this->title;
     }
 }
