@@ -42,7 +42,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     /**
      * @var $noLable
      */
-    protected $noLable = false;
+    protected $noLabel = false;
 
     /**
      * @var class
