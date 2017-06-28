@@ -124,6 +124,7 @@ class MenuCell extends Cell
         $this->set('menuItems', $menuItems);
         $this->set('user', $this->_user);
         $this->set('format', $this->_format);
+        $this->set('name', $name);
     }
 
     /**
