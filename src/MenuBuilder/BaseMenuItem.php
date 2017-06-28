@@ -28,12 +28,12 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @var $url
      */
     protected $url = '#';
-    
+
     /**
      * @var dataType
      */
-    protected $dataType = ''; 
-    
+    protected $dataType = '';
+
     /**
      * @var confirmMsg
      */
@@ -42,8 +42,8 @@ abstract class BaseMenuItem implements MenuItemInterface
     /**
      * @var $noLable
      */
-    protected $noLable = false; 
-    
+    protected $noLable = false;
+
     /**
      * @var class
      */
@@ -52,7 +52,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     /**
      * @var $type
      */
-    protected $type = 'link'; 
+    protected $type = 'link';
 
     /**
      * @var $children
@@ -85,6 +85,7 @@ abstract class BaseMenuItem implements MenuItemInterface
         if (property_exists($this, $attr)) {
             $result = !empty($this->$attr) ? $this->$attr : '';
         }
+
         return $result;
     }
 

@@ -18,7 +18,7 @@ class MenuActionsRender extends BaseMenuRenderClass
     public function __construct(Menu $menu, $viewEntity)
     {
         parent::__construct($menu, $viewEntity);
-        
+
         $this->format = [
             'menuStart' => '<div class="btn-group btn-group-xs">',
             'menuEnd' => '</div>',

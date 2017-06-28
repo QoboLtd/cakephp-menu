@@ -25,13 +25,13 @@ class BaseMenuRenderClass
     /**
      * @var $viewEntity
      */
-    protected $viewEntity = null; 
+    protected $viewEntity = null;
 
     /**
      *  __construct method
      *
      * @param Menu\MenuBuilder\Menu $menu menu to render
-     * @param View $view view entity
+     * @param View $viewEntity view entity
      * @return void
      */
     public function __construct($menu, $viewEntity)
@@ -69,8 +69,8 @@ class BaseMenuRenderClass
         $children = $item->getChildren();
 
         $html = $this->format['itemStart'];
-        
-        $html .= $this->_buildItem($item, !empty($children) && !empty($this->format['itemWithChildrenPostfix']) ? $this->format['itemWithChildrenPostfix'] : '');                                               
+
+        $html .= $this->_buildItem($item, !empty($children) && !empty($this->format['itemWithChildrenPostfix']) ? $this->format['itemWithChildrenPostfix'] : '');
 
         if (!empty($children)) {
             $html .= $this->format['childMenuStart'];
@@ -83,7 +83,7 @@ class BaseMenuRenderClass
 
         return $html;
     }
-    
+
     /**
      *  _buildItem method
      *
@@ -100,9 +100,10 @@ class BaseMenuRenderClass
             default:
                 $result = $this->_buildLink($item, $extLabel);
         }
+
         return $result;
     }
-    
+
     /**
      *  _buildLink method
      *
@@ -110,32 +111,33 @@ class BaseMenuRenderClass
      * @param string $extLabel additional label elements
      * @return string generated HTML element
      */
-    protected function _buildLink($item, $extLabel = '') 
-    { 
+    protected function _buildLink($item, $extLabel = '')
+    {
         $params = [
-            'title' => __($item->get('label')), 
+            'title' => __($item->get('label')),
             'escape' => false,
         ];
 
         if (!empty($item->get('class'))) {
             $params['class'] = $item->get('class');
-        }    
+        }
         if (!empty($item->get('dataType'))) {
             $params['data-type'] = $item->get('dataType');
-        }    
+        }
         if (!empty($item->get('confirmMsg'))) {
             $params['data-confirm-msg'] = $item->get('confirmMsg');
-        }    
+        }
         $label = '<i class="fa fa-' . $item->get('icon') . '"></i> ' . ($item->get('noLabel') ? '' : __($item->get('label'))) . $extLabel;
-        $result = $this->viewEntity->Html->link($label, $item->get('url'), $params); 
+        $result = $this->viewEntity->Html->link($label, $item->get('url'), $params);
+
         return $result;
     }
-    
+
     /**
      *  _buildPostlink method
      *
      * @param Menu\MenuBuilder\Menu $item menu item entity
-     * @param string $extLabel additional label elements
+     * @param string $postFix additional label elements
      * @return string generated HTML element
      */
     protected function _buildPostlink($item, $postFix)
@@ -147,12 +149,12 @@ class BaseMenuRenderClass
 
         if (!empty($item->get('class'))) {
             $params['class'] = $item->get('class');
-        }    
-        
+        }
+
         if (!empty($item->get('confirmMsg'))) {
             $params['confirm'] = $item->get('confirmMsg');
-        }    
-        
+        }
+
         $label = '<i class="fa fa-' . $item->get('icon') . '"></i> ' . ($item->get('noLabel') ? '' : __($item->get('label'))) . $postFix;
         $result = $this->viewEntity->Form->postLink($label, $item->get('url'), $params);
 
