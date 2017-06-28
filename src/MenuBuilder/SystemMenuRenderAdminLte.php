@@ -15,9 +15,9 @@ class SystemMenuRenderAdminLte extends BaseMenuRenderClass
      * @param Menu\MenuBuilder\Menu $menu collection of menu items
      * @return void
      */
-    public function __construct(Menu $menu)
+    public function __construct(Menu $menu, $viewEntity)
     {
-        parent::__construct($menu);
+        parent::__construct($menu, $viewEntity);
 
         $this->format = [
             'menuStart' => '<ul class="control-sidebar-menu">',

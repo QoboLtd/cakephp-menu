@@ -23,18 +23,21 @@ class BaseMenuRenderClass
     protected $menu = null;
 
     /**
+     * @var $viewEntity
+     */
+    protected $viewEntity = null; 
+
+    /**
      *  __construct method
      *
      * @param Menu\MenuBuilder\Menu $menu menu to render
-     * @param array $format optional options to format menu
+     * @param View $view view entity
      * @return void
      */
-    public function __construct($menu, array $format = [])
+    public function __construct($menu, $viewEntity)
     {
         $this->menu = $menu;
-        if (!empty($format)) {
-            $this->format = $format;
-        }
+        $this->viewEntity = $viewEntity;
     }
 
     /**
@@ -66,19 +69,8 @@ class BaseMenuRenderClass
         $children = $item->getChildren();
 
         $html = $this->format['itemStart'];
-        $itemFormat = !empty($children) ? $this->format['itemWithChildren'] : $this->format['item'];
-        foreach ($item->getProperties() as $attr) {
-            if (false === strpos($itemFormat, $attr)) {
-                continue;
-            }
-            $val = $item->get($attr);
-            if ($attr == 'url') {
-                $val = is_array($val) ? UrlHelper::build($val) : $val;
-            }
-            $itemFormat = str_replace('%' . $attr . '%', $val, $itemFormat);
-        }
-
-        $html .= $itemFormat;
+        
+        $html .= $this->_buildItem($item, !empty($children) && !empty($this->format['itemWithChildrenPostfix']) ? $this->format['itemWithChildrenPostfix'] : '');                                               
 
         if (!empty($children)) {
             $html .= $this->format['childMenuStart'];
@@ -90,5 +82,80 @@ class BaseMenuRenderClass
         $this->format['itemEnd'];
 
         return $html;
+    }
+    
+    /**
+     *  _buildItem method
+     *
+     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param string $extLabel additional label elements
+     * @return string generated HTML element
+     */
+    protected function _buildItem($item, $extLabel)
+    {
+        switch ($item->get('type')) {
+            case 'postlink':
+                $result = $this->_buildPostlink($item, $extLabel);
+                break;
+            default:
+                $result = $this->_buildLink($item, $extLabel);
+        }
+        return $result;
+    }
+    
+    /**
+     *  _buildLink method
+     *
+     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param string $extLabel additional label elements
+     * @return string generated HTML element
+     */
+    protected function _buildLink($item, $extLabel = '') 
+    { 
+        $params = [
+            'title' => __($item->get('label')), 
+            'escape' => false,
+        ];
+
+        if (!empty($item->get('class'))) {
+            $params['class'] = $item->get('class');
+        }    
+        if (!empty($item->get('dataType'))) {
+            $params['data-type'] = $item->get('dataType');
+        }    
+        if (!empty($item->get('confirmMsg'))) {
+            $params['data-confirm-msg'] = $item->get('confirmMsg');
+        }    
+        $label = '<i class="fa fa-' . $item->get('icon') . '"></i> ' . ($item->get('noLabel') ? '' : __($item->get('label'))) . $extLabel;
+        $result = $this->viewEntity->Html->link($label, $item->get('url'), $params); 
+        return $result;
+    }
+    
+    /**
+     *  _buildPostlink method
+     *
+     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param string $extLabel additional label elements
+     * @return string generated HTML element
+     */
+    protected function _buildPostlink($item, $postFix)
+    {
+        $params = [
+            'title' => $item->get('label'),
+            'escape' => false,
+        ];
+
+        if (!empty($item->get('class'))) {
+            $params['class'] = $item->get('class');
+        }    
+        
+        if (!empty($item->get('confirmMsg'))) {
+            $params['confirm'] = $item->get('confirmMsg');
+        }    
+        
+        $label = '<i class="fa fa-' . $item->get('icon') . '"></i> ' . ($item->get('noLabel') ? '' : __($item->get('label'))) . $postFix;
+        $result = $this->viewEntity->Form->postLink($label, $item->get('url'), $params);
+
+        return $result;
     }
 }

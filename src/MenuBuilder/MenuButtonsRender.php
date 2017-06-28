@@ -2,8 +2,6 @@
 
 namespace Menu\MenuBuilder;
 
-use Cake\View\Helper\UrlHelper;
-
 /**
  *  MenuButtonsRender class
  *
@@ -17,9 +15,9 @@ class MenuButtonsRender extends BaseMenuRenderClass
      * @param Menu\MenuBuilder\Menu $menu menu collection
      * @return void
      */
-    public function __construct(Menu $menu)
+    public function __construct(Menu $menu, $viewEntity)
     {
-        parent::__construct($menu);
+        parent::__construct($menu, $viewEntity);
         $this->format = [
             'menuStart' => '<div class="btn-group btn-group-sm">',
             'menuEnd' => '</div>',
@@ -30,5 +28,6 @@ class MenuButtonsRender extends BaseMenuRenderClass
             'item' => '<a href="%url%" title="%label%" class="btn btn-default"><i class="fa fa-%icon%"></i> %label%</a>',
             'itemWithChildren' => '',
         ];
+        $this->class = 'btn btn-default';
     }
 }

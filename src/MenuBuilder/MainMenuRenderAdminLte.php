@@ -15,9 +15,9 @@ class MainMenuRenderAdminLte extends BaseMenuRenderClass
      * @param Menu\MenuBuilder\Menu $menu collection of menu items
      * @return void
      */
-    public function __construct(Menu $menu)
+    public function __construct(Menu $menu, $viewEntity)
     {
-        parent::__construct($menu);
+        parent::__construct($menu, $viewEntity);
         $this->format = [
             'menuStart' => '<ul class="sidebar-menu">',
             'menuEnd' => '</ul>',
@@ -26,8 +26,8 @@ class MainMenuRenderAdminLte extends BaseMenuRenderClass
             'itemStart' => '<li class="treeview">',
             'itemEnd' => ' /li>',
             'item' => '<a href="%url%" target="%target%"><i class="fa fa-%icon%"></i> <span>%label%</span></a>',
-            'header' => '<li class="header">MAIN NAVIGATION</li>',
             'itemWithChildren' => '<a href="%url%" target="%target%"><i class="fa fa-%icon%"></i> <span>%label%</span><i class="fa fa-angle-left pull-right"></i></a>',
+            'itemWithChildrenPostfix' => '<i class="fa fa-angle-left pull-right"></i>',
         ];
     }
 }

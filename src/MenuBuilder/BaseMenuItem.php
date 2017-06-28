@@ -7,7 +7,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     /**
      * @var $label
      */
-    protected $label = 'Undefined';
+    protected $label = '';
 
     /**
      * @var $icon
@@ -28,6 +28,31 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @var $url
      */
     protected $url = '#';
+    
+    /**
+     * @var dataType
+     */
+    protected $dataType = ''; 
+    
+    /**
+     * @var confirmMsg
+     */
+    protected $confirmMsg = '';
+
+    /**
+     * @var $noLable
+     */
+    protected $noLable = false; 
+    
+    /**
+     * @var class
+     */
+    protected $class = '';
+
+    /**
+     * @var $type
+     */
+    protected $type = 'link'; 
 
     /**
      * @var $children
@@ -57,11 +82,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     public function get($attr)
     {
         $result = '';
-
         if (property_exists($this, $attr)) {
             $result = !empty($this->$attr) ? $this->$attr : '';
         }
-
         return $result;
     }
 
