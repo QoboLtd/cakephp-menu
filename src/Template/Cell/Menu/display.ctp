@@ -25,5 +25,5 @@ if ($name == 'main_menu') {
     $renderClass = 'Menu\\MenuBuilder\\SystemMenuRenderAdminLte';
 }
 
-$render = new $renderClass($menu);
+$render = new $renderClass($menu, $this);
 echo $render->render();
