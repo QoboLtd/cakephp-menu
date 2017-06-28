@@ -12,5 +12,4 @@ class MenuItem extends BaseMenuItem
      * @var $propertiesList
      */
     protected $propertiesList = ['label', 'icon', 'target', 'desc', 'url', 'children'];
-
 }

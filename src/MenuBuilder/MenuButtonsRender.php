@@ -11,6 +11,12 @@ use Cake\View\Helper\UrlHelper;
  */
 class MenuButtonsRender extends BaseMenuRenderClass
 {
+    /**
+     *  __construct method
+     *
+     * @param Menu\MenuBuilder\Menu $menu menu collection
+     * @return void
+     */
     public function __construct(Menu $menu)
     {
         parent::__construct($menu);

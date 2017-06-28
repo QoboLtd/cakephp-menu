@@ -14,7 +14,7 @@ class Menu
     /**
      * @var $title
      */
-    protected $title = ''; 
+    protected $title = '';
 
     /**
      * @var $menuItems
@@ -41,11 +41,17 @@ class Menu
         return $this->menuItems;
     }
 
-    public function title($title=null)
+    /**
+     *  title method
+     * @param string $title set desire title for menu
+     * @return string menu title
+     */
+    public function title($title = null)
     {
         if (!empty($title)) {
             $this->title = $title;
         }
+
         return $this->title;
     }
 }

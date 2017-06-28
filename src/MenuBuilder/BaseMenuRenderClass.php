@@ -16,12 +16,12 @@ class BaseMenuRenderClass
      * @var $format array with formats
      */
     protected $format = [];
-    
+
     /**
      * @var $menu list of menu items
      */
     protected $menu = null;
-    
+
     /**
      *  __construct method
      *
@@ -29,14 +29,14 @@ class BaseMenuRenderClass
      * @param array $format optional options to format menu
      * @return void
      */
-    public function __construct($menu, array $format=[])
+    public function __construct($menu, array $format = [])
     {
         $this->menu = $menu;
         if (!empty($format)) {
             $this->format = $format;
-        }    
+        }
     }
-    
+
     /**
      *  render method
      *
@@ -53,8 +53,8 @@ class BaseMenuRenderClass
         $html .= $this->format['menuEnd'];
 
         return $html;
-    } 
-    
+    }
+
     /**
      *  _renderMenuItem method
      *

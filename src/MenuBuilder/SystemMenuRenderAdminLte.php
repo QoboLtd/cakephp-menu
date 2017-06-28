@@ -18,7 +18,7 @@ class SystemMenuRenderAdminLte extends BaseMenuRenderClass
     public function __construct(Menu $menu)
     {
         parent::__construct($menu);
-        
+
         $this->format = [
             'menuStart' => '<ul class="control-sidebar-menu">',
             'menuEnd' => '</ul>',
