@@ -26,6 +26,12 @@ class SystemMenuRenderAdminLte extends BaseMenuRenderClass
             'childMenuEnd' => '</ul>',
             'itemStart' => '<li>',
             'itemEnd' => '</li>',
+            'itemHeaderStart' => '<div class="menu-info">',
+            'itemWrapperStart' => '<h4 class="control-sidebar-subheading">',
+            'itemWrapperEnd' => '</h4>',
+            'itemHeaderEnd' => '</div>',
+            'itemDescrStart' => '<p>',
+            'itemDescrEnd' => '</p>',
             'item' => '<a href="%url%"><i class="menu-icon fa fa-%icon%"></i> <div class="menu-info"><h4 class="control-sidebar-subheading">%label%</h4><p>%desc%</p></div></a>',
         ];
     }

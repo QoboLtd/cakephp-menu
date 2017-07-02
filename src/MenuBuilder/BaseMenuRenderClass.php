@@ -127,7 +127,14 @@ class BaseMenuRenderClass
         if (!empty($item->get('confirmMsg'))) {
             $params['data-confirm-msg'] = $item->get('confirmMsg');
         }
-        $label = '<i class="fa fa-' . $item->get('icon') . '"></i> ' . ($item->get('noLabel') ? '' : __($item->get('label'))) . $extLabel;
+        $label = '<i class="menu-icon fa fa-' . $item->get('icon') . '"></i> ';
+        $label .= !empty($this->format['itemHeaderStart']) ? $this->format['itemHeaderStart'] : '';
+        $label .= !empty($this->format['itemWrapperStart']) ? $this->format['itemWrapperStart'] : '';
+        $label .= ($item->get('noLabel') ? '' : __($item->get('label')));
+        $label .= $extLabel;
+        $label .= !empty($this->format['itemWrapperEnd']) ? $this->format['itemWrapperEnd'] : '';
+        $label .= !empty($item->get('desc')) ? $this->format['itemDescrStart'] . $item->get('desc') . $this->format['itemDescrEnd'] : '';
+        $label .= !empty($this->format['itemHeaderEnd']) ? $this->format['itemHeaderEnd'] : '';
         $result = $this->viewEntity->Html->link($label, $item->get('url'), $params);
 
         return $result;
