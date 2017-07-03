@@ -18,6 +18,8 @@ class MenuItemsController extends AppController
      */
     public function beforeFilter(Event $event)
     {
+        parent::beforeFilter($event);
+
         Configure::load('Qobo/Utils.icons');
         $config = Configure::read('Icons');
 
