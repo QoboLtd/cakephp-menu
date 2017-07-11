@@ -167,26 +167,62 @@ class MenuCell extends Cell
 
         $result = [];
         foreach ($query->all() as $entity) {
-            $item = $entity->toArray();
-
-            if (static::TYPE_MODULE === $entity->type) {
-                $item = $this->_getMenuItemsFromEvent($menu, [$entity->url]);
-                $item = current($item);
-            }
+            $item = $this->_getMenuItem($menu, $entity->toArray());
 
             if (empty($item)) {
                 continue;
-            }
-
-            if (static::TYPE_MODULE === $entity->type) {
-                $item['label'] = $entity->label;
-                $item['icon'] = $entity->icon;
             }
 
             $result[] = $item;
         }
 
         return $result;
+    }
+
+    /**
+     * Menu item getter.
+     *
+     * @param \Cake\Datasource\EntityInterface $menu Menu entity
+     * @param array $item Menu item
+     * @return array
+     */
+    protected function _getMenuItem(EntityInterface $menu, array $item)
+    {
+        if (empty($item)) {
+            return [];
+        }
+
+        $label = $item['label'];
+        $icon = $item['icon'];
+        $type = $item['type'];
+
+        $children = !empty($item['children']) ? $item['children'] : [];
+
+        if (!empty($children)) {
+            foreach ($children as $key => $child) {
+                $children[$key] = $this->_getMenuItem($menu, $child);
+            }
+        }
+
+        if (static::TYPE_MODULE === $type) {
+            $item = $this->_getMenuItemsFromEvent($menu, [$item['url']]);
+            $item = current($item);
+        }
+
+        if (!empty($children)) {
+            $item['children'] = $children;
+        }
+
+        if (empty($item)) {
+            return [];
+        }
+
+        if (static::TYPE_MODULE === $type) {
+            $item['label'] = $label;
+            $item['icon'] = $icon;
+        }
+
+        return $item;
     }
 
     /**
