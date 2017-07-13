@@ -18,7 +18,6 @@ final class MenuItemFactory
     public static function createMenuItem($item)
     {
         $menuItem = new MenuItem();
-
         foreach ($item as $key => $value) {
             if ($key == 'children') {
                 foreach ($value as $k => $v) {

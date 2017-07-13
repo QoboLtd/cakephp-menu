@@ -21,12 +21,15 @@ class MenuButtonsRender extends BaseMenuRenderClass
         $this->format = [
             'menuStart' => '<div class="btn-group btn-group-sm">',
             'menuEnd' => '</div>',
-            'childMenuStart' => '<ul>',
+            'childMenuStart' => '<ul class="dropdown-menu">',
             'childMenuEnd' => '</ul>',
             'itemStart' => '',
             'itemEnd' => '',
+            'childItemStart' => '<li>',
+            'childItemEnd' => '</li>',
             'itemWithChildrenStart' => '<div class="btn-group btn-group-sm">',
             'itemWithChildrenEnd' => '</div>',
+            'itemLabelPostfix' => '<span class="caret"></span>',
         ];
         $this->class = 'btn btn-default';
     }

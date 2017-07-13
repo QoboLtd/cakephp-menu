@@ -11,11 +11,12 @@ $this->eventManager()->dispatch($event);
 if (!empty($event->result)) {
     $menuItems = $event->result;
 }
-
 $menu = new Menu();
 foreach ($menuItems as $item) {
-    $menuItem = MenuItemFactory::createMenuItem($item);
-    $menu->addMenuItem($menuItem);
+    if (is_array($item) && !empty($item)) {
+        $menuItem = MenuItemFactory::createMenuItem($item);
+        $menu->addMenuItem($menuItem);
+    }
 }
 
 if ($name == 'main_menu') {

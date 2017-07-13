@@ -12,7 +12,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     /**
      * @var $icon
      */
-    protected $icon = 'circle-o';
+    protected $icon = '';
 
     /**
      * @var $target

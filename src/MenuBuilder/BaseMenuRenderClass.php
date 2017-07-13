@@ -75,7 +75,9 @@ class BaseMenuRenderClass
         if (!empty($children)) {
             $html .= $this->format['childMenuStart'];
             foreach ($children as $childItem) {
+                $html .= !empty($this->format['childItemStart']) ? $this->format['childItemStart'] : '';
                 $html .= $this->_renderMenuItem($childItem);
+                $html .= !empty($this->format['childItemEnd']) ? $this->format['childItemEnd'] : '';
             }
             $html .= $this->format['childMenuEnd'];
         }
@@ -96,6 +98,12 @@ class BaseMenuRenderClass
         switch ($item->get('type')) {
             case 'postlink':
                 $result = $this->_buildPostlink($item, $extLabel);
+                break;
+            case 'button':
+                $result = $this->_buildButton($item, $extLabel);
+                break;
+            case 'separator':
+                $result = $this->_buildSeparator($item, $extLabel);
                 break;
             default:
                 $result = $this->_buildLink($item, $extLabel);
@@ -164,6 +172,57 @@ class BaseMenuRenderClass
 
         $label = '<i class="fa fa-' . $item->get('icon') . '"></i> ' . ($item->get('noLabel') ? '' : __($item->get('label'))) . $postFix;
         $result = $this->viewEntity->Form->postLink($label, $item->get('url'), $params);
+
+        return $result;
+    }
+
+    /**
+     *  _buildButton method
+     *
+     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param string $postFix additional label elements
+     * @return string generated HTML element
+     */
+    protected function _buildButton($item, $postFix)
+    {
+        $params = [
+            'type' => 'button',
+        ];
+
+        if (!empty($item->get('class'))) {
+            $params['class'] = $item->get('class');
+        }
+
+        if (!empty($item->getChildren())) {
+            $params['data-toggle'] = 'dropdown';
+            $params['aria-haspopup'] = 'true';
+            $params['aria-expanded'] = 'false';
+        }
+
+        $label = $item->get('label');
+        if (!empty($item->get('icon'))) {
+            $label = '<i class="fa fa-' . $item->get('icon') . '"></i> ' . $label;
+        }
+
+        if (!empty($this->format['itemLabelPostfix'])) {
+            $label .= ' ' . $this->format['itemLabelPostfix'];
+        }
+
+        $result = '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' . $label . '</button>';
+
+        return $result;
+    }
+
+    /**
+     *  _buildSeparator method
+     *
+     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param string $postFix additional label elements
+     * @return string generated HTML element
+     */
+    protected function _buildSeparator($item, $postFix)
+    {
+        $result = '<hr class="separator" />';
 
         return $result;
     }
