@@ -30,63 +30,143 @@ abstract class BaseMenuItem implements MenuItemInterface
     protected $url = '#';
 
     /**
-     * @var dataType
-     */
-    protected $dataType = '';
-
-    /**
      * @var confirmMsg
      */
     protected $confirmMsg = '';
 
     /**
-     * @var $noLable
+     * @var extraAttribute
      */
-    protected $noLabel = false;
-
-    /**
-     * @var class
-     */
-    protected $class = '';
-
-    /**
-     * @var $type
-     */
-    protected $type = 'link';
+    protected $extraAttribute = '';
 
     /**
      * @var $children
      */
     protected $children = [];
-
+    
     /**
-     *  set method
+     *  getLabel method
      *
-     * @param string $attr attribute name
-     * @param string $value attribute value
+     * @return string menu item label
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+    
+    /**
+     *  setLabel method
+     *
+     * @param string $label for menu item
+     * @return void
+     */    
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
+    
+    /**
+     *  getIcon method
+     *
+     * @return string menu item icon name
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
+    
+    /**
+     *  setIcon method
+     *
+     * @param string $icon for menu item
      * @return void
      */
-    public function set($attr, $value)
+    public function setIcon($icon)
     {
-        if (property_exists($this, $attr)) {
-            $this->$attr = $value;
-        }
+        $this->icon = $icon;
+    }
+    
+    /**
+     *  getTarget method
+     *
+     * @return string menu item target
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
+    
+    /**
+     *  setTarget method
+     *
+     * @param string $target for menu item
+     * @return void
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
+    }
+    /**
+     *  getDescription method
+     *
+     * @return string menu item description
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**
-     *  get method
+     *  setDescription method
      *
-     * @param string $attr attribute name
-     * @return mixed result
+     * @param string $description for menu item
+     * @return void
      */
-    public function get($attr)
+    public function setDescription($descr)
     {
-        $result = '';
-        if (property_exists($this, $attr)) {
-            $result = !empty($this->$attr) ? $this->$attr : '';
-        }
+        $this->description = $descr;
+    }
 
-        return $result;
+    /**
+     *  getUrl method
+     *
+     * @return array or string menu item URL
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     *  setUrl method
+     *
+     * @param string or array $url for menu item
+     * @return void
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+    /**
+     *  getExtraAttribute method
+     *
+     * @return string menu item extraAttribute
+     */
+    public function getExtraAttribute()
+    {
+        return $this->extraAttribute;
+    }
+
+    /**
+     *  setExtraAttribute method
+     *
+     * @param string $attr for menu item
+     * @return void
+     */
+    public function setExtraAttribute($attr)
+    {
+        $this->extraAttribute = $attr;
     }
 
     /**
@@ -98,16 +178,6 @@ abstract class BaseMenuItem implements MenuItemInterface
     public function addChild(MenuItem $child)
     {
         array_push($this->children, $child);
-    }
-
-    /**
-     *  getProperties method
-     *
-     * @return array list of menu properties
-     */
-    public function getProperties()
-    {
-        return $this->propertiesList;
     }
 
     /**
