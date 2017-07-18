@@ -43,7 +43,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @var $children
      */
     protected $children = [];
-    
+
     /**
      *  getLabel method
      *
@@ -53,18 +53,18 @@ abstract class BaseMenuItem implements MenuItemInterface
     {
         return $this->label;
     }
-    
+
     /**
      *  setLabel method
      *
      * @param string $label for menu item
      * @return void
-     */    
+     */
     public function setLabel($label)
     {
         $this->label = $label;
     }
-    
+
     /**
      *  getIcon method
      *
@@ -74,7 +74,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     {
         return $this->icon;
     }
-    
+
     /**
      *  setIcon method
      *
@@ -85,7 +85,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     {
         $this->icon = $icon;
     }
-    
+
     /**
      *  getTarget method
      *
@@ -95,7 +95,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     {
         return $this->target;
     }
-    
+
     /**
      *  setTarget method
      *
@@ -119,7 +119,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     /**
      *  setDescription method
      *
-     * @param string $description for menu item
+     * @param string $descr for menu item
      * @return void
      */
     public function setDescription($descr)

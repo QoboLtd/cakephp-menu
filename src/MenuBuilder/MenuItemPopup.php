@@ -5,7 +5,7 @@ namespace Menu\MenuBuilder;
 class MenuItemPopup extends BaseMenuItem
 {
     /**
-     * @var $dataType 
+     * @var $dataType
      */
     protected $dataType = '';
 
