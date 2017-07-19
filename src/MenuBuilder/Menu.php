@@ -12,11 +12,6 @@ use Menu\MenuBuilder\MenuItemRenderFactory;
 class Menu implements MenuInterface
 {
     /**
-     * @var $title
-     */
-    protected $title = '';
-
-    /**
      * @var $menuItems
      */
     protected $menuItems = [];
@@ -43,19 +38,5 @@ class Menu implements MenuInterface
         });
 
         return $this->menuItems;
-    }
-
-    /**
-     *  title method
-     * @param string $title set desire title for menu
-     * @return string menu title
-     */
-    public function title($title = null)
-    {
-        if (!empty($title)) {
-            $this->title = $title;
-        }
-
-        return $this->title;
     }
 }
