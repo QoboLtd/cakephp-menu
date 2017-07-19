@@ -57,6 +57,11 @@ abstract class BaseMenuItem implements MenuItemInterface
     protected $extraAttribute = '';
 
     /**
+     * @var order
+     */
+    protected $order = 1;
+
+    /**
      * @var $children
      */
     protected $children = [];
@@ -184,6 +189,27 @@ abstract class BaseMenuItem implements MenuItemInterface
     public function setExtraAttribute($attr)
     {
         $this->extraAttribute = $attr;
+    }
+
+    /**
+     * getOrder method
+     *
+     * @return int menu item order
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * setOrder method
+     *
+     * @param int $order for menu item
+     * @return void
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
     }
 
     /**

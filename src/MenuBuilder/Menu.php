@@ -38,6 +38,10 @@ class Menu implements MenuInterface
      */
     public function getMenuItems()
     {
+        usort($this->menuItems, function ($a, $b) {
+            return $a->getOrder() > $b->getOrder();
+        });
+
         return $this->menuItems;
     }
 
