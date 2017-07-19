@@ -28,6 +28,11 @@ class BaseMenuRenderClass implements MenuRenderInterface
     protected $viewEntity = null;
 
     /**
+     * @var $noLabel
+     */
+    protected $noLabel = false;
+
+    /**
      *  __construct method
      *
      * @param Menu\MenuBuilder\Menu $menu menu to render
@@ -108,6 +113,9 @@ class BaseMenuRenderClass implements MenuRenderInterface
             case 'Menu\MenuBuilder\MenuItemSeparator':
                 $result = $this->_buildSeparator($item, $extLabel);
                 break;
+            case 'Menu\MenuBuilder\MenuItemLinkButton':
+                $result = $this->_buildLinkButton($item, $extLabel);
+                break;
             default:
                 $result = $this->_buildLink($item, $extLabel);
         }
@@ -122,16 +130,14 @@ class BaseMenuRenderClass implements MenuRenderInterface
      * @param string $extLabel additional label elements
      * @return string generated HTML element
      */
-    protected function _buildLink($item, $extLabel = '')
+    protected function _buildLink($item, $extLabel = '', $params = [])
     {
-        $params = [
-            'title' => __($item->getLabel()),
-            'escape' => false,
-        ];
+        $params['title'] = __($item->getLabel());
+        $params['escape'] = false;
 
-        if (!empty($item->getExtraAttribute())) {
-            $params['class'] = $item->getExtraAttribute();
-        }
+        //if (!empty($item->getExtraAttribute())) {
+        //    $params['class'] = $item->getExtraAttribute();
+        //}
         //if (!empty($item->get('dataType'))) {
         //    $params['data-type'] = $item->get('dataType');
         //}
@@ -141,7 +147,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
         $label = '<i class="menu-icon fa fa-' . $item->getIcon() . '"></i> ';
         $label .= !empty($this->format['itemHeaderStart']) ? $this->format['itemHeaderStart'] : '';
         $label .= !empty($this->format['itemWrapperStart']) ? $this->format['itemWrapperStart'] : '';
-        $label .= __($item->getLabel());
+        $label .= $this->noLabel ? '' : __($item->getLabel());
         $label .= $extLabel;
         $label .= !empty($this->format['itemWrapperEnd']) ? $this->format['itemWrapperEnd'] : '';
         $label .= !empty($item->getDescription()) ? $this->format['itemDescrStart'] . $item->getDescription() . $this->format['itemDescrEnd'] : '';
@@ -149,6 +155,18 @@ class BaseMenuRenderClass implements MenuRenderInterface
         $result = $this->viewEntity->Html->link($label, $item->getUrl(), $params);
 
         return $result;
+    }
+
+    /**
+     *
+     *
+     *
+     */
+    protected function _buildLinkButton($item, $extLabel)
+    {
+        $params = ['class' => 'btn btn-default'];
+
+        return $this->_buildLink($item, $extLabel, $params);
     }
 
     /**
@@ -161,20 +179,20 @@ class BaseMenuRenderClass implements MenuRenderInterface
     protected function _buildPostlink($item, $postFix)
     {
         $params = [
-            'title' => $item->get('label'),
+            'title' => $item->getLabel(),
             'escape' => false,
         ];
 
-        if (!empty($item->get('class'))) {
-            $params['class'] = $item->get('class');
+        if (!empty($item->getExtraAttribute())) {
+            $params['class'] = $item->getExtraAttribute();
         }
 
-        if (!empty($item->get('confirmMsg'))) {
-            $params['confirm'] = $item->get('confirmMsg');
+        if (!empty($item->getConfirmMsg())) {
+            $params['confirm'] = $item->getConfirmMsg();
         }
 
-        $label = '<i class="fa fa-' . $item->get('icon') . '"></i> ' . ($item->get('noLabel') ? '' : __($item->get('label'))) . $postFix;
-        $result = $this->viewEntity->Form->postLink($label, $item->get('url'), $params);
+        $label = '<i class="fa fa-' . $item->getIcon() . '"></i> ' . ($this->noLabel ? '' : __($item->getLabel())) . $postFix;
+        $result = $this->viewEntity->Form->postLink($label, $item->getUrl(), $params);
 
         return $result;
     }
@@ -192,8 +210,8 @@ class BaseMenuRenderClass implements MenuRenderInterface
             'type' => 'button',
         ];
 
-        if (!empty($item->get('class'))) {
-            $params['class'] = $item->get('class');
+        if (!empty($item->getExtraAttribute())) {
+            $params['class'] = $item->getExtraAttribute();
         }
 
         if (!empty($item->getChildren())) {
@@ -202,9 +220,9 @@ class BaseMenuRenderClass implements MenuRenderInterface
             $params['aria-expanded'] = 'false';
         }
 
-        $label = $item->get('label');
-        if (!empty($item->get('icon'))) {
-            $label = '<i class="fa fa-' . $item->get('icon') . '"></i> ' . $label;
+        $label = $item->getLabel();
+        if (!empty($item->getIcon())) {
+            $label = '<i class="fa fa-' . $item->getIcon() . '"></i> ' . $label;
         }
 
         if (!empty($this->format['itemLabelPostfix'])) {

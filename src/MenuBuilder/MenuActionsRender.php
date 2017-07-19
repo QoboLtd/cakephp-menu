@@ -29,5 +29,7 @@ class MenuActionsRender extends BaseMenuRenderClass
             'item' => '<a href="%url%" title="%label%" class="btn btn-default" data-type="%dataType%" data-confirm-msg="%confirmMsg%"><i class="fa fa-%icon%"></i></a>',
             'itemWithChildren' => '',
         ];
+
+        $this->noLabel = true;
     }
 }
