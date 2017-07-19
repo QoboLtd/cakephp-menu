@@ -51,7 +51,7 @@ final class MenuItemFactory
         $className = __NAMESPACE__ . '\\' . BaseMenuItem::MENU_ITEM_CLASS_PREFIX . ucfirst(Inflector::camelize($itemType));
         $interface = __NAMESPACE__ . '\\' . BaseMenuItem::MENU_ITEM_INTERFACE;
 
-        error_log("className=$className; interface=$interface", 3, '/tmp/menu.log');
+        error_log("className=$className; interface=$interface\n", 3, '/tmp/menu.log');
 
         if (class_exists($className) && in_array($interface, class_implements($className))) {
             return new $className();
