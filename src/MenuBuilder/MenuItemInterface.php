@@ -5,6 +5,7 @@ namespace Menu\MenuBuilder;
 /**
  *  MenuItemInterface
  *
+ * interface for all menu item classes
  */
 interface MenuItemInterface
 {
@@ -23,4 +24,11 @@ interface MenuItemInterface
      * @return void
      */
     public function addChild(MenuItem $item);
+
+    /**
+     * removeChild method
+     *
+     * @param string $childId to identify child item to be removed
+     */
+    public function removeChild($childId);
 }
