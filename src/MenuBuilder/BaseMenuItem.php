@@ -2,6 +2,8 @@
 
 namespace Menu\MenuBuilder;
 
+use Cake\Exception\NotImplementedException;
+
 abstract class BaseMenuItem implements MenuItemInterface
 {
     /**
@@ -178,6 +180,16 @@ abstract class BaseMenuItem implements MenuItemInterface
     public function addChild(MenuItem $child)
     {
         array_push($this->children, $child);
+    }
+
+    /**
+     * removeChild method
+     *
+     * @param string $childId to be removed
+     */
+    public function removeChild($childId)
+    {
+        throw new NotImplementedException('Method ' . __METHOD__ . ' is not implemented yet!');
     }
 
     /**
