@@ -183,9 +183,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
             'escape' => false,
         ];
 
-        if (!empty($item->getExtraAttribute())) {
-            $params['class'] = $item->getExtraAttribute();
-        }
+        $params['class'] = 'btn btn-default';
 
         if (!empty($item->getConfirmMsg())) {
             $params['confirm'] = $item->getConfirmMsg();
