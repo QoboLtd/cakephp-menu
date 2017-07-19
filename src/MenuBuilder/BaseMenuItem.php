@@ -171,6 +171,30 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
+     * @var $dataType
+     */
+    protected $dataType = '';
+
+    /**
+     *  getConfirmMsg method
+     *
+     * @return string confirmation message
+     */
+    public function getConfirmMsg()
+    {
+        return $this->confirmMsg;
+    }
+
+    /**
+     *  setConfirmMsg method
+     *
+     * @param string $message for confirmation alert
+     */
+    public function setConfirmMsg($message)
+    {
+        $this->confirmMsg = $message;
+    }
+    /**
      *  getExtraAttribute method
      *
      * @return string menu item extraAttribute
@@ -210,6 +234,27 @@ abstract class BaseMenuItem implements MenuItemInterface
     public function setOrder($order)
     {
         $this->order = $order;
+    }
+
+    /**
+     *  getDataType method
+     *
+     * @return string dataType attribute
+     */
+    public function getDataType()
+    {
+        return $this->dataType;
+    }
+
+    /**
+     *  setDataType method
+     *
+     * @param string $dataType for menu item
+     * @return void
+     */
+    public function setDataType($dataType)
+    {
+        $this->dataType = $dataType;
     }
 
     /**

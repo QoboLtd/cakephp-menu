@@ -12,6 +12,8 @@ use Menu\MenuBuilder\Menu;
  */
 class BaseMenuRenderClass implements MenuRenderInterface
 {
+    const RENDER_CLASS_NAME_POSTFIX = 'Render';
+
     /**
      * @var $format array with formats
      */
@@ -101,6 +103,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      */
     protected function _buildItem($item, $extLabel)
     {
+        //$class = get_class($item) . static::RENDER_CLASS_NAME_POSTFIX;
         $class = get_class($item);
         // Menu\MenuBuilder\MenuItemLink
         switch ($class) {
@@ -135,15 +138,6 @@ class BaseMenuRenderClass implements MenuRenderInterface
         $params['title'] = __($item->getLabel());
         $params['escape'] = false;
 
-        //if (!empty($item->getExtraAttribute())) {
-        //    $params['class'] = $item->getExtraAttribute();
-        //}
-        //if (!empty($item->get('dataType'))) {
-        //    $params['data-type'] = $item->get('dataType');
-        //}
-        //if (!empty($item->getConfirmMsg())) {
-        //    $params['data-confirm-msg'] = $item->getConfirmMsg();
-        //}
         $label = '<i class="menu-icon fa fa-' . $item->getIcon() . '"></i> ';
         $label .= !empty($this->format['itemHeaderStart']) ? $this->format['itemHeaderStart'] : '';
         $label .= !empty($this->format['itemWrapperStart']) ? $this->format['itemWrapperStart'] : '';
@@ -165,6 +159,14 @@ class BaseMenuRenderClass implements MenuRenderInterface
     protected function _buildLinkButton($item, $extLabel)
     {
         $params = ['class' => 'btn btn-default'];
+
+        if (!empty($item->getDataType())) {
+            $params['data-type'] = $item->getDataType();
+        }
+
+        if (!empty($item->getConfirmMsg())) {
+            $params['data-confirm-msg'] = $item->getConfirmMsg();
+        }
 
         return $this->_buildLink($item, $extLabel, $params);
     }
