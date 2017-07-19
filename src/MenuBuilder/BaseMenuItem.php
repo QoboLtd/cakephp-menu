@@ -22,7 +22,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     /**
      * @var $desc
      */
-    protected $desc = '';
+    protected $description = '';
 
     /**
      * @var $url

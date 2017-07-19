@@ -10,7 +10,7 @@ use Menu\MenuBuilder\Menu;
  *
  *  Base class for menu renders
  */
-class BaseMenuRenderClass
+class BaseMenuRenderClass implements MenuRenderInterface
 {
     /**
      * @var $format array with formats
@@ -43,9 +43,10 @@ class BaseMenuRenderClass
     /**
      *  render method
      *
-     * @return string rendered menu as HTML
+     * @param array $options to generate menu
+     * @return string rendered menu as per specified format
      */
-    public function render()
+    public function render(array $options)
     {
         $html = $this->format['menuStart'];
         $html .= !empty($this->menu->title()) ? $this->menu->title() : '';
