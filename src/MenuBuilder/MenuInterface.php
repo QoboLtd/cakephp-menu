@@ -12,9 +12,9 @@ interface MenuInterface
     /**
      *  addMenuItem method
      *
-     * @param array $item menu item definition
+     * @param Menu\MenuBuilder\MenuItem $item menu item definition
      */
-    public function addMenuItem(array $item);
+    public function addMenuItem($item);
 
     /**
      *  getMenuItems method

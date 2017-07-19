@@ -46,7 +46,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      * @param array $options to generate menu
      * @return string rendered menu as per specified format
      */
-    public function render(array $options)
+    public function render(array $options = [])
     {
         $html = $this->format['menuStart'];
         $html .= !empty($this->menu->title()) ? $this->menu->title() : '';
@@ -65,7 +65,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      * @param Menu\MenuBuilder\MenuItem $item menu item definition
      * @return string rendered menu item as HTML
      */
-    protected function _renderMenuItem(MenuItem $item)
+    protected function _renderMenuItem($item)
     {
         $children = $item->getChildren();
 
@@ -96,14 +96,16 @@ class BaseMenuRenderClass implements MenuRenderInterface
      */
     protected function _buildItem($item, $extLabel)
     {
-        switch ($item->get('type')) {
-            case 'postlink':
+        $class = get_class($item);
+        // Menu\MenuBuilder\MenuItemLink
+        switch ($class) {
+            case 'Menu\MenuBuilder\MenuItemPostlink':
                 $result = $this->_buildPostlink($item, $extLabel);
                 break;
-            case 'button':
+            case 'Menu\MenuBuilder\MenuItemButton':
                 $result = $this->_buildButton($item, $extLabel);
                 break;
-            case 'separator':
+            case 'Menu\MenuBuilder\MenuItemSeparator':
                 $result = $this->_buildSeparator($item, $extLabel);
                 break;
             default:
@@ -123,28 +125,28 @@ class BaseMenuRenderClass implements MenuRenderInterface
     protected function _buildLink($item, $extLabel = '')
     {
         $params = [
-            'title' => __($item->get('label')),
+            'title' => __($item->getLabel()),
             'escape' => false,
         ];
 
-        if (!empty($item->get('class'))) {
-            $params['class'] = $item->get('class');
+        if (!empty($item->getExtraAttribute())) {
+            $params['class'] = $item->getExtraAttribute();
         }
-        if (!empty($item->get('dataType'))) {
-            $params['data-type'] = $item->get('dataType');
-        }
-        if (!empty($item->get('confirmMsg'))) {
-            $params['data-confirm-msg'] = $item->get('confirmMsg');
-        }
-        $label = '<i class="menu-icon fa fa-' . $item->get('icon') . '"></i> ';
+        //if (!empty($item->get('dataType'))) {
+        //    $params['data-type'] = $item->get('dataType');
+        //}
+        //if (!empty($item->getConfirmMsg())) {
+        //    $params['data-confirm-msg'] = $item->getConfirmMsg();
+        //}
+        $label = '<i class="menu-icon fa fa-' . $item->getIcon() . '"></i> ';
         $label .= !empty($this->format['itemHeaderStart']) ? $this->format['itemHeaderStart'] : '';
         $label .= !empty($this->format['itemWrapperStart']) ? $this->format['itemWrapperStart'] : '';
-        $label .= ($item->get('noLabel') ? '' : __($item->get('label')));
+        $label .= __($item->getLabel());
         $label .= $extLabel;
         $label .= !empty($this->format['itemWrapperEnd']) ? $this->format['itemWrapperEnd'] : '';
-        $label .= !empty($item->get('desc')) ? $this->format['itemDescrStart'] . $item->get('desc') . $this->format['itemDescrEnd'] : '';
+        $label .= !empty($item->getDescription()) ? $this->format['itemDescrStart'] . $item->getDescription() . $this->format['itemDescrEnd'] : '';
         $label .= !empty($this->format['itemHeaderEnd']) ? $this->format['itemHeaderEnd'] : '';
-        $result = $this->viewEntity->Html->link($label, $item->get('url'), $params);
+        $result = $this->viewEntity->Html->link($label, $item->getUrl(), $params);
 
         return $result;
     }

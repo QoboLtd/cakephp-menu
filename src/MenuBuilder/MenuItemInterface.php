@@ -23,7 +23,7 @@ interface MenuItemInterface
      * @param MenuItem $item menu item
      * @return void
      */
-    public function addChild(MenuItem $item);
+    public function addChild(MenuItemInterface $item);
 
     /**
      * removeChild method

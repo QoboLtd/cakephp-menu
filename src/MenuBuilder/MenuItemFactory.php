@@ -2,6 +2,9 @@
 
 namespace Menu\MenuBuilder;
 
+use Cake\Utility\Inflector;
+use Menu\MenuBuilder\BaseMenuItem;
+
 /**
  *  MenuItemFactory class
  *
@@ -17,7 +20,7 @@ final class MenuItemFactory
      */
     public static function createMenuItem($item)
     {
-        $menuItem = new MenuItem();
+        $menuItem = static::_getMenuItemObject($item);
         foreach ($item as $key => $value) {
             if ($key == 'children') {
                 foreach ($value as $k => $v) {
@@ -25,10 +28,35 @@ final class MenuItemFactory
                     $menuItem->addChild($childItem);
                 }
             } else {
-                $menuItem->set($key, $value);
+                $method = 'set' . ucfirst($key);
+                if (method_exists($menuItem, $method)) {
+                    $menuItem->$method($value);
+                }
             }
         }
 
         return $menuItem;
+    }
+
+    /**
+     * _getMenuItemObject method
+     *
+     * @param array $data menu definition
+     * @return MenuItem object or throw exception
+     */
+    protected static function _getMenuItemObject($data)
+    {
+        $itemType = !empty($data['type']) ? $data['type'] : BaseMenuItem::DEFAULT_MENU_ITEM_TYPE;
+
+        $className = __NAMESPACE__ . '\\' . BaseMenuItem::MENU_ITEM_CLASS_PREFIX . ucfirst($itemType);
+        $interface = __NAMESPACE__ . '\\' . BaseMenuItem::MENU_ITEM_INTERFACE;
+
+        error_log("className=$className; interface=$interface", 3, '/tmp/menu.log');
+
+        if (class_exists($className) && in_array($interface, class_implements($className))) {
+            return new $className();
+        }
+
+        throw new \InvalidArgumentException("Unknown menu item type [$itemType]!");
     }
 }

@@ -7,6 +7,21 @@ use Cake\Exception\NotImplementedException;
 abstract class BaseMenuItem implements MenuItemInterface
 {
     /**
+     * const DEFAULT_MENU_ITEM_TYPE
+     */
+    const DEFAULT_MENU_ITEM_TYPE = 'link';
+
+    /**
+     * const MENU_ITEM_CLASS_PREFIX
+     */
+    const MENU_ITEM_CLASS_PREFIX = 'MenuItem';
+
+    /**
+     * const MENU_ITEM_INTERFACE
+     */
+    const MENU_ITEM_INTERFACE = 'MenuItemInterface';
+
+    /**
      * @var $label
      */
     protected $label = '';
@@ -177,7 +192,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param MenuItem $child menu item
      * @return void
      */
-    public function addChild(MenuItem $child)
+    public function addChild(MenuItemInterface $child)
     {
         array_push($this->children, $child);
     }
