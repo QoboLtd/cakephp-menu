@@ -49,7 +49,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
     public function render(array $options = [])
     {
         $html = $this->format['menuStart'];
-        $html .= !empty($this->menu->title()) ? $this->menu->title() : '';
+        $html .= !empty($options['title']) ? $options['title'] : '';
 
         foreach ($this->menu->getMenuItems() as $index => $menuItem) {
             $html .= $this->_renderMenuItem($menuItem);

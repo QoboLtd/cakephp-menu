@@ -20,11 +20,10 @@ foreach ($menuItems as $item) {
 }
 
 if ($name == 'main_menu') {
-    $menu->title('<li class="header">MAIN NAVIGATION</li>');
     $renderClass = 'Menu\\MenuBuilder\\MainMenuRenderAdminLte';
 } else {
     $renderClass = 'Menu\\MenuBuilder\\SystemMenuRenderAdminLte';
 }
 
 $render = new $renderClass($menu, $this);
-echo $render->render();
+echo $render->render(['title' => '<li class="header">MAIN NAVIGATION</li>']);
