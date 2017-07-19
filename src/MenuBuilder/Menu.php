@@ -9,7 +9,7 @@ use Menu\MenuBuilder\MenuItemRenderFactory;
  *  Menu class
  *
  */
-class Menu
+class Menu implements MenuInterface
 {
     /**
      * @var $title
@@ -26,7 +26,7 @@ class Menu
      *
      * @param array $item menu item definition
      */
-    public function addMenuItem($item)
+    public function addMenuItem(array $item)
     {
         array_push($this->menuItems, $item);
     }
