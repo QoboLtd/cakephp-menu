@@ -233,7 +233,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      */
     public function setOrder($order)
     {
-        $this->order = $order;
+        $this->order = (int)$order;
     }
 
     /**
