@@ -103,7 +103,6 @@ class BaseMenuRenderClass implements MenuRenderInterface
      */
     protected function _buildItem($item, $extLabel)
     {
-        //$class = get_class($item) . static::RENDER_CLASS_NAME_POSTFIX;
         $class = get_class($item);
         // Menu\MenuBuilder\MenuItemLink
         switch ($class) {
@@ -119,6 +118,9 @@ class BaseMenuRenderClass implements MenuRenderInterface
             case 'Menu\MenuBuilder\MenuItemLinkButton':
                 $result = $this->_buildLinkButton($item, $extLabel);
                 break;
+            case 'Menu\MenuBuilder\MenuItemPostlinkButton':
+                $result = $this->_buildPostlinkButton($item, $extLabel);
+                break;
             default:
                 $result = $this->_buildLink($item, $extLabel);
         }
@@ -131,6 +133,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param Menu\MenuBuilder\Menu $item menu item entity
      * @param string $extLabel additional label elements
+     * @param array $params additional params
      * @return string generated HTML element
      */
     protected function _buildLink($item, $extLabel = '', $params = [])
@@ -152,9 +155,11 @@ class BaseMenuRenderClass implements MenuRenderInterface
     }
 
     /**
+     *  _buildLinkButton method
      *
-     *
-     *
+     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param string $extLabel additional label elements
+     * @return string generated HTML element
      */
     protected function _buildLinkButton($item, $extLabel)
     {
@@ -176,16 +181,13 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param Menu\MenuBuilder\Menu $item menu item entity
      * @param string $postFix additional label elements
+     * @param array $params additional params
      * @return string generated HTML element
      */
-    protected function _buildPostlink($item, $postFix)
+    protected function _buildPostlink($item, $postFix, $params = [])
     {
-        $params = [
-            'title' => $item->getLabel(),
-            'escape' => false,
-        ];
-
-        $params['class'] = 'btn btn-default';
+        $params['title'] = $item->getLabel();
+        $params['escape'] = false;
 
         if (!empty($item->getConfirmMsg())) {
             $params['confirm'] = $item->getConfirmMsg();
@@ -195,6 +197,20 @@ class BaseMenuRenderClass implements MenuRenderInterface
         $result = $this->viewEntity->Form->postLink($label, $item->getUrl(), $params);
 
         return $result;
+    }
+
+    /**
+     *  _buildPostlinkButton method
+     *
+     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param string $postFix additional label elements
+     * @return string generated HTML element
+     */
+    protected function _buildPostlinkButton($item, $postFix)
+    {
+        $params['class'] = 'btn btn-default';
+
+        return $this->_buildPostlink($item, $postFix, $params);
     }
 
     /**
