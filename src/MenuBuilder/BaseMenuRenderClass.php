@@ -48,6 +48,27 @@ class BaseMenuRenderClass implements MenuRenderInterface
     }
 
     /**
+     * setFormat method
+     *
+     * @pararm array $format containing all required keys
+     * @return void
+     */
+    public function setFormat(array $format = [])
+    {
+        $this->format = $format;
+    }
+
+    /**
+     * getFormat method
+     *
+     * @return array $format containing menu settings
+     */
+    public function getFormat()
+    {
+        return $this->format;
+    }
+
+    /**
      *  render method
      *
      * @param array $options to generate menu

@@ -19,7 +19,7 @@ class MenuTest extends TestCase
      */
     public function testAddMenuItem($data, $expected, $msg)
     {
-        if (is_array($data) ) {
+        if (is_array($data)) {
             foreach ($data as $testItem) {
                 $this->instance->addMenuItem($testItem);
             }
