@@ -6,7 +6,7 @@ namespace Menu\MenuBuilder;
  *  class MenuItemPostlinkButton
  *
  */
-class MenuItemPostlinkButton extends BaseMenuItem
+class MenuItemPostlinkButton extends MenuItemPostlink
 {
 
 }

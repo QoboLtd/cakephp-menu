@@ -124,9 +124,14 @@ class BaseMenuRenderClass implements MenuRenderInterface
             case 'Menu\MenuBuilder\MenuItemLinkButtonModal':
                 $result = $this->_buildLinkButtonModal($item, $extLabel);
                 break;
+            case 'Menu\MenuBuilder\MenuItemLinkModal':
+                $result = $this->_buildLinkModal($item, $extLabel);
+                break;
             default:
                 $result = $this->_buildLink($item, $extLabel);
         }
+
+        $result .= !empty($item->getRawHtml()) ? $item->getRawHtml() : '';
 
         return $result;
     }
@@ -153,7 +158,6 @@ class BaseMenuRenderClass implements MenuRenderInterface
         $label .= !empty($item->getDescription()) ? $this->format['itemDescrStart'] . $item->getDescription() . $this->format['itemDescrEnd'] : '';
         $label .= !empty($this->format['itemHeaderEnd']) ? $this->format['itemHeaderEnd'] : '';
         $result = $this->viewEntity->Html->link($label, $item->getUrl(), $params);
-        $result .= !empty($item->getRawHtml()) ? $item->getRawHtml() : '';
 
         return $result;
     }
@@ -185,17 +189,31 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param Menu\MenuBuilder\Menu $item menu item entity
      * @param string $extLabel additional label elements
+     * @param array $params additional params
+     * @return string generated HTML element
+     */
+    protected function _buildLinkModal($item, $extLabel, $params = [])
+    {
+        $params['data-toggle'] = 'modal';
+        $params['data-target'] = '#' . $item->getModalTarget();
+
+        return $this->_buildLink($item, $extLabel, $params);
+    }
+
+    /**
+     * _buildLinkButtonModal method
+     *
+     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param string $extLabel additional label elements
      * @return string generated HTML element
      */
     protected function _buildLinkButtonModal($item, $extLabel)
     {
         $params = [
             'class' => 'btn btn-default',
-            'data-toggle' => 'modal',
-            'data-target' => '#' . $item->getModalTarget(),
         ];
 
-        return $this->_buildLink($item, $extLabel, $params);
+        return $this->_buildLinkModal($item, $extLabel, $params);
     }
 
     /**
