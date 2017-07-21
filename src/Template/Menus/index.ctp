@@ -1,14 +1,23 @@
 <?php
+use Cake\Core\Configure;
+
 echo $this->Html->css('AdminLTE./plugins/datatables/dataTables.bootstrap', ['block' => 'css']);
 echo $this->Html->script(
     [
         'AdminLTE./plugins/datatables/jquery.dataTables.min',
-        'AdminLTE./plugins/datatables/dataTables.bootstrap.min',
-        'Menu.datatables.init'
+        'AdminLTE./plugins/datatables/dataTables.bootstrap.min'
     ],
     [
         'block' => 'scriptBotton'
     ]
+);
+
+echo $this->Html->scriptBlock(
+    '$(".table-datatable").DataTable({
+        stateSave: true,
+        stateDuration: ' . (int)(Configure::read('Session.timeout') * 60) . '
+    });',
+    ['block' => 'scriptBotton']
 );
 ?>
 <section class="content-header">
