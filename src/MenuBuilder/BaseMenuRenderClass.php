@@ -121,6 +121,9 @@ class BaseMenuRenderClass implements MenuRenderInterface
             case 'Menu\MenuBuilder\MenuItemPostlinkButton':
                 $result = $this->_buildPostlinkButton($item, $extLabel);
                 break;
+            case 'Menu\MenuBuilder\MenuItemLinkButtonModal':
+                $result = $this->_buildLinkButtonModal($item, $extLabel);
+                break;
             default:
                 $result = $this->_buildLink($item, $extLabel);
         }
@@ -150,6 +153,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
         $label .= !empty($item->getDescription()) ? $this->format['itemDescrStart'] . $item->getDescription() . $this->format['itemDescrEnd'] : '';
         $label .= !empty($this->format['itemHeaderEnd']) ? $this->format['itemHeaderEnd'] : '';
         $result = $this->viewEntity->Html->link($label, $item->getUrl(), $params);
+        $result .= !empty($item->getRawHtml()) ? $item->getRawHtml() : '';
 
         return $result;
     }
@@ -172,6 +176,24 @@ class BaseMenuRenderClass implements MenuRenderInterface
         if (!empty($item->getConfirmMsg())) {
             $params['data-confirm-msg'] = $item->getConfirmMsg();
         }
+
+        return $this->_buildLink($item, $extLabel, $params);
+    }
+
+    /**
+     * _buildLinkButtonModal method
+     *
+     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param string $extLabel additional label elements
+     * @return string generated HTML element
+     */
+    protected function _buildLinkButtonModal($item, $extLabel)
+    {
+        $params = [
+            'class' => 'btn btn-default',
+            'data-toggle' => 'modal',
+            'data-target' => '#' . $item->getModalTarget(),
+        ];
 
         return $this->_buildLink($item, $extLabel, $params);
     }

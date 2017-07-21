@@ -62,6 +62,16 @@ abstract class BaseMenuItem implements MenuItemInterface
     protected $order = 1;
 
     /**
+     * @var $dataType
+     */
+    protected $dataType = '';
+
+    /**
+     * @var $rawHtml
+     */
+    protected $rawHtml = '';
+
+    /**
      * @var $children
      */
     protected $children = [];
@@ -171,11 +181,6 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     * @var $dataType
-     */
-    protected $dataType = '';
-
-    /**
      *  getConfirmMsg method
      *
      * @return string confirmation message
@@ -202,6 +207,26 @@ abstract class BaseMenuItem implements MenuItemInterface
     public function getExtraAttribute()
     {
         return $this->extraAttribute;
+    }
+
+    /**
+     * getRawHtml method
+     *
+     * @return string raw html
+     */
+    public function getRawHtml()
+    {
+        return $this->rawHtml;
+    }
+
+    /**
+     * setRawHtml method
+     *
+     * @param string $rawHtml for menu item, i.e. modal window or so
+     */
+    public function setRawHtml($rawHtml)
+    {
+        $this->rawHtml = $rawHtml;
     }
 
     /**

@@ -28,7 +28,7 @@ final class MenuItemFactory
                     $menuItem->addChild($childItem);
                 }
             } else {
-                $method = 'set' . ucfirst($key);
+                $method = 'set' . ucfirst(Inflector::camelize($key));
                 if (method_exists($menuItem, $method)) {
                     $menuItem->$method($value);
                 }
