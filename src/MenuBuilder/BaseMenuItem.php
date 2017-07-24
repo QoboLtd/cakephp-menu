@@ -310,6 +310,10 @@ abstract class BaseMenuItem implements MenuItemInterface
      */
     public function getChildren()
     {
+        usort($this->children, function ($a, $b) {
+            return $a->getOrder() > $b->getOrder();
+        });
+
         return $this->children;
     }
 }
