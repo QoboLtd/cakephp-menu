@@ -19,7 +19,7 @@ class SystemMenuRenderAdminLte extends BaseMenuRenderClass
     {
         parent::__construct($menu, $viewEntity);
 
-        $this->format = [
+        $format = [
             'menuStart' => '<ul class="control-sidebar-menu">',
             'menuEnd' => '</ul>',
             'childMenuStart' => '<ul>',
@@ -34,5 +34,7 @@ class SystemMenuRenderAdminLte extends BaseMenuRenderClass
             'itemDescrEnd' => '</p>',
             'item' => '<a href="%url%"><i class="menu-icon fa fa-%icon%"></i> <div class="menu-info"><h4 class="control-sidebar-subheading">%label%</h4><p>%desc%</p></div></a>',
         ];
+
+        $this->setFormat($format);
     }
 }
