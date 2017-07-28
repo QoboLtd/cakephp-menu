@@ -121,7 +121,7 @@ class MenuItemsTable extends Table
     {
         // fallback to default icon
         if (!$entity->icon) {
-            $entity->icon = Configure::read('Menu.Icons.default');
+            $entity->icon = Configure::read('Icons.default');
         }
 
         // fallback to hashtag as default url
