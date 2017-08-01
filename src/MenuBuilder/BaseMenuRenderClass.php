@@ -50,7 +50,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      * setFormat method
      *
-     * @pararm array $format containing all required keys
+     * @param array $format containing all required keys
      * @return void
      */
     public function setFormat(array $format = [])

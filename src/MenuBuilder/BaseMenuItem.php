@@ -194,6 +194,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *  setConfirmMsg method
      *
      * @param string $message for confirmation alert
+     * @return void
      */
     public function setConfirmMsg($message)
     {
@@ -223,6 +224,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * setRawHtml method
      *
      * @param string $rawHtml for menu item, i.e. modal window or so
+     * @return void
      */
     public function setRawHtml($rawHtml)
     {
@@ -297,6 +299,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * removeChild method
      *
      * @param string $childId to be removed
+     * @return void
      */
     public function removeChild($childId)
     {
@@ -306,7 +309,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     /**
      *  getChildren method
      *
-     * @result array list of child items
+     * @return array list of child items
      */
     public function getChildren()
     {

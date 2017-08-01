@@ -1,6 +1,7 @@
 <?php
-
 namespace Menu\MenuBuilder;
+
+use Cake\View\View;
 
 /**
  *  MenuActionsRender class
@@ -12,10 +13,11 @@ class MenuActionsRender extends BaseMenuRenderClass
     /**
      *  __construct method
      *
-     * @param Menu\MenuBuilder\Menu $menu menu collection
+     * @param \Menu\MenuBuilder\Menu $menu Menu collection
+     * @param \Cake\View\View $viewEntity View instance
      * @return void
      */
-    public function __construct(Menu $menu, $viewEntity)
+    public function __construct(Menu $menu, View $viewEntity)
     {
         parent::__construct($menu, $viewEntity);
 

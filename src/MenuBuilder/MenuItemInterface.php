@@ -13,7 +13,7 @@ interface MenuItemInterface
     /**
      *  getChildren method
      *
-     * @result array list of child items
+     * @return array list of child items
      */
     public function getChildren();
 
@@ -29,6 +29,7 @@ interface MenuItemInterface
      * removeChild method
      *
      * @param string $childId to identify child item to be removed
+     * @return void
      */
     public function removeChild($childId);
 }
