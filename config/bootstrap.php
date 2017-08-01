@@ -7,12 +7,29 @@ use Cake\Core\Configure;
 // get app level config
 $config = Configure::read('Menu');
 $config = $config ? $config : [];
+
 // load default plugin config
 Configure::load('Menu.menu');
-Configure::load('Menu.icons');
+
 // overwrite default plugin config by app level config
 Configure::write('Menu', array_replace_recursive(
     Configure::read('Menu'),
+    $config
+));
+
+/**
+ * Icons configuration
+ */
+// get app level config
+$config = Configure::read('Icons');
+$config = $config ? $config : [];
+
+// load default plugin config
+Configure::load('Menu.icons');
+
+// overwrite default plugin config by app level config
+Configure::write('Icons', array_replace_recursive(
+    Configure::read('Icons'),
     $config
 ));
 

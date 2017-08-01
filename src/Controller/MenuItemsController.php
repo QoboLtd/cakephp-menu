@@ -18,10 +18,9 @@ class MenuItemsController extends AppController
      */
     public function beforeFilter(Event $event)
     {
-        Configure::load('Qobo/Utils.icons');
-        $config = Configure::read('Icons');
+        parent::beforeFilter($event);
 
-        $icons = Utility::getIcons($config);
+        $icons = Utility::getIcons(Configure::read('Icons'));
 
         $this->set('icons', $icons);
     }
@@ -82,7 +81,7 @@ class MenuItemsController extends AppController
 
         $parentMenuItems = $this->MenuItems
             ->find('treeList', ['spacer' => self::TREE_SPACER])
-            ->where(['MenuItems.menu_id' => $menuItem->menu->id]);
+            ->where(['MenuItems.menu_id' => $menuItem->menu->id, 'MenuItems.id !=' => $id]);
 
         $this->set(compact('menuItem', 'parentMenuItems'));
         $this->set('_serialize', ['menuItem']);
