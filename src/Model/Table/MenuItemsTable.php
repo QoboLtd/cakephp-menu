@@ -21,17 +21,6 @@ use Menu\Model\Entity\MenuItem;
 class MenuItemsTable extends Table
 {
     /**
-     * Required parameters for fetching icons.
-     *
-     * @var array
-     */
-    protected $_requiredIconParams = [
-        'url',
-        'pattern',
-        'default'
-    ];
-
-    /**
      * Initialize method
      *
      * @param array $config The configuration for the Table.
