@@ -27,7 +27,9 @@ class MainMenuRenderAdminLte extends BaseMenuRenderClass
             'childMenuEnd' => '</ul>',
             'itemStart' => '<li class="treeview">',
             'itemEnd' => ' /li>',
-            'item' => '<a href="%url%" target="%target%"><i class="fa fa-%icon%"></i> <span>%label%</span></a>',
+            'itemWrapperStart' => '<span>',
+            'itemWrapperEnd' => '</span>',
+            //'item' => '<a href="%url%" target="%target%"><i class="fa fa-%icon%"></i> <span>%label%</span></a>',
             'itemWithChildren' => '<a href="%url%" target="%target%"><i class="fa fa-%icon%"></i> <span>%label%</span><i class="fa fa-angle-left pull-right"></i></a>',
             'itemWithChildrenPostfix' => '<i class="fa fa-angle-left pull-right"></i>',
         ];
