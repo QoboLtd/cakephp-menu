@@ -19,11 +19,13 @@ foreach ($menuItems as $item) {
     }
 }
 
+$params = [];
 if ($name == 'main_menu') {
     $renderClass = 'Menu\\MenuBuilder\\MainMenuRenderAdminLte';
+    $params['title'] = '<li class="header">MAIN NAVIGATION</li>';
 } else {
     $renderClass = 'Menu\\MenuBuilder\\SystemMenuRenderAdminLte';
 }
 
 $render = new $renderClass($menu, $this);
-echo $render->render(['title' => '<li class="header">MAIN NAVIGATION</li>']);
+echo $render->render($params);
