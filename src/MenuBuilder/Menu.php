@@ -18,8 +18,8 @@ class Menu implements MenuInterface
     /**
      * @const MENU_ACTIONS_TYPE
      */
-    const MENU_ACTIONS_TYPE = 'actions'; 
-    
+    const MENU_ACTIONS_TYPE = 'actions';
+
     /**
      * @var $menuItems
      */
