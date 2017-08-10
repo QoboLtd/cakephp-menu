@@ -11,6 +11,16 @@ use Menu\MenuBuilder\MenuItemRenderFactory;
 class Menu implements MenuInterface
 {
     /**
+     * @const MENU_BUTTONS_TYPE
+     */
+    const MENU_BUTTONS_TYPE = 'buttons';
+
+    /**
+     * @const MENU_ACTIONS_TYPE
+     */
+    const MENU_ACTIONS_TYPE = 'actions';
+
+    /**
      * @var $menuItems
      */
     protected $menuItems = [];
