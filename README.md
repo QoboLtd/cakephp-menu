@@ -7,6 +7,12 @@
 [![License](https://poser.pugx.org/qobo/cakephp-menu/license)](https://packagist.org/packages/qobo/cakephp-menu)
 [![codecov](https://codecov.io/gh/QoboLtd/cakephp-menu/branch/master/graph/badge.svg)](https://codecov.io/gh/QoboLtd/cakephp-menu)
 
+## About
+
+CakePHP 3+ plugin for managing application menus.
+
+Developed by [Qobo](https://www.qobo.biz), used in [Qobrix](https://qobrix.com).
+
 ## Installation
 
 You can install this plugin into your CakePHP application using [composer](http://getcomposer.org).
