@@ -5,6 +5,7 @@ use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\View\Cell;
 use InvalidArgumentException;
+use Menu\Event\EventName;
 
 class MenuCell extends Cell
 {
@@ -136,7 +137,7 @@ class MenuCell extends Cell
      */
     protected function _getMenuItemsFromEvent(EntityInterface $menu, array $modules = [])
     {
-        $event = new Event('Menu.Menu.getMenuItems', $this, [
+        $event = new Event((string)EventName::GET_MENU_ITEMS(), $this, [
             'name' => $menu->name,
             'user' => $this->_user,
             'fullBaseUrl' => $this->_fullBaseUrl,

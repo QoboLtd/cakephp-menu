@@ -1,5 +1,6 @@
 <?php
 use Cake\Event\Event;
+use Menu\Event\EventName;
 
 $name = isset($name) ? $name : 'main';
 
@@ -17,7 +18,7 @@ $renderAs = isset($renderAs) ? $renderAs : RENDER_AS_LIST;
 $menu = isset($menu) ? $menu : [];
 
 if (empty($menu)) {
-    $event = new Event('Menu.Menu.getMenu', $this, [
+    $event = new Event((string)EventName::GET_MENU(), $this, [
         'name' => $name,
         'user' => $user,
         'fullBaseUrl' => isset($fullBaseUrl) ? (bool)$fullBaseUrl : false
@@ -80,7 +81,7 @@ $itemDefaults = [
     'icon' => 'circle-o'
 ];
 
-$event = new Event('Menu.Menu.beforeRender', $this, ['menu' => $menu, 'user' => $user]);
+$event = new Event((string)EventName::MENU_BEFORE_RENDER(), $this, ['menu' => $menu, 'user' => $user]);
 $this->eventManager()->dispatch($event);
 if (!empty($event->result)) {
     $menu = $event->result;
