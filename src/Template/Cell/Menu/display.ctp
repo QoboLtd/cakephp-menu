@@ -1,12 +1,12 @@
 <?php
-
 use Cake\Event\Event;
+use Menu\Event\EventName;
 use Menu\MenuBuilder\MainMenuRenderAdminLte;
 use Menu\MenuBuilder\Menu;
 use Menu\MenuBuilder\MenuItemFactory;
 use Menu\MenuBuilder\SystemMenuRenderAdminLte;
 
-$event = new Event('Menu.Menu.beforeRender', $this, ['menu' => $menuItems, 'user' => $user]);
+$event = new Event((string)EventName::MENU_BEFORE_RENDER(), $this, ['menu' => $menuItems, 'user' => $user]);
 $this->eventManager()->dispatch($event);
 if (!empty($event->result)) {
     $menuItems = $event->result;
