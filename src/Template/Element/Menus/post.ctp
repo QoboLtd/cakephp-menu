@@ -1,12 +1,12 @@
 <?php
 echo $this->Html->css('AdminLTE./plugins/iCheck/all', ['block' => 'css']);
-echo $this->Html->script('AdminLTE./plugins/iCheck/icheck.min', ['block' => 'scriptBotton']);
+echo $this->Html->script('AdminLTE./plugins/iCheck/icheck.min', ['block' => 'scriptBottom']);
 echo $this->Html->scriptBlock(
     '$(\'input[type="checkbox"].square, input[type="radio"].square\').iCheck({
         checkboxClass: "icheckbox_square",
         radioClass: "iradio_square"
     });',
-    ['block' => 'scriptBotton']
+    ['block' => 'scriptBottom']
 );
 ?>
 <section class="content-header">

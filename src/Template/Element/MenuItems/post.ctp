@@ -17,14 +17,14 @@ echo $this->Html->script(
         'Qobo/Utils.select2.init',
         'Menu.view-post'
     ],
-    ['block' => 'scriptBotton']
+    ['block' => 'scriptBottom']
 );
 echo $this->Html->scriptBlock(
     '$(\'input[type="checkbox"].square, input[type="radio"].square\').iCheck({
         checkboxClass: "icheckbox_square",
         radioClass: "iradio_square"
     });',
-    ['block' => 'scriptBotton']
+    ['block' => 'scriptBottom']
 );
 
 foreach ($icons as $k => $v) {
