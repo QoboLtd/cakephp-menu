@@ -1,5 +1,6 @@
 <?php
 use Cake\Core\Configure;
+use Cake\Utility\Inflector;
 
 echo $this->Html->css('AdminLTE./plugins/datatables/dataTables.bootstrap', ['block' => 'css']);
 echo $this->Html->script(
@@ -24,7 +25,7 @@ echo $this->Html->scriptBlock(
 <section class="content-header">
     <div class="row">
         <div class="col-xs-12 col-md-6">
-            <h4><?= $this->Html->link(__('Menu'), ['action' => 'index']) . ' &raquo; ' . h($navMenu->name) ?></h4>
+            <h4><?= $this->Html->link(__('Menu'), ['action' => 'index']) . ' &raquo; ' . h(Inflector::humanize($navMenu->name)) ?></h4>
         </div>
         <div class="col-xs-12 col-md-6">
             <div class="pull-right">
@@ -50,7 +51,7 @@ echo $this->Html->scriptBlock(
                 <div class="box-body">
                     <dl class="dl-horizontal">
                         <dt><?= __('Name') ?></dt>
-                        <dd><?= h($navMenu->name) ?></dd>
+                        <dd><?= h(Inflector::humanize($navMenu->name)) ?></dd>
                         <dt><?= __('Active') ?></dt>
                         <dd><?= $navMenu->active ? __('Yes') : __('No') ?></dd>
                         <dt><?= __('Default') ?></dt>
