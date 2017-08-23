@@ -1,5 +1,6 @@
 <?php
 use Cake\Core\Configure;
+use Cake\Utility\Inflector;
 
 echo $this->Html->css('AdminLTE./plugins/datatables/dataTables.bootstrap', ['block' => 'css']);
 echo $this->Html->script(
@@ -42,7 +43,7 @@ echo $this->Html->scriptBlock(
                 <tbody>
                     <?php foreach ($menus as $menu) : ?>
                     <tr>
-                        <td><?= h($menu->name) ?></td>
+                        <td><?= h(Inflector::humanize($menu->name)) ?></td>
                         <td><?= $menu->active ? __('Yes') : __('No') ?></td>
                         <td><?= $menu->default ? __('Yes') : __('No') ?></td>
                         <td class="actions">
