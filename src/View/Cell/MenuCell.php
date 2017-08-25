@@ -116,6 +116,8 @@ class MenuCell extends Cell
             $this->_getMenuItemsFromEvent($menu) :
             $this->_getMenuItemsFromTable($menu);
 
+        error_log('MenuItems: ' . print_r($menuItems, true), 3, '/tmp/menu.log');
+
         $menuItems = $this->_normalizeItems($menuItems);
 
         if ($menu->default) {
@@ -168,13 +170,14 @@ class MenuCell extends Cell
         }
 
         $result = [];
+        $count = 0;
         foreach ($query->all() as $entity) {
             $item = $this->_getMenuItem($menu, $entity->toArray());
 
             if (empty($item)) {
                 continue;
             }
-
+            $item['order'] = ++$count;
             $result[] = $item;
         }
 
