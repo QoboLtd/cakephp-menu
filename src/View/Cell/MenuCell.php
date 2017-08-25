@@ -116,8 +116,6 @@ class MenuCell extends Cell
             $this->_getMenuItemsFromEvent($menu) :
             $this->_getMenuItemsFromTable($menu);
 
-        error_log('MenuItems: ' . print_r($menuItems, true), 3, '/tmp/menu.log');
-
         $menuItems = $this->_normalizeItems($menuItems);
 
         if ($menu->default) {
