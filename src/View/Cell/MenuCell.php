@@ -168,13 +168,14 @@ class MenuCell extends Cell
         }
 
         $result = [];
+        $count = 0;
         foreach ($query->all() as $entity) {
             $item = $this->_getMenuItem($menu, $entity->toArray());
 
             if (empty($item)) {
                 continue;
             }
-
+            $item['order'] = ++$count;
             $result[] = $item;
         }
 
