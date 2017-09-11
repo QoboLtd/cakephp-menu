@@ -170,12 +170,11 @@ class MenuCell extends Cell
         $result = [];
         $count = 0;
         foreach ($query->all() as $entity) {
-            $item = $this->_getMenuItem($menu, $entity->toArray());
+            $item = $this->_getMenuItem($menu, $entity->toArray(), ++$count);
 
             if (empty($item)) {
                 continue;
             }
-            $item['order'] = ++$count;
             $result[] = $item;
         }
 
@@ -189,7 +188,7 @@ class MenuCell extends Cell
      * @param array $item Menu item
      * @return array
      */
-    protected function _getMenuItem(EntityInterface $menu, array $item)
+    protected function _getMenuItem(EntityInterface $menu, array $item, $order = 0)
     {
         if (empty($item)) {
             return [];
@@ -202,8 +201,9 @@ class MenuCell extends Cell
         $children = !empty($item['children']) ? $item['children'] : [];
 
         if (!empty($children)) {
+            $count = 0;
             foreach ($children as $key => $child) {
-                $children[$key] = $this->_getMenuItem($menu, $child);
+                $children[$key] = $this->_getMenuItem($menu, $child, ++$count);
             }
         }
 
@@ -224,6 +224,8 @@ class MenuCell extends Cell
             $item['label'] = $label;
             $item['icon'] = $icon;
         }
+
+        $item['order'] = $order;
 
         return $item;
     }
