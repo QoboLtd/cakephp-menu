@@ -174,8 +174,8 @@ class BaseMenuRenderClass implements MenuRenderInterface
         $label .= !empty($this->format['itemHeaderStart']) ? $this->format['itemHeaderStart'] : '';
         $label .= !empty($this->format['itemWrapperStart']) ? $this->format['itemWrapperStart'] : '';
         $label .= $this->noLabel ? '' : __($item->getLabel());
-        $label .= $extLabel;
         $label .= !empty($this->format['itemWrapperEnd']) ? $this->format['itemWrapperEnd'] : '';
+        $label .= $extLabel;
         $label .= !empty($item->getDescription()) ? $this->format['itemDescrStart'] . $item->getDescription() . $this->format['itemDescrEnd'] : '';
         $label .= !empty($this->format['itemHeaderEnd']) ? $this->format['itemHeaderEnd'] : '';
         $result = $this->viewEntity->Html->link($label, $item->getUrl(), $params);

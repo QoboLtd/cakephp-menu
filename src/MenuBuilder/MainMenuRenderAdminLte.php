@@ -26,12 +26,12 @@ class MainMenuRenderAdminLte extends BaseMenuRenderClass
             'childMenuStart' => '<ul class="treeview-menu">',
             'childMenuEnd' => '</ul>',
             'itemStart' => '<li class="treeview">',
-            'itemEnd' => ' /li>',
+            'itemEnd' => '</li>',
             'itemWrapperStart' => '<span>',
             'itemWrapperEnd' => '</span>',
             //'item' => '<a href="%url%" target="%target%"><i class="fa fa-%icon%"></i> <span>%label%</span></a>',
             'itemWithChildren' => '<a href="%url%" target="%target%"><i class="fa fa-%icon%"></i> <span>%label%</span><i class="fa fa-angle-left pull-right"></i></a>',
-            'itemWithChildrenPostfix' => '<i class="fa fa-angle-left pull-right"></i>',
+            'itemWithChildrenPostfix' => '<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>',
         ];
 
         $this->setFormat($format);
