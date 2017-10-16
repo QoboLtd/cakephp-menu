@@ -31,7 +31,7 @@ foreach ($menuItems as $item) {
 }
 
 $params = [];
-if ($name == 'main_menu') {
+if (MENU_MAIN === $name) {
     $renderClass = 'Menu\\MenuBuilder\\MainMenuRenderAdminLte';
     $params['title'] = '<li class="header">MAIN NAVIGATION</li>';
 } else {
