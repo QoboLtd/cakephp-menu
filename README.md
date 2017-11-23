@@ -22,3 +22,54 @@ The recommended way to install composer packages is:
 ```
 composer require qobo/menu
 ```
+## Usage
+
+Basic usage example - in the view
+
+```
+$menu = new Menu();
+
+// Create menu item link
+$linkItem = new MenuItemLink();
+$linkItem->setUrl('#');
+$linkItem->setLabel(__('Edit'));
+$linkItem->setIcon('pencil');
+$linkItem->setOrder(100);
+$menu->addMenuItem($linkItem);
+
+$separatorItem = new MenuItemSeparator();
+$menu->addMenuItem($separatorItem);
+
+$postlinkItem new MenuItemPostlink();
+$postlinkItem->setUrl('#');
+$postlinkItem->setLabel(__('Delete'));
+$postlinkItem->setIcon('trash');
+$postlinkItem->setConfirmMsg(__('Are you sure to delete it?'));
+$postlinkItem->setOrder(130);
+
+$menu->addMenuItem($postlinkItem);
+
+$params = ['title' => '<h2>Main Menu</h2>'];
+$render = new MainMenuRenderAdminLte($menu, $this);
+echo $render->render($params);
+
+```
+
+## Supported menu items
+
+#### MenuItemLink
+
+#### MenuItemLinkButton
+
+#### MenuItemLinkModal
+
+#### MenuItemPostlink
+
+#### MenuItemPostlinkButton
+
+#### MenuItemButton
+
+#### MenuItemCustom
+
+#### MenuItemSeparator
+
