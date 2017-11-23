@@ -26,7 +26,7 @@ composer require qobo/menu
 
 Basic usage example - in the view
 
-```
+```php
 $menu = new Menu();
 
 // Create menu item link
@@ -40,7 +40,7 @@ $menu->addMenuItem($linkItem);
 $separatorItem = new MenuItemSeparator();
 $menu->addMenuItem($separatorItem);
 
-$postlinkItem new MenuItemPostlink();
+$postlinkItem = new MenuItemPostlink();
 $postlinkItem->setUrl('#');
 $postlinkItem->setLabel(__('Delete'));
 $postlinkItem->setIcon('trash');
@@ -49,7 +49,7 @@ $postlinkItem->setOrder(130);
 
 $menu->addMenuItem($postlinkItem);
 
-$params = ['title' => '<h2>Main Menu</h2>'];
+$params = ['title' => 'Main Menu'];
 $render = new MainMenuRenderAdminLte($menu, $this);
 echo $render->render($params);
 
