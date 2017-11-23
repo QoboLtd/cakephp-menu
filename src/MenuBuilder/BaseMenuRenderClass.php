@@ -178,6 +178,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
     {
         $params['title'] = __($item->getLabel());
         $params['escape'] = false;
+        $params['target'] = $item->getTarget();
 
         $label = '<i class="menu-icon fa fa-' . $item->getIcon() . '"></i> ';
         $label .= !empty($this->format['itemHeaderStart']) ? $this->format['itemHeaderStart'] : '';
