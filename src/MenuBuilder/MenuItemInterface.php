@@ -29,7 +29,7 @@ interface MenuItemInterface
     /**
      *  addChild method
      *
-     * @param MenuItem $item menu item
+     * @param MenuItemInterface $item menu item
      * @return void
      */
     public function addChild(MenuItemInterface $item);

@@ -46,8 +46,8 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  __construct method
      *
-     * @param Menu\MenuBuilder\Menu $menu menu to render
-     * @param View $viewEntity view entity
+     * @param \Menu\MenuBuilder\Menu $menu menu to render
+     * @param \Cake\View\View $viewEntity view entity
      * @return void
      */
     public function __construct($menu, $viewEntity)
@@ -99,7 +99,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _renderMenuItem method
      *
-     * @param Menu\MenuBuilder\MenuItem $item menu item definition
+     * @param \Menu\MenuBuilder\MenuItemInterface $item menu item definition
      * @return string rendered menu item as HTML
      */
     protected function _renderMenuItem($item)
@@ -127,7 +127,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _buildItem method
      *
-     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param \Menu\MenuBuilder\Menu $item menu item entity
      * @param string $extLabel additional label elements
      * @return string generated HTML element
      */
@@ -169,7 +169,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _buildLink method
      *
-     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param \Menu\MenuBuilder\Menu $item menu item entity
      * @param string $extLabel additional label elements
      * @param array $params additional params
      * @return string generated HTML element
@@ -196,7 +196,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _buildLinkButton method
      *
-     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param \Menu\MenuBuilder\Menu $item menu item entity
      * @param string $extLabel additional label elements
      * @return string generated HTML element
      */
@@ -218,7 +218,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      * _buildLinkButtonModal method
      *
-     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param \Menu\MenuBuilder\Menu $item menu item entity
      * @param string $extLabel additional label elements
      * @param array $params additional params
      * @return string generated HTML element
@@ -234,7 +234,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      * _buildLinkButtonModal method
      *
-     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param \Menu\MenuBuilder\Menu $item menu item entity
      * @param string $extLabel additional label elements
      * @return string generated HTML element
      */
@@ -250,7 +250,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _buildPostlink method
      *
-     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param \Menu\MenuBuilder\Menu $item menu item entity
      * @param string $postFix additional label elements
      * @param array $params additional params
      * @return string generated HTML element
@@ -273,7 +273,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _buildPostlinkButton method
      *
-     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param \Menu\MenuBuilder\Menu $item menu item entity
      * @param string $postFix additional label elements
      * @return string generated HTML element
      */
@@ -287,7 +287,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _buildButton method
      *
-     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param \Menu\MenuBuilder\Menu $item menu item entity
      * @param string $postFix additional label elements
      * @return string generated HTML element
      */
@@ -324,7 +324,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _buildSeparator method
      *
-     * @param Menu\MenuBuilder\Menu $item menu item entity
+     * @param \Menu\MenuBuilder\Menu $item menu item entity
      * @param string $postFix additional label elements
      * @return string generated HTML element
      */

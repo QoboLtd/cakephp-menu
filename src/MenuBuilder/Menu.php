@@ -38,7 +38,7 @@ class Menu implements MenuInterface
     /**
      *  addMenuItem method
      *
-     * @param Menu\MenuBuilder\MenuItem $item menu item definition
+     * @param \Menu\MenuBuilder\MenuItemInterface $item menu item definition
      * @return void
      */
     public function addMenuItem($item)
