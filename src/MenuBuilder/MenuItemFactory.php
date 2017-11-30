@@ -25,7 +25,7 @@ final class MenuItemFactory
      *  createMenuItem method
      *
      * @param array $item menu item definition
-     * @return MenuItem object
+     * @return \Menu\MenuBuilder\MenuItemInterface object
      */
     public static function createMenuItem($item)
     {
@@ -51,7 +51,7 @@ final class MenuItemFactory
      * _getMenuItemObject method
      *
      * @param array $data menu definition
-     * @return MenuItem object or throw exception
+     * @return \Menu\MenuBuilder\MenuItemInterface object or throw exception
      */
     protected static function _getMenuItemObject($data)
     {

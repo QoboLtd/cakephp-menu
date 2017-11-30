@@ -11,7 +11,7 @@
  */
 namespace Menu\MenuBuilder;
 
-use Cake\Exception\NotImplementedException;
+use Cake\Network\Exception\NotImplementedException;
 
 abstract class BaseMenuItem implements MenuItemInterface
 {
@@ -56,17 +56,17 @@ abstract class BaseMenuItem implements MenuItemInterface
     protected $url = '#';
 
     /**
-     * @var confirmMsg
+     * @var string confirmMsg
      */
     protected $confirmMsg = '';
 
     /**
-     * @var extraAttribute
+     * @var string extraAttribute
      */
     protected $extraAttribute = '';
 
     /**
-     * @var order
+     * @var int order
      */
     protected $order = 1;
 
@@ -296,7 +296,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     /**
      *  addChild method
      *
-     * @param MenuItem $child menu item
+     * @param MenuItemInterface $child menu item
      * @return void
      */
     public function addChild(MenuItemInterface $child)
