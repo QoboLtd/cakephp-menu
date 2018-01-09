@@ -225,6 +225,8 @@ class BaseMenuRenderClass implements MenuRenderInterface
      */
     protected function _buildLinkModal($item, $extLabel, $params = [])
     {
+        $item->setUrl('#');
+
         $params['data-toggle'] = 'modal';
         $params['data-target'] = '#' . $item->getModalTarget();
 
@@ -240,6 +242,8 @@ class BaseMenuRenderClass implements MenuRenderInterface
      */
     protected function _buildLinkButtonModal($item, $extLabel)
     {
+        $item->setUrl('#');
+
         $params = [
             'class' => 'btn btn-default',
         ];
