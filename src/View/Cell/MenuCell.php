@@ -20,6 +20,11 @@ use Menu\Event\EventName;
 class MenuCell extends Cell
 {
     /**
+     * Default menu renderer class
+     */
+    const DEFAULT_RENDERER = 'Menu\\MenuBuilder\\SystemMenuRenderAdminLte';
+
+    /**
      * Module type identifier
      */
     const TYPE_MODULE = 'module';
@@ -61,12 +66,17 @@ class MenuCell extends Cell
      * @param string $name Menu name
      * @param array $user User info
      * @param bool $fullBaseUrl Full-base URL flag
+     * @param string $renderer Menu renderer class name
      * @return void
      */
-    public function display($name, array $user, $fullBaseUrl = false)
+    public function display($name, array $user, $fullBaseUrl = false, $renderer = null)
     {
         // validate menu name
         $this->_validateName($name);
+
+        if (is_null($renderer)) {
+            $renderer = static::DEFAULT_RENDERER;
+        }
 
         $this->loadModel('Menu.Menus');
 
@@ -89,6 +99,7 @@ class MenuCell extends Cell
         $this->set('menuItems', $menuItems);
         $this->set('user', $this->user);
         $this->set('name', $name);
+        $this->set('renderer', $renderer);
     }
 
     /**

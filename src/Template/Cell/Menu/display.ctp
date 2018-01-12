@@ -12,10 +12,8 @@
 
 use Cake\Event\Event;
 use Menu\Event\EventName;
-use Menu\MenuBuilder\MainMenuRenderAdminLte;
 use Menu\MenuBuilder\Menu;
 use Menu\MenuBuilder\MenuItemFactory;
-use Menu\MenuBuilder\SystemMenuRenderAdminLte;
 
 $event = new Event((string)EventName::MENU_BEFORE_RENDER(), $this, ['menu' => $menuItems, 'user' => $user]);
 $this->eventManager()->dispatch($event);
@@ -30,13 +28,5 @@ foreach ($menuItems as $item) {
     }
 }
 
-$params = [];
-if (MENU_MAIN === $name) {
-    $renderClass = 'Menu\\MenuBuilder\\MainMenuRenderAdminLte';
-    $params['title'] = '<li class="header"></li>';
-} else {
-    $renderClass = 'Menu\\MenuBuilder\\SystemMenuRenderAdminLte';
-}
-
-$render = new $renderClass($menu, $this);
-echo $render->render($params);
+$render = new $renderer($menu, $this);
+echo $render->render();
