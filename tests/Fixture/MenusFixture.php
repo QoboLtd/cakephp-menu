@@ -52,5 +52,19 @@ class MenusFixture extends TestFixture
             'created' => '2016-04-28',
             'modified' => '2016-04-28'
         ],
+        [
+            'id' => '00000000-0000-0000-0000-000000000002',
+            'name' => 'main_menu',
+            'active' => 1,
+            'created' => '2018-02-08',
+            'modified' => '2018-02-08'
+        ],
+        [
+            'id' => '00000000-0000-0000-0000-000000000003',
+            'name' => 'admin_menu',
+            'active' => 1,
+            'created' => '2018-02-08',
+            'modified' => '2018-02-08'
+        ]
     ];
 }
