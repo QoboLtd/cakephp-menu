@@ -160,6 +160,7 @@ class MenuCell extends Cell
      *
      * @param \Cake\Datasource\EntityInterface $menu Menu entity
      * @param array $item Menu item
+     * @param int $order Menu item order
      * @return array
      */
     protected function _getMenuItem(EntityInterface $menu, array $item, $order = 0)
@@ -183,6 +184,7 @@ class MenuCell extends Cell
 
         if (static::TYPE_MODULE === $type) {
             $item = $this->_getMenuItemsFromEvent($menu, [$item['url']]);
+            reset($item);
             $item = current($item);
         }
 
