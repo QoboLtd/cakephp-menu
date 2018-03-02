@@ -53,7 +53,7 @@ echo $this->Html->scriptBlock(
 <section class="content">
     <div class="row">
         <div class="col-md-6">
-            <div class="box box-solid">
+            <div class="box box-primary">
                 <div class="box-header with-border">
                     <i class="fa fa-info-circle"></i>
                     <h3 class="box-title">Details</h3>
@@ -72,7 +72,7 @@ echo $this->Html->scriptBlock(
         </div>
     </div>
     <?php if (!empty($navMenu->menu_items)) : ?>
-    <div class="box box-solid">
+    <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title"><?= __('Related Menu Items') ?></h3>
         </div>
