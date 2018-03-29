@@ -17,56 +17,54 @@ use Cake\ORM\Entity;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 
+/**
+ * Import Task
+ *
+ * Import menus.
+ */
 class ImportTask extends Shell
 {
     /**
-     * {@inheritDoc}
+     * Main task method
+     *
+     * @return bool True on success, false otherwise
      */
     public function main()
     {
-        $this->out('Task: import system menus');
+        $this->info('Task: import system menus');
         $this->hr();
 
+        $data = $this->getSystemMenus();
+        if (empty($data)) {
+            $this->warn("System menus are not configured.  Nothing to do.");
+
+            return true;
+        }
+        // get menus table
         $table = TableRegistry::get('Menu.Menus');
 
-        $data = $this->_getSystemMenus();
-        $errors = [];
         foreach ($data as $menu) {
-            if ($table->exists(['name' => $menu['name']])) {
-                $errors[] = [
-                    'message' => 'Menu [' . $menu['name'] . '] already exists',
-                    'details' => []
-                ];
-
+            if (empty($menu['name'])) {
+                $this->warn("Skipping menu without a name.");
                 continue;
             }
-            $entity = $table->newEntity();
-            foreach ($menu as $k => $v) {
-                $entity->{$k} = $v;
+
+            if ($table->exists(['name' => $menu['name']])) {
+                $this->warn("Menu [" . $menu['name'] . "] already exists. Skipping.");
+                continue;
             }
-            $saved = $table->save($entity);
-            if ($saved) {
-                $this->out('Menu [' . $entity->name . '] imported successfully');
-            } else {
-                $validationErrors = $this->_getValidationErrors($entity);
-                $errors[] = [
-                    'message' => 'Failed to import menu [' . $entity->name . ']',
-                    'details' => !empty($validationErrors) ? $validationErrors : []
-                ];
+
+            $this->info("Menu [" . $menu['name'] . "] does not exist.  Creating.");
+            $entity = $table->newEntity();
+            $entity = $table->patchEntity($entity, $menu);
+            $result = $table->save($entity);
+            if (!$result) {
+                $this->err("Errors: \n", implode("\n", $this->getImportErrors($entity)));
+                $this->abort("Failed to create menu [" . $menu['name'] . "]");
             }
         }
 
-        if (empty($errors)) {
-            $this->out('<success>System menus importing task completed</success>');
-        } else {
-            foreach ($errors as $error) {
-                $this->err($error['message']);
-                if (empty($error['details'])) {
-                    continue;
-                }
-                $this->out(implode("\n", $error['details']));
-            }
-        }
+        $this->success('System menus imported successfully');
     }
 
     /**
@@ -74,7 +72,7 @@ class ImportTask extends Shell
      *
      * @return array
      */
-    protected function _getSystemMenus()
+    protected function getSystemMenus()
     {
         $data = [
             [
@@ -97,23 +95,23 @@ class ImportTask extends Shell
     }
 
     /**
-     * Get validation errors from entity object.
+     * Get import errors from entity object.
      *
      * @param  \Cake\ORM\Entity $entity Entity instance
      * @return array
      */
-    protected function _getValidationErrors($entity)
+    protected function getImportErrors(Entity $entity)
     {
         $result = [];
-        if (!empty($entity->errors())) {
-            foreach ($entity->errors() as $field => $error) {
-                if (is_array($error)) {
-                    $msg = implode(', ', $error);
-                } else {
-                    $msg = $error;
-                }
-                $result[] = $msg . ' [' . $entity->{$field} . '] for field [' . $field . ']';
-            }
+
+        if (empty($entity->errors())) {
+            return $result;
+        }
+
+        foreach ($entity->errors() as $field => $error) {
+            $msg = "[$field] ";
+            $msg .= is_array($error) ? implode(', ', $error) : $error;
+            $result[] = $msg;
         }
 
         return $result;
