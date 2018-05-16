@@ -35,7 +35,7 @@ class MenusTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('menus');
+        $this->table('qobo_menus');
         $this->displayField('name');
         $this->primaryKey('id');
 
