@@ -15,7 +15,7 @@ class MenusFixture extends TestFixture
      *
      * @var string
      */
-    public $table = 'menus';
+    public $table = 'qobo_menus';
 
     /**
      * Fields
