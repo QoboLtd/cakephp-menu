@@ -70,16 +70,16 @@ echo $this->Html->scriptBlock(
                                     ['title' => __('Edit'), 'class' => 'btn btn-default', 'escape' => false]
                                 ) ?>
                                 <?php if (!$menu->deny_delete) : ?>
-                                <?= $this->Form->postLink(
-                                    '<i class="fa fa-trash"></i>',
-                                    ['action' => 'delete', $menu->id],
-                                    [
-                                        'confirm' => __('Are you sure you want to delete # {0}?', $menu->name),
-                                        'title' => __('Delete'),
-                                        'class' => 'btn btn-default',
-                                        'escape' => false
-                                    ]
-                                ) ?>
+                                    <?= $this->Form->postLink(
+                                        '<i class="fa fa-trash"></i>',
+                                        ['action' => 'delete', $menu->id],
+                                        [
+                                            'confirm' => __('Are you sure you want to delete # {0}?', $menu->name),
+                                            'title' => __('Delete'),
+                                            'class' => 'btn btn-default',
+                                            'escape' => false
+                                        ]
+                                    ) ?>
                                 <?php endif; ?>
                                 </div>
                             </div>
