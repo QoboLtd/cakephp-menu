@@ -119,7 +119,8 @@ class BaseMenuRenderClass implements MenuRenderInterface
             }
             $html .= $this->format['childMenuEnd'];
         }
-        $this->format['itemEnd'];
+
+        $html .= $this->format['itemEnd'];
 
         return $html;
     }

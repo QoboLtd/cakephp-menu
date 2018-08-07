@@ -47,6 +47,36 @@ class BaseMenuRenderClassTest extends TestCase
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
 
+    public function testRenderMenuWithDisabledItem()
+    {
+        $item = new MenuItemLink();
+        $item->setUrl('http://example.com');
+        $item->setLabel('Link');
+        $item->disable();
+        $this->menu->addMenuItem($item);
+
+        $expected = '<ul></ul>';
+        $this->assertEquals($expected, $this->menuRenderer->render());
+    }
+
+    public function testRenderMenuWithNestedDisabledItem()
+    {
+        $item = new MenuItemLink();
+        $item->setUrl('#');
+        $item->setLabel('Link');
+        $this->menu->addMenuItem($item);
+
+        $subitem = new MenuItemLink();
+        $subitem->setUrl('http://example.com');
+        $subitem->setLabel('SubLink');
+        $subitem->disable();
+        $item->addChild($subitem);
+
+        $html = $this->menuRenderer->render();
+        $this->assertStringStartsWith('<ul><li><a', $html);
+        $this->assertStringEndsWith('<ul></ul></li></ul>', $html);
+    }
+
     public function testRenderMenuWithButton()
     {
         $item = new MenuItemButton();
@@ -55,7 +85,7 @@ class BaseMenuRenderClassTest extends TestCase
 
         $this->menu->addMenuItem($item);
 
-        $expected = '<ul><li><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Button</button></ul>';
+        $expected = '<ul><li><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Button</button></li></ul>';
 
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
@@ -68,7 +98,7 @@ class BaseMenuRenderClassTest extends TestCase
 
         $this->menu->addMenuItem($item);
 
-        $expected = '<ul><li><a href="http://example.com" class="btn btn-default" title="Link Button" target="_self"><i class="menu-icon fa fa-"></i> Link Button</a></ul>';
+        $expected = '<ul><li><a href="http://example.com" class="btn btn-default" title="Link Button" target="_self"><i class="menu-icon fa fa-"></i> Link Button</a></li></ul>';
 
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
@@ -81,7 +111,7 @@ class BaseMenuRenderClassTest extends TestCase
 
         $this->menu->addMenuItem($item);
 
-        $expected = '<ul><li><a href="#" class="btn btn-default" data-toggle="modal" data-target="#" title="Button Modal" target="_self"><i class="menu-icon fa fa-"></i> Button Modal</a></ul>';
+        $expected = '<ul><li><a href="#" class="btn btn-default" data-toggle="modal" data-target="#" title="Button Modal" target="_self"><i class="menu-icon fa fa-"></i> Button Modal</a></li></ul>';
 
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
@@ -94,7 +124,7 @@ class BaseMenuRenderClassTest extends TestCase
 
         $this->menu->addMenuItem($item);
 
-        $expected = '<ul><li><a href="#" data-toggle="modal" data-target="#" title="Modal" target="_self"><i class="menu-icon fa fa-"></i> Modal</a></ul>';
+        $expected = '<ul><li><a href="#" data-toggle="modal" data-target="#" title="Modal" target="_self"><i class="menu-icon fa fa-"></i> Modal</a></li></ul>';
 
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
@@ -113,7 +143,7 @@ class BaseMenuRenderClassTest extends TestCase
             'type="hidden" name="_method" value="POST"\/><\/form><a href="#" title="Post Link" ' .
             'onclick="document.post_' .
             '\w+' .
-            '.submit\(\); event.returnValue = false; return false;"><i class="fa fa-"><\/i> Post Link<\/a><\/ul>';
+            '.submit\(\); event.returnValue = false; return false;"><i class="fa fa-"><\/i> Post Link<\/a><\/li><\/ul>';
 
         $this->assertRegExp('/' . $pattern . '/', $this->menuRenderer->render());
     }
@@ -132,7 +162,7 @@ class BaseMenuRenderClassTest extends TestCase
             'type="hidden" name="_method" value="POST"\/><\/form><a href="#" class="btn ' .
             'btn-default" title="Postlink Button" onclick="document.post_' .
             '(\w+)' .
-            '.submit\(\); event.returnValue = false; return false;"><i class="fa fa-"><\/i> Postlink Button<\/a><\/ul>';
+            '.submit\(\); event.returnValue = false; return false;"><i class="fa fa-"><\/i> Postlink Button<\/a><\/li><\/ul>';
 
         $this->assertRegExp('/' . $pattern . '/', $this->menuRenderer->render());
     }
@@ -143,7 +173,7 @@ class BaseMenuRenderClassTest extends TestCase
 
         $this->menu->addMenuItem($item);
 
-        $expected = '<ul><li><hr class="separator" /></ul>';
+        $expected = '<ul><li><hr class="separator" /></li></ul>';
 
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
