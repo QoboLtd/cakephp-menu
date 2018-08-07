@@ -16,7 +16,7 @@ namespace Menu\MenuBuilder;
  *
  * interface for all menu item classes
  */
-interface MenuItemInterface
+interface MenuItemInterface extends MenuItemContainerInterface
 {
 
     /**

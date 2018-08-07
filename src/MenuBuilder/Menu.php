@@ -59,4 +59,40 @@ class Menu implements MenuInterface
 
         return $this->menuItems;
     }
+
+    /**
+     * @inheritdoc
+     *
+     * @param MenuItemInterface $item the menu item to be added
+     * @return void
+     */
+    public function add(MenuItemInterface $item)
+    {
+        $this->addMenuItem($item);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return array List of menu items
+     */
+    public function getAll()
+    {
+        return $this->getMenuItems();
+    }
+
+    /**
+     * Removes the specified menu item from this container.
+     * If the provided item is not in this container, this method does nothing.
+     *
+     * @param MenuItemInterface $item The item to be removed from the menu.
+     * @return void
+     */
+    public function remove(MenuItemInterface $item)
+    {
+        $key = array_search($item, $this->menuItems);
+        if ($key !== false) {
+            unset($this->menuItems[$key]);
+        }
+    }
 }

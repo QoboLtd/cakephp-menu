@@ -12,6 +12,7 @@
 namespace Menu\MenuBuilder;
 
 use Cake\Network\Exception\NotImplementedException;
+use http\Exception\BadMethodCallException;
 
 abstract class BaseMenuItem implements MenuItemInterface
 {
@@ -156,6 +157,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     {
         $this->target = $target;
     }
+
     /**
      *  getDescription method
      *
@@ -218,6 +220,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     {
         $this->confirmMsg = $message;
     }
+
     /**
      *  getExtraAttribute method
      *
@@ -379,6 +382,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     {
         $this->conditions[] = $callback;
     }
+
     /**
      * @inheritdoc
      *
@@ -400,5 +404,42 @@ abstract class BaseMenuItem implements MenuItemInterface
         }
 
         return true;
+    }
+
+    /**
+     * @inheritdoc.
+     *
+     * @param MenuItemInterface $item the menu item to be added
+     * @return void
+     */
+    public function add(MenuItemInterface $item)
+    {
+        $this->addChild($item);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return array List of menu items
+     */
+    public function getAll()
+    {
+        return $this->getChildren();
+    }
+
+    /**
+     * @inheritdoc.
+     *
+     * @param MenuItemInterface $item  The item to be removed from the menu.
+     * @return void
+     */
+    public function remove(MenuItemInterface $item)
+    {
+        $key = array_search($item, $this->children);
+        if ($key === false) {
+            return;
+        }
+
+        $this->removeChild($key);
     }
 }
