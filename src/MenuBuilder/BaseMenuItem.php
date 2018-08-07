@@ -12,10 +12,11 @@
 namespace Menu\MenuBuilder;
 
 use Cake\Network\Exception\NotImplementedException;
-use http\Exception\BadMethodCallException;
 
 abstract class BaseMenuItem implements MenuItemInterface
 {
+    use MenuItemContainerTrait;
+
     /**
      * const DEFAULT_MENU_ITEM_TYPE
      */
@@ -313,7 +314,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      */
     public function addChild(MenuItemInterface $child)
     {
-        array_push($this->children, $child);
+        $this->add($child);
     }
 
     /**
@@ -334,11 +335,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      */
     public function getChildren()
     {
-        usort($this->children, function ($a, $b) {
-            return $a->getOrder() > $b->getOrder();
-        });
-
-        return $this->children;
+        return $this->getAll();
     }
 
     /**
@@ -404,42 +401,5 @@ abstract class BaseMenuItem implements MenuItemInterface
         }
 
         return true;
-    }
-
-    /**
-     * @inheritdoc.
-     *
-     * @param MenuItemInterface $item the menu item to be added
-     * @return void
-     */
-    public function add(MenuItemInterface $item)
-    {
-        $this->addChild($item);
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @return array List of menu items
-     */
-    public function getAll()
-    {
-        return $this->getChildren();
-    }
-
-    /**
-     * @inheritdoc.
-     *
-     * @param MenuItemInterface $item  The item to be removed from the menu.
-     * @return void
-     */
-    public function remove(MenuItemInterface $item)
-    {
-        $key = array_search($item, $this->children);
-        if ($key === false) {
-            return;
-        }
-
-        $this->removeChild($key);
     }
 }

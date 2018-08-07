@@ -12,14 +12,13 @@
 
 namespace Menu\MenuBuilder;
 
-/**
- * Interface MenuItemContainerInterface
- * Denotes a container of menu items.
- * Menu items can be added or removed from the container.
- * @package Menu\MenuBuilder
- */
-interface MenuItemContainerInterface
+trait MenuItemContainerTrait
 {
+    /**
+     * @var array List of menu items
+     */
+    private $menuItems = [];
+
     /**
      *  Adds the specified menu item to this container
      *  If the menu item has been part of another menu, removes it from that menu.
@@ -27,14 +26,24 @@ interface MenuItemContainerInterface
      * @param MenuItemInterface $item the menu item to be added
      * @return void
      */
-    public function add(MenuItemInterface $item);
+    public function add(MenuItemInterface $item)
+    {
+        array_push($this->menuItems, $item);
+    }
 
     /**
      *  Returns the menu items.
      *
      * @return array List of menu items
      */
-    public function getAll();
+    public function getAll()
+    {
+        usort($this->menuItems, function ($a, $b) {
+            return $a->getOrder() > $b->getOrder();
+        });
+
+        return $this->menuItems;
+    }
 
     /**
      * Removes the specified menu item from this container.
@@ -43,5 +52,11 @@ interface MenuItemContainerInterface
      * @param MenuItemInterface $item  The item to be removed from the menu.
      * @return void
      */
-    public function remove(MenuItemInterface $item);
+    public function remove(MenuItemInterface $item)
+    {
+        $key = array_search($item, $this->menuItems);
+        if ($key !== false) {
+            unset($this->menuItems[$key]);
+        }
+    }
 }
