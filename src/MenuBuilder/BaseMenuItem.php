@@ -94,7 +94,6 @@ abstract class BaseMenuItem implements MenuItemInterface
      */
     private $conditions = [];
 
-
     /**
      *  getLabel method
      *
@@ -341,13 +340,19 @@ abstract class BaseMenuItem implements MenuItemInterface
 
     /**
      * @inheritdoc
+     *
+     * @param bool $enabled Indicates whether this Menu item is enabled
+     * @return void
      */
-    public function setEnabled($enabled) {
+    public function setEnabled($enabled)
+    {
         $this->enabled = $enabled;
     }
 
     /**
      * @inheritdoc
+     *
+     * @return void
      */
     public function enable()
     {
@@ -356,6 +361,8 @@ abstract class BaseMenuItem implements MenuItemInterface
 
     /**
      * @inheritdoc
+     *
+     * @return void
      */
     public function disable()
     {
@@ -364,6 +371,9 @@ abstract class BaseMenuItem implements MenuItemInterface
 
     /**
      * @inheritdoc
+     *
+     * @param callable $callback Callback to be evaluated as a boolean expression
+     * @return void
      */
     public function disableIf(callable $callback)
     {
@@ -371,6 +381,8 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
     /**
      * @inheritdoc
+     *
+     * @return bool
      */
     public function isEnabled()
     {

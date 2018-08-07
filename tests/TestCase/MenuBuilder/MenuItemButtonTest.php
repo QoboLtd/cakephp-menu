@@ -203,11 +203,11 @@ class MenuItemButtonTest extends TestCase
     public function testConditions()
     {
         $item = new MenuItemButton();
-        $item->disableIf(function() {
+        $item->disableIf(function () {
             return false;
         });
         $this->assertTrue($item->isEnabled());
-        $item->disableIf(function() {
+        $item->disableIf(function () {
             return true;
         });
         $this->assertFalse($item->isEnabled());

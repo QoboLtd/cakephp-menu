@@ -44,8 +44,8 @@ interface MenuItemInterface
 
     /**
      * Sets the enabled flag to the provided value
-     * @param boolean $enabled
-     * @return mixed
+     * @param bool $enabled Indicates whether this Menu item is enabled
+     * @return void
      */
     public function setEnabled($enabled);
 
@@ -67,7 +67,7 @@ interface MenuItemInterface
 
     /**
      * Adds a new condition to determine whether this item must be disabled
-     * @param callable $callback
+     * @param callable $callback Callback to be evaluated as a boolean expression
      * @return void
      */
     public function disableIf(callable $callback);
@@ -76,7 +76,7 @@ interface MenuItemInterface
      * Returns true only and only if:
      * - enabled flag is set to true
      * - all defined conditions are being evaluated to false
-     * @return boolean
+     * @return bool
      */
     public function isEnabled();
 }
