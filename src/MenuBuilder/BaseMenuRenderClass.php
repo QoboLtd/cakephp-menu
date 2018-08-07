@@ -88,8 +88,13 @@ class BaseMenuRenderClass implements MenuRenderInterface
         $html = $this->format['menuStart'];
         $html .= !empty($options['title']) ? $options['title'] : '';
 
-        foreach ($this->menu->getMenuItems() as $index => $menuItem) {
-            $html .= $this->_renderMenuItem($menuItem);
+        /**
+         * @var MenuItemInterface $menuItem
+         */
+        foreach ($this->menu->getMenuItems() as $menuItem) {
+            if ($menuItem->isEnabled()) {
+                $html .= $this->_renderMenuItem($menuItem);
+            }
         }
         $html .= $this->format['menuEnd'];
 
@@ -112,10 +117,13 @@ class BaseMenuRenderClass implements MenuRenderInterface
 
         if (!empty($children)) {
             $html .= $this->format['childMenuStart'];
+            /** @var MenuItemInterface $childItem */
             foreach ($children as $childItem) {
-                $html .= !empty($this->format['childItemStart']) ? $this->format['childItemStart'] : '';
-                $html .= $this->_renderMenuItem($childItem);
-                $html .= !empty($this->format['childItemEnd']) ? $this->format['childItemEnd'] : '';
+                if ($childItem->isEnabled()) {
+                    $html .= !empty($this->format['childItemStart']) ? $this->format['childItemStart'] : '';
+                    $html .= $this->_renderMenuItem($childItem);
+                    $html .= !empty($this->format['childItemEnd']) ? $this->format['childItemEnd'] : '';
+                }
             }
             $html .= $this->format['childMenuEnd'];
         }

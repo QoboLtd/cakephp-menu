@@ -5,16 +5,34 @@ use Cake\TestSuite\TestCase;
 use Cake\View\View;
 use Menu\MenuBuilder\BaseMenuRenderClass;
 use Menu\MenuBuilder\Menu;
+use Menu\MenuBuilder\MenuInterface;
 use Menu\MenuBuilder\MenuItemButton;
+use Menu\MenuBuilder\MenuItemLink;
 use Menu\MenuBuilder\MenuItemLinkButton;
 use Menu\MenuBuilder\MenuItemLinkButtonModal;
 use Menu\MenuBuilder\MenuItemLinkModal;
 use Menu\MenuBuilder\MenuItemPostlink;
 use Menu\MenuBuilder\MenuItemPostlinkButton;
 use Menu\MenuBuilder\MenuItemSeparator;
+use Menu\MenuBuilder\MenuRenderInterface;
 
 class BaseMenuRenderClassTest extends TestCase
 {
+    /**
+     * @var View
+     */
+    private $view;
+
+    /**
+     * @var MenuInterface
+     */
+    private $menu;
+
+    /**
+     * @var MenuRenderInterface
+     */
+    private $menuRenderer;
+
     public function setUp()
     {
         parent::setUp();
@@ -27,7 +45,11 @@ class BaseMenuRenderClassTest extends TestCase
             'menuStart' => '<ul>',
             'menuEnd' => '</ul>',
             'itemStart' => '<li>',
-            'itemEnd' => '</li>'
+            'itemEnd' => '</li>',
+            'childMenuStart' => '<ul>',
+            'childMenuEnd' => '</ul>',
+            'childItemStart' => '<lo>',
+            'childItemEnd' => '</lo>',
         ]);
     }
 
