@@ -88,8 +88,13 @@ class BaseMenuRenderClass implements MenuRenderInterface
         $html = $this->format['menuStart'];
         $html .= !empty($options['title']) ? $options['title'] : '';
 
-        foreach ($this->menu->getMenuItems() as $index => $menuItem) {
-            $html .= $this->_renderMenuItem($menuItem);
+        /**
+         * @var MenuItemInterface $menuItem
+         */
+        foreach ($this->menu->getMenuItems() as $menuItem) {
+            if ($menuItem->isEnabled()) {
+                $html .= $this->renderMenuItem($menuItem);
+            }
         }
         $html .= $this->format['menuEnd'];
 
@@ -102,7 +107,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      * @param \Menu\MenuBuilder\MenuItemInterface $item menu item definition
      * @return string rendered menu item as HTML
      */
-    protected function _renderMenuItem($item)
+    protected function renderMenuItem($item)
     {
         $children = $item->getChildren();
 
@@ -111,15 +116,21 @@ class BaseMenuRenderClass implements MenuRenderInterface
         $html .= $this->_buildItem($item, !empty($children) && !empty($this->format['itemWithChildrenPostfix']) ? $this->format['itemWithChildrenPostfix'] : '');
 
         if (!empty($children)) {
+            $enabledChildren = array_filter($children, function ($child) {
+                return $child->isEnabled();
+            });
+
             $html .= $this->format['childMenuStart'];
-            foreach ($children as $childItem) {
+            /** @var MenuItemInterface $childItem */
+            foreach ($enabledChildren as $childItem) {
                 $html .= !empty($this->format['childItemStart']) ? $this->format['childItemStart'] : '';
-                $html .= $this->_renderMenuItem($childItem);
+                $html .= $this->renderMenuItem($childItem);
                 $html .= !empty($this->format['childItemEnd']) ? $this->format['childItemEnd'] : '';
             }
             $html .= $this->format['childMenuEnd'];
         }
-        $this->format['itemEnd'];
+
+        $html .= $this->format['itemEnd'];
 
         return $html;
     }

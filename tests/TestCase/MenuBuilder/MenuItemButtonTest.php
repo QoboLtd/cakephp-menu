@@ -2,10 +2,14 @@
 namespace Menu\Test\TestCase\MenuBuilder;
 
 use Cake\TestSuite\TestCase;
+use Menu\MenuBuilder\BaseMenuItem;
 use Menu\MenuBuilder\MenuItemButton;
 
 class MenuItemButtonTest extends TestCase
 {
+    /**
+     * @var BaseMenuItem
+     */
     public $menuItem;
 
     public function setUp()
@@ -185,5 +189,27 @@ class MenuItemButtonTest extends TestCase
         return [
             [$dummy, [$dummy], "Cannot identify an objects array"],
         ];
+    }
+
+    public function testEnabledFlag()
+    {
+        $item = new MenuItemButton();
+        $this->assertTrue($item->isEnabled());
+        $item->disable();
+        $this->assertFalse($item->isEnabled());
+        $item->enable();
+        $this->assertTrue($item->isEnabled());
+    }
+    public function testConditions()
+    {
+        $item = new MenuItemButton();
+        $item->disableIf(function () {
+            return false;
+        });
+        $this->assertTrue($item->isEnabled());
+        $item->disableIf(function () {
+            return true;
+        });
+        $this->assertFalse($item->isEnabled());
     }
 }

@@ -41,4 +41,42 @@ interface MenuItemInterface
      * @return void
      */
     public function removeChild($childId);
+
+    /**
+     * Sets the enabled flag to the provided value
+     * @param bool $enabled Indicates whether this Menu item is enabled
+     * @return void
+     */
+    public function setEnabled($enabled);
+
+    /**
+     * Sets the enabled flag to true.
+     * Alias for setEnabled(true)
+     * @see MenuItemInterface::setEnabled()
+     * @return void
+     */
+    public function enable();
+
+    /**
+     * Sets the enabled flag to false.
+     * Alias for setEnabled(false)
+     * @see MenuItemInterface::setEnabled()
+     * @return  void
+     */
+    public function disable();
+
+    /**
+     * Adds a new condition to determine whether this item must be disabled
+     * @param callable $callback Callback to be evaluated as a boolean expression
+     * @return void
+     */
+    public function disableIf(callable $callback);
+
+    /**
+     * Returns true only and only if:
+     * - enabled flag is set to true
+     * - all defined conditions are being evaluated to false
+     * @return bool
+     */
+    public function isEnabled();
 }

@@ -86,6 +86,15 @@ abstract class BaseMenuItem implements MenuItemInterface
     protected $children = [];
 
     /**
+     * @var bool
+     */
+    private $enabled = true;
+    /**
+     * @var array List of callbacks to be evaluated as conditions
+     */
+    private $conditions = [];
+
+    /**
      *  getLabel method
      *
      * @return string menu item label
@@ -327,5 +336,69 @@ abstract class BaseMenuItem implements MenuItemInterface
         });
 
         return $this->children;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param bool $enabled Indicates whether this Menu item is enabled
+     * @return void
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return void
+     */
+    public function enable()
+    {
+        $this->setEnabled(true);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return void
+     */
+    public function disable()
+    {
+        $this->setEnabled(false);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param callable $callback Callback to be evaluated as a boolean expression
+     * @return void
+     */
+    public function disableIf(callable $callback)
+    {
+        $this->conditions[] = $callback;
+    }
+    /**
+     * @inheritdoc
+     *
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        // Enabled flag is set to false
+        if (!$this->enabled) {
+            return false;
+        }
+
+        // Evaluate each one of the defined conditions
+        foreach ($this->conditions as $condition) {
+            $disabled = call_user_func($condition, $this);
+            if ($disabled) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
