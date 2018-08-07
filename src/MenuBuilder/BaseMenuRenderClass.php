@@ -93,7 +93,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
          */
         foreach ($this->menu->getMenuItems() as $menuItem) {
             if ($menuItem->isEnabled()) {
-                $html .= $this->_renderMenuItem($menuItem);
+                $html .= $this->renderMenuItem($menuItem);
             }
         }
         $html .= $this->format['menuEnd'];
@@ -107,7 +107,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      * @param \Menu\MenuBuilder\MenuItemInterface $item menu item definition
      * @return string rendered menu item as HTML
      */
-    protected function _renderMenuItem($item)
+    protected function renderMenuItem($item)
     {
         $children = $item->getChildren();
 
@@ -116,14 +116,16 @@ class BaseMenuRenderClass implements MenuRenderInterface
         $html .= $this->_buildItem($item, !empty($children) && !empty($this->format['itemWithChildrenPostfix']) ? $this->format['itemWithChildrenPostfix'] : '');
 
         if (!empty($children)) {
+            $enabledChildren = array_filter($children, function ($child) {
+                return $child->isEnabled();
+            });
+
             $html .= $this->format['childMenuStart'];
             /** @var MenuItemInterface $childItem */
-            foreach ($children as $childItem) {
-                if ($childItem->isEnabled()) {
-                    $html .= !empty($this->format['childItemStart']) ? $this->format['childItemStart'] : '';
-                    $html .= $this->_renderMenuItem($childItem);
-                    $html .= !empty($this->format['childItemEnd']) ? $this->format['childItemEnd'] : '';
-                }
+            foreach ($enabledChildren as $childItem) {
+                $html .= !empty($this->format['childItemStart']) ? $this->format['childItemStart'] : '';
+                $html .= $this->renderMenuItem($childItem);
+                $html .= !empty($this->format['childItemEnd']) ? $this->format['childItemEnd'] : '';
             }
             $html .= $this->format['childMenuEnd'];
         }
