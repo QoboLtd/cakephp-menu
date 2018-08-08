@@ -21,6 +21,7 @@ use Cake\View\View;
 class BaseMenuRenderClass implements MenuRenderInterface
 {
     const RENDER_CLASS_NAME_POSTFIX = 'Render';
+    const DEFAULT_RENDER_METHOD = 'buildLink';
 
     /**
      * @var $format array with formats
@@ -41,19 +42,6 @@ class BaseMenuRenderClass implements MenuRenderInterface
      * @var $noLabel
      */
     protected $noLabel = false;
-
-    /**
-     * @var array Mapping between MenuItemInterface implementation and render method
-     */
-    private static $itemRenderer = [
-        'Menu\MenuBuilder\MenuItemPostlink' => 'buildPostlink',
-        'Menu\MenuBuilder\MenuItemButton' => 'buildButton',
-        'Menu\MenuBuilder\MenuItemSeparator' => 'buildSeparator',
-        'Menu\MenuBuilder\MenuItemLinkButton' => 'buildLinkButton',
-        'Menu\MenuBuilder\MenuItemPostlinkButton' => 'buildPostlinkButton',
-        'Menu\MenuBuilder\MenuItemLinkButtonModal' => 'buildLinkButtonModal',
-        'Menu\MenuBuilder\MenuItemLinkModal' => 'buildLinkModal',
-    ];
 
     /**
      *  __construct method
@@ -156,16 +144,17 @@ class BaseMenuRenderClass implements MenuRenderInterface
      */
     protected function buildItem(MenuItemInterface $item, $extLabel)
     {
-        $result = null;
-
-        $class = get_class($item);
-        if (array_key_exists($class, self::$itemRenderer)) {
-            $method = self::$itemRenderer[$class];
-            $result = call_user_func([$this, $method], $item, $extLabel);
-        } else {
-            $result = $this->buildLink($item, $extLabel);
+        try {
+            $shortClass = (new \ReflectionClass($item))->getShortName();
+            $method = str_replace(BaseMenuItem::MENU_ITEM_CLASS_PREFIX, 'build', $shortClass);
+            if (!method_exists($this, $method)) {
+                $method = self::DEFAULT_RENDER_METHOD;
+            }
+        } catch (\ReflectionException $e) {
+            $method = self::DEFAULT_RENDER_METHOD;
         }
 
+        $result = call_user_func([$this, $method], $item, $extLabel);
         $result .= !empty($item->getRawHtml()) ? $item->getRawHtml() : '';
 
         return $result;
