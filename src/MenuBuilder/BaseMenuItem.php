@@ -83,11 +83,6 @@ abstract class BaseMenuItem implements MenuItemInterface
     protected $rawHtml = '';
 
     /**
-     * @var $children
-     */
-    protected $children = [];
-
-    /**
      * @var bool
      */
     private $enabled = true;
@@ -97,9 +92,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     private $conditions = [];
 
     /**
-     *  getLabel method
+     * @inheritdoc
      *
-     * @return string menu item label
+     * @return string the label of this menu item, or null if this menu item has no label.
      */
     public function getLabel()
     {
@@ -107,9 +102,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  setLabel method
+     * @inheritdoc
      *
-     * @param string $label for menu item
+     * @param string $label the new label, or null for no label.
      * @return void
      */
     public function setLabel($label)
@@ -118,9 +113,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  getIcon method
+     * @inheritdoc
      *
-     * @return string menu item icon name
+     * @return string the icon of this menu item, or null if this menu item has no icon.
      */
     public function getIcon()
     {
@@ -128,9 +123,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  setIcon method
+     * @inheritdoc
      *
-     * @param string $icon for menu item
+     * @param string $icon the new icon, or null for no icon.
      * @return void
      */
     public function setIcon($icon)
@@ -139,9 +134,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  getTarget method
+     * @inheritdoc
      *
-     * @return string menu item target
+     * @return string the target of this menu item.
      */
     public function getTarget()
     {
@@ -149,9 +144,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  setTarget method
+     * @inheritdoc
      *
-     * @param string $target for menu item
+     * @param string $target the new target.
      * @return void
      */
     public function setTarget($target)
@@ -160,9 +155,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  getDescription method
+     * @inheritdoc
      *
-     * @return string menu item description
+     * @return string the description of this menu item, or null if this menu item has no description.
      */
     public function getDescription()
     {
@@ -170,9 +165,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  setDescription method
+     * @inheritdoc
      *
-     * @param string $descr for menu item
+     * @param string $descr the new description, or null for no description.
      * @return void
      */
     public function setDescription($descr)
@@ -181,9 +176,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  getUrl method
+     * @inheritdoc
      *
-     * @return array or string menu item URL
+     * @return string|array the URL of this menu item, or null if this menu item has no URL.
      */
     public function getUrl()
     {
@@ -191,9 +186,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  setUrl method
+     * @inheritdoc
      *
-     * @param string or array $url for menu item
+     * @param string|array $url the new URL, or null for no URL.
      * @return void
      */
     public function setUrl($url)
@@ -233,9 +228,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     * getRawHtml method
+     * @inheritdoc
      *
-     * @return string raw html
+     * @return string the raw HTML for this menu item, or null if no HTML was provided.
      */
     public function getRawHtml()
     {
@@ -243,9 +238,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     * setRawHtml method
+     * @inheritdoc
      *
-     * @param string $rawHtml for menu item, i.e. modal window or so
+     * @param string $rawHtml the new HTML, or null for no HTML.
      * @return void
      */
     public function setRawHtml($rawHtml)
@@ -265,9 +260,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     * getOrder method
+     * @inheritdoc
      *
-     * @return int menu item order
+     * @return int the position of this menu item.
      */
     public function getOrder()
     {
@@ -275,9 +270,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     * setOrder method
+     * @inheritdoc
      *
-     * @param int $order for menu item
+     * @param int $order the new position.
      * @return void
      */
     public function setOrder($order)
