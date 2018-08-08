@@ -92,7 +92,7 @@ class BaseMenuRenderClassTest extends TestCase
         $subitem->setUrl('http://example.com');
         $subitem->setLabel('SubLink');
         $subitem->disable();
-        $item->addChild($subitem);
+        $item->addMenuItem($subitem);
 
         $html = $this->menuRenderer->render();
         $this->assertStringStartsWith('<ul><li><a', $html);

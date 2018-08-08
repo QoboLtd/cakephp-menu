@@ -34,7 +34,7 @@ final class MenuItemFactory
             if ($key == 'children') {
                 foreach ($value as $k => $v) {
                     $childItem = static::createMenuItem($v);
-                    $menuItem->addChild($childItem);
+                    $menuItem->addMenuItem($childItem);
                 }
             } else {
                 $method = 'set' . ucfirst(Inflector::camelize($key));

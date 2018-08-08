@@ -7,6 +7,9 @@ use Menu\MenuBuilder\MenuItemButton;
 
 class MenuTest extends TestCase
 {
+    /**
+     * @var Menu
+     */
     public $instance;
 
     public function setUp()
@@ -29,6 +32,19 @@ class MenuTest extends TestCase
 
         $result = $this->instance->getMenuItems();
         $this->assertEquals($result, $expected, $msg);
+    }
+
+    public function testAddRemove()
+    {
+        $item = new MenuItemButton();
+        $this->instance->addMenuItem($item);
+        $this->assertEquals(1, count($this->instance->getMenuItems()));
+
+        $this->instance->removeMenuItem(new MenuItemButton());
+        $this->assertEquals(1, count($this->instance->getMenuItems()));
+
+        $this->instance->removeMenuItem($item);
+        $this->assertEquals(0, count($this->instance->getMenuItems()));
     }
 
     public function providerMenuItems()
