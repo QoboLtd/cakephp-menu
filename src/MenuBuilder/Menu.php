@@ -28,25 +28,4 @@ class Menu implements MenuInterface
      * @const MENU_ACTIONS_TYPE
      */
     const MENU_ACTIONS_TYPE = 'actions';
-
-    /**
-     *  addMenuItem method
-     *
-     * @param \Menu\MenuBuilder\MenuItemInterface $item menu item definition
-     * @return void
-     */
-    public function addMenuItem($item)
-    {
-        $this->add($item);
-    }
-
-    /**
-     *  getMenuItems method
-     *
-     * @return array of menu items
-     */
-    public function getMenuItems()
-    {
-        return $this->getAll();
-    }
 }

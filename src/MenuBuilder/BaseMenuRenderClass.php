@@ -11,8 +11,7 @@
  */
 namespace Menu\MenuBuilder;
 
-use Cake\View\Helper\UrlHelper;
-use Menu\MenuBuilder\Menu;
+use Cake\View\View;
 
 /**
  *  BaseMenuRenderClass class
@@ -29,12 +28,12 @@ class BaseMenuRenderClass implements MenuRenderInterface
     protected $format = [];
 
     /**
-     * @var $menu list of menu items
+     * @var Menu $menu
      */
     protected $menu = null;
 
     /**
-     * @var $viewEntity
+     * @var View $viewEntity
      */
     protected $viewEntity = null;
 
@@ -50,7 +49,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      * @param \Cake\View\View $viewEntity view entity
      * @return void
      */
-    public function __construct($menu, $viewEntity)
+    public function __construct(Menu $menu, View $viewEntity)
     {
         $this->menu = $menu;
         $this->viewEntity = $viewEntity;
@@ -107,16 +106,16 @@ class BaseMenuRenderClass implements MenuRenderInterface
      * @param \Menu\MenuBuilder\MenuItemInterface $item menu item definition
      * @return string rendered menu item as HTML
      */
-    protected function renderMenuItem($item)
+    protected function renderMenuItem(MenuItemInterface $item)
     {
-        $children = $item->getChildren();
+        $children = $item->getMenuItems();
 
         $html = $this->format['itemStart'];
 
         $html .= $this->_buildItem($item, !empty($children) && !empty($this->format['itemWithChildrenPostfix']) ? $this->format['itemWithChildrenPostfix'] : '');
 
         if (!empty($children)) {
-            $enabledChildren = array_filter($children, function ($child) {
+            $enabledChildren = array_filter($children, function (MenuItemInterface $child) {
                 return $child->isEnabled();
             });
 
@@ -138,11 +137,11 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _buildItem method
      *
-     * @param \Menu\MenuBuilder\Menu $item menu item entity
+     * @param MenuItemInterface $item menu item entity
      * @param string $extLabel additional label elements
      * @return string generated HTML element
      */
-    protected function _buildItem($item, $extLabel)
+    protected function _buildItem(MenuItemInterface $item, $extLabel)
     {
         $class = get_class($item);
         // Menu\MenuBuilder\MenuItemLink
@@ -180,12 +179,12 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _buildLink method
      *
-     * @param \Menu\MenuBuilder\Menu $item menu item entity
+     * @param MenuItemInterface $item menu item entity
      * @param string $extLabel additional label elements
      * @param array $params additional params
      * @return string generated HTML element
      */
-    protected function _buildLink($item, $extLabel = '', $params = [])
+    protected function _buildLink(MenuItemInterface $item, $extLabel = '', $params = [])
     {
         $params['title'] = __($item->getLabel());
         $params['escape'] = false;
@@ -207,11 +206,11 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _buildLinkButton method
      *
-     * @param \Menu\MenuBuilder\Menu $item menu item entity
+     * @param MenuItemLinkButton $item menu item entity
      * @param string $extLabel additional label elements
      * @return string generated HTML element
      */
-    protected function _buildLinkButton($item, $extLabel)
+    protected function _buildLinkButton(MenuItemLinkButton $item, $extLabel)
     {
         $params = ['class' => 'btn btn-default'];
 
@@ -229,12 +228,12 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      * _buildLinkButtonModal method
      *
-     * @param \Menu\MenuBuilder\Menu $item menu item entity
+     * @param MenuItemLinkModal $item menu item entity
      * @param string $extLabel additional label elements
      * @param array $params additional params
      * @return string generated HTML element
      */
-    protected function _buildLinkModal($item, $extLabel, $params = [])
+    protected function _buildLinkModal(MenuItemLinkModal $item, $extLabel, $params = [])
     {
         $item->setUrl('#');
 
@@ -247,11 +246,11 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      * _buildLinkButtonModal method
      *
-     * @param \Menu\MenuBuilder\Menu $item menu item entity
+     * @param MenuItemLinkButtonModal $item menu item entity
      * @param string $extLabel additional label elements
      * @return string generated HTML element
      */
-    protected function _buildLinkButtonModal($item, $extLabel)
+    protected function _buildLinkButtonModal(MenuItemLinkButtonModal $item, $extLabel)
     {
         $item->setUrl('#');
 
@@ -265,12 +264,12 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _buildPostlink method
      *
-     * @param \Menu\MenuBuilder\Menu $item menu item entity
+     * @param MenuItemPostlink $item menu item entity
      * @param string $postFix additional label elements
      * @param array $params additional params
      * @return string generated HTML element
      */
-    protected function _buildPostlink($item, $postFix, $params = [])
+    protected function _buildPostlink(MenuItemPostlink $item, $postFix, $params = [])
     {
         $params['title'] = $item->getLabel();
         $params['escape'] = false;
@@ -288,11 +287,11 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _buildPostlinkButton method
      *
-     * @param \Menu\MenuBuilder\Menu $item menu item entity
+     * @param MenuItemPostlinkButton $item menu item entity
      * @param string $postFix additional label elements
      * @return string generated HTML element
      */
-    protected function _buildPostlinkButton($item, $postFix)
+    protected function _buildPostlinkButton(MenuItemPostlinkButton $item, $postFix)
     {
         $params['class'] = 'btn btn-default';
 
@@ -302,11 +301,11 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _buildButton method
      *
-     * @param \Menu\MenuBuilder\Menu $item menu item entity
+     * @param MenuItemButton $item menu item entity
      * @param string $postFix additional label elements
      * @return string generated HTML element
      */
-    protected function _buildButton($item, $postFix)
+    protected function _buildButton(MenuItemButton $item, $postFix)
     {
         $params = [
             'type' => 'button',
@@ -316,7 +315,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
             $params['class'] = $item->getExtraAttribute();
         }
 
-        if (!empty($item->getChildren())) {
+        if (!empty($item->getMenuItems())) {
             $params['data-toggle'] = 'dropdown';
             $params['aria-haspopup'] = 'true';
             $params['aria-expanded'] = 'false';
@@ -339,11 +338,11 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      *  _buildSeparator method
      *
-     * @param \Menu\MenuBuilder\Menu $item menu item entity
+     * @param MenuItemSeparator $item menu item entity
      * @param string $postFix additional label elements
      * @return string generated HTML element
      */
-    protected function _buildSeparator($item, $postFix)
+    protected function _buildSeparator(MenuItemSeparator $item, $postFix)
     {
         $result = '<hr class="separator" />';
 

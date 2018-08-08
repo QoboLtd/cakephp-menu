@@ -305,32 +305,38 @@ abstract class BaseMenuItem implements MenuItemInterface
      *  addChild method
      *
      * @param MenuItemInterface $child menu item
+     * @deprecated Use add method instead.
      * @return void
      */
     public function addChild(MenuItemInterface $child)
     {
-        $this->add($child);
+        trigger_error('Method ' . __METHOD__ . ' is deprecated. Use add method instead', E_USER_DEPRECATED);
+        $this->addMenuItem($child);
     }
 
     /**
      * removeChild method
      *
      * @param string $childId to be removed
+     * @deprecated Use remove method instead.
      * @return void
      */
     public function removeChild($childId)
     {
-        throw new NotImplementedException('Method ' . __METHOD__ . ' is not implemented yet!');
+        trigger_error('Method ' . __METHOD__ . ' is deprecated. Use remove method instead', E_USER_DEPRECATED);
     }
 
     /**
      *  getChildren method
      *
+     * @deprecated Use getAll method instead.
      * @return array list of child items
      */
     public function getChildren()
     {
-        return $this->getAll();
+        trigger_error('Method ' . __METHOD__ . ' is deprecated. Use getAll method instead', E_USER_DEPRECATED);
+
+        return $this->getMenuItems();
     }
 
     /**

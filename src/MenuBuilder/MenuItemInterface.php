@@ -22,6 +22,7 @@ interface MenuItemInterface extends MenuItemContainerInterface
     /**
      *  getChildren method
      *
+     * @deprecated Use getMenuItems method instead.
      * @return array list of child items
      */
     public function getChildren();
@@ -30,6 +31,7 @@ interface MenuItemInterface extends MenuItemContainerInterface
      *  addChild method
      *
      * @param MenuItemInterface $item menu item
+     * @deprecated Use addMenuItem method instead.
      * @return void
      */
     public function addChild(MenuItemInterface $item);
@@ -38,6 +40,7 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * removeChild method
      *
      * @param string $childId to identify child item to be removed
+     * @deprecated Use removeMenuItem method instead.
      * @return void
      */
     public function removeChild($childId);

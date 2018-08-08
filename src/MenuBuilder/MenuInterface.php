@@ -18,18 +18,4 @@ namespace Menu\MenuBuilder;
  */
 interface MenuInterface extends MenuItemContainerInterface
 {
-    /**
-     *  addMenuItem method
-     *
-     * @param \Menu\MenuBuilder\MenuItemInterface $item menu item definition
-     * @return void
-     */
-    public function addMenuItem($item);
-
-    /**
-     *  getMenuItems method
-     *
-     * @return array of menu items sorted according to menu item property
-     */
-    public function getMenuItems();
 }

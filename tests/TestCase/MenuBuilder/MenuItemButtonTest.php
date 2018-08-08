@@ -178,8 +178,8 @@ class MenuItemButtonTest extends TestCase
      */
     public function testAddChild($data, $expected, $msg)
     {
-        $this->menuItem->addChild($data);
-        $this->assertEquals($expected, $this->menuItem->getChildren(), $msg);
+        $this->menuItem->addMenuItem($data);
+        $this->assertEquals($expected, $this->menuItem->getMenuItems(), $msg);
     }
 
     public function providerButtonChildren()

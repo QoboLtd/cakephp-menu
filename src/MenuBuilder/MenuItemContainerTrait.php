@@ -26,7 +26,7 @@ trait MenuItemContainerTrait
      * @param MenuItemInterface $item the menu item to be added
      * @return void
      */
-    public function add(MenuItemInterface $item)
+    public function addMenuItem(MenuItemInterface $item)
     {
         array_push($this->menuItems, $item);
     }
@@ -36,7 +36,7 @@ trait MenuItemContainerTrait
      *
      * @return array List of menu items
      */
-    public function getAll()
+    public function getMenuItems()
     {
         usort($this->menuItems, function ($a, $b) {
             return $a->getOrder() > $b->getOrder();
@@ -52,7 +52,7 @@ trait MenuItemContainerTrait
      * @param MenuItemInterface $item  The item to be removed from the menu.
      * @return void
      */
-    public function remove(MenuItemInterface $item)
+    public function removeMenuItem(MenuItemInterface $item)
     {
         $key = array_search($item, $this->menuItems);
         if ($key !== false) {
