@@ -11,8 +11,6 @@
  */
 namespace Menu\MenuBuilder;
 
-use Cake\Network\Exception\NotImplementedException;
-
 abstract class BaseMenuItem implements MenuItemInterface
 {
     use MenuItemContainerTrait;
