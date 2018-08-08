@@ -303,12 +303,12 @@ abstract class BaseMenuItem implements MenuItemInterface
      *  addChild method
      *
      * @param MenuItemInterface $child menu item
-     * @deprecated Use add method instead.
+     * @deprecated Use addMenuItem method instead.
      * @return void
      */
     public function addChild(MenuItemInterface $child)
     {
-        trigger_error('Method ' . __METHOD__ . ' is deprecated. Use add method instead', E_USER_DEPRECATED);
+        trigger_error('Method ' . __METHOD__ . ' is deprecated. Use addMenuItem method instead', E_USER_DEPRECATED);
         $this->addMenuItem($child);
     }
 
@@ -316,23 +316,23 @@ abstract class BaseMenuItem implements MenuItemInterface
      * removeChild method
      *
      * @param string $childId to be removed
-     * @deprecated Use remove method instead.
+     * @deprecated Use removeMenuItem method instead.
      * @return void
      */
     public function removeChild($childId)
     {
-        trigger_error('Method ' . __METHOD__ . ' is deprecated. Use remove method instead', E_USER_DEPRECATED);
+        trigger_error('Method ' . __METHOD__ . ' is deprecated. Use removeMenuItem method instead', E_USER_DEPRECATED);
     }
 
     /**
      *  getChildren method
      *
-     * @deprecated Use getAll method instead.
+     * @deprecated Use getMenuItems method instead.
      * @return array list of child items
      */
     public function getChildren()
     {
-        trigger_error('Method ' . __METHOD__ . ' is deprecated. Use getAll method instead', E_USER_DEPRECATED);
+        trigger_error('Method ' . __METHOD__ . ' is deprecated. Use getMenuItems method instead', E_USER_DEPRECATED);
 
         return $this->getMenuItems();
     }
