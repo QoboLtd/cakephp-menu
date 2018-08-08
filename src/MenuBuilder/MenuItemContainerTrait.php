@@ -54,7 +54,7 @@ trait MenuItemContainerTrait
      */
     public function removeMenuItem(MenuItemInterface $item)
     {
-        $key = array_search($item, $this->menuItems);
+        $key = array_search($item, $this->menuItems, true);
         if ($key !== false) {
             unset($this->menuItems[$key]);
         }
