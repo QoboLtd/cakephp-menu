@@ -43,6 +43,19 @@ class BaseMenuRenderClass implements MenuRenderInterface
     protected $noLabel = false;
 
     /**
+     * @var array Mapping between MenuItemInterface implementation and render method
+     */
+    private static $itemRenderer = [
+        'Menu\MenuBuilder\MenuItemPostlink' => 'buildPostlink',
+        'Menu\MenuBuilder\MenuItemButton' => 'buildButton',
+        'Menu\MenuBuilder\MenuItemSeparator' => 'buildSeparator',
+        'Menu\MenuBuilder\MenuItemLinkButton' => 'buildLinkButton',
+        'Menu\MenuBuilder\MenuItemPostlinkButton' => 'buildPostlinkButton',
+        'Menu\MenuBuilder\MenuItemLinkButtonModal' => 'buildLinkButtonModal',
+        'Menu\MenuBuilder\MenuItemLinkModal' => 'buildLinkModal',
+    ];
+
+    /**
      *  __construct method
      *
      * @param \Menu\MenuBuilder\Menu $menu menu to render
@@ -143,32 +156,14 @@ class BaseMenuRenderClass implements MenuRenderInterface
      */
     protected function buildItem(MenuItemInterface $item, $extLabel)
     {
+        $result = null;
+
         $class = get_class($item);
-        // Menu\MenuBuilder\MenuItemLink
-        switch ($class) {
-            case 'Menu\MenuBuilder\MenuItemPostlink':
-                $result = $this->buildPostlink($item, $extLabel);
-                break;
-            case 'Menu\MenuBuilder\MenuItemButton':
-                $result = $this->buildButton($item, $extLabel);
-                break;
-            case 'Menu\MenuBuilder\MenuItemSeparator':
-                $result = $this->buildSeparator($item, $extLabel);
-                break;
-            case 'Menu\MenuBuilder\MenuItemLinkButton':
-                $result = $this->buildLinkButton($item, $extLabel);
-                break;
-            case 'Menu\MenuBuilder\MenuItemPostlinkButton':
-                $result = $this->buildPostlinkButton($item, $extLabel);
-                break;
-            case 'Menu\MenuBuilder\MenuItemLinkButtonModal':
-                $result = $this->buildLinkButtonModal($item, $extLabel);
-                break;
-            case 'Menu\MenuBuilder\MenuItemLinkModal':
-                $result = $this->buildLinkModal($item, $extLabel);
-                break;
-            default:
-                $result = $this->buildLink($item, $extLabel);
+        if (array_key_exists($class, self::$itemRenderer)) {
+            $method = self::$itemRenderer[$class];
+            $result = call_user_func([$this, $method], $item, $extLabel);
+        } else {
+            $result = $this->buildLink($item, $extLabel);
         }
 
         $result .= !empty($item->getRawHtml()) ? $item->getRawHtml() : '';
