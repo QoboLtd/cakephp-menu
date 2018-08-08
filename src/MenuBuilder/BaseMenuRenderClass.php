@@ -12,6 +12,8 @@
 namespace Menu\MenuBuilder;
 
 use Cake\View\View;
+use \ReflectionClass;
+use \ReflectionException;
 
 /**
  *  BaseMenuRenderClass class
@@ -145,12 +147,12 @@ class BaseMenuRenderClass implements MenuRenderInterface
     protected function buildItem(MenuItemInterface $item, $extLabel)
     {
         try {
-            $shortClass = (new \ReflectionClass($item))->getShortName();
+            $shortClass = (new ReflectionClass($item))->getShortName();
             $method = str_replace(BaseMenuItem::MENU_ITEM_CLASS_PREFIX, 'build', $shortClass);
             if (!method_exists($this, $method)) {
                 $method = self::DEFAULT_RENDER_METHOD;
             }
-        } catch (\ReflectionException $e) {
+        } catch (ReflectionException $e) {
             $method = self::DEFAULT_RENDER_METHOD;
         }
 
