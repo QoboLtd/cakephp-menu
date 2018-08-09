@@ -15,16 +15,21 @@ use Menu\Event\EventName;
 use Menu\MenuBuilder\Menu;
 use Menu\MenuBuilder\MenuItemFactory;
 
-$event = new Event((string)EventName::MENU_BEFORE_RENDER(), $this, ['menu' => $menuItems, 'user' => $user]);
-$this->eventManager()->dispatch($event);
-if (!empty($event->result)) {
-    $menuItems = $event->result;
-}
-$menu = new Menu();
-foreach ($menuItems as $item) {
-    if (is_array($item) && !empty($item)) {
-        $menuItem = MenuItemFactory::createMenuItem($item);
-        $menu->addMenuItem($menuItem);
+if ($menuItems instanceof Menu) {
+    $menu = $menuItems;
+} else {
+    // maintain backwards compatibility for menu arrays
+    $event = new Event((string)EventName::MENU_BEFORE_RENDER(), $this, ['menu' => $menuItems, 'user' => $user]);
+    $this->eventManager()->dispatch($event);
+    if (!empty($event->result)) {
+        $menuItems = $event->result;
+    }
+    $menu = new Menu();
+    foreach ($menuItems as $item) {
+        if (is_array($item) && !empty($item)) {
+            $menuItem = MenuItemFactory::createMenuItem($item);
+            $menu->addMenuItem($menuItem);
+        }
     }
 }
 
