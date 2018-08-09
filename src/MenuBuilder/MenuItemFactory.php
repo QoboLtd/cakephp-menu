@@ -11,6 +11,7 @@
  */
 namespace Menu\MenuBuilder;
 
+use Cake\Datasource\EntityInterface;
 use Cake\Utility\Inflector;
 use Menu\MenuBuilder\BaseMenuItem;
 
@@ -45,6 +46,37 @@ final class MenuItemFactory
         }
 
         return $menuItem;
+    }
+
+    /**
+     * Iterates through the specified query and creates a new menu item for each record found.
+     * Returns the created menu items as an array
+     *
+     * @param array $query List of EntityInterface
+     * @param string $labelColumn Column to be used as the label
+     * @param string|array $url  Menu URL using %s as the ID placeholder
+     * @param string $icon Menu icon to be used
+     * @param int $order The starting menu order
+     * @return array List of created menu items
+     */
+    public static function createMenuItemsFromQuery($query, $labelColumn, $url, $icon, $order)
+    {
+        $items = [];
+
+        /**
+         * @var int $i
+         * @var EntityInterface $entity
+         */
+        foreach ($query as $i => $entity) {
+            $items[] = MenuItemFactory::createMenuItem([
+                'label' => $entity->get($labelColumn),
+                'url' => sprintf($url, $entity->get('id')),
+                'icon' => $icon,
+                'order' => $order + $i,
+            ]);
+        }
+
+        return $items;
     }
 
     /**
