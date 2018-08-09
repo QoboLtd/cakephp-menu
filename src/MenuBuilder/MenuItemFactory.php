@@ -11,9 +11,7 @@
  */
 namespace Menu\MenuBuilder;
 
-use Cake\Datasource\EntityInterface;
 use Cake\Utility\Inflector;
-use Cake\Routing\Router;
 use Menu\MenuBuilder\BaseMenuItem;
 
 /**
