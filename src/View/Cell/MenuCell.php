@@ -16,6 +16,7 @@ use Cake\Event\Event;
 use Cake\View\Cell;
 use InvalidArgumentException;
 use Menu\Event\EventName;
+use Menu\MenuBuilder\Menu;
 
 class MenuCell extends Cell
 {
@@ -90,10 +91,12 @@ class MenuCell extends Cell
             $this->_getMenuItemsFromEvent($menu) :
             $this->_getMenuItemsFromTable($menu);
 
-        $menuItems = $this->_normalizeItems($menuItems);
-
-        if ($menu->default) {
-            $menuItems = $this->_sortItems($menuItems);
+        // maintain backwards compatibility for menu arrays
+        if (is_array($menuItems)) {
+            $menuItems = $this->_normalizeItems($menuItems);
+            if ($menu->default) {
+                $menuItems = $this->_sortItems($menuItems);
+            }
         }
 
         $this->set('menuItems', $menuItems);
