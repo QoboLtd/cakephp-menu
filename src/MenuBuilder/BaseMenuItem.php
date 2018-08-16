@@ -399,6 +399,18 @@ abstract class BaseMenuItem implements MenuItemInterface
             }
         }
 
+        // Parent menu items are enabled only and only if they have at least one child enabled
+        if (!empty($this->menuItems)) {
+            /** @var MenuItemInterface $menuItem */
+            foreach ($this->menuItems as $menuItem) {
+                if ($menuItem->isEnabled()) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         return true;
     }
 }

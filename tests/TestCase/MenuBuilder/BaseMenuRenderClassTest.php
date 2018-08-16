@@ -94,9 +94,8 @@ class BaseMenuRenderClassTest extends TestCase
         $subitem->disable();
         $item->addMenuItem($subitem);
 
-        $html = $this->menuRenderer->render();
-        $this->assertStringStartsWith('<ul><li><a', $html);
-        $this->assertStringEndsWith('<ul></ul></li></ul>', $html);
+        $expected = '<ul></ul>';
+        $this->assertEquals($expected, $this->menuRenderer->render());
     }
 
     public function testRenderMenuWithButton()
