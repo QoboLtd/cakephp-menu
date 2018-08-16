@@ -79,6 +79,7 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * Returns true only and only if:
      * - enabled flag is set to true
      * - all defined conditions are being evaluated to false
+     * - if having child menu items, one of them is enabled
      * @return bool
      */
     public function isEnabled();

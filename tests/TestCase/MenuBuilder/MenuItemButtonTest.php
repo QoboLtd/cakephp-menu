@@ -4,6 +4,7 @@ namespace Menu\Test\TestCase\MenuBuilder;
 use Cake\TestSuite\TestCase;
 use Menu\MenuBuilder\BaseMenuItem;
 use Menu\MenuBuilder\MenuItemButton;
+use Menu\Model\Entity\MenuItem;
 
 class MenuItemButtonTest extends TestCase
 {
@@ -200,6 +201,7 @@ class MenuItemButtonTest extends TestCase
         $item->enable();
         $this->assertTrue($item->isEnabled());
     }
+
     public function testConditions()
     {
         $item = new MenuItemButton();
@@ -210,6 +212,22 @@ class MenuItemButtonTest extends TestCase
         $item->disableIf(function () {
             return true;
         });
+        $this->assertFalse($item->isEnabled());
+    }
+
+    public function testEnabledFlagNested()
+    {
+        $child1 = new MenuItemButton();
+
+        $child2 = new MenuItemButton();
+        $child2->disable();
+
+        $item = new MenuItemButton();
+        $item->addMenuItem($child1);
+        $item->addMenuItem($child2);
+        $this->assertTrue($item->isEnabled());
+
+        $child1->disable();
         $this->assertFalse($item->isEnabled());
     }
 }
