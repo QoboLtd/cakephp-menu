@@ -14,6 +14,7 @@ namespace Menu\View\Cell;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\View\Cell;
+use Exception;
 use InvalidArgumentException;
 use Menu\Event\EventName;
 use Menu\MenuBuilder\Menu;
@@ -85,11 +86,16 @@ class MenuCell extends Cell
         $this->fullBaseUrl = (bool)$fullBaseUrl;
 
         // get menu
-        $menu = $this->Menus->findByName($name)->firstOrFail();
+        try {
+            $menu = $this->Menus->findByName($name)->firstOrFail();
 
-        $menuItems = $menu->default ?
-            $this->_getMenuItemsFromEvent($menu) :
-            $this->_getMenuItemsFromTable($menu);
+            $menuItems = $menu->default ?
+                $this->_getMenuItemsFromEvent($name) :
+                $this->_getMenuItemsFromTable($menu);
+        } catch (Exception $e) {
+            $menuItems = $this->_getMenuItemsFromEvent($name);
+        }
+
 
         // maintain backwards compatibility for menu arrays
         if (is_array($menuItems)) {
@@ -112,10 +118,10 @@ class MenuCell extends Cell
      * @param array $modules Modules to fetch menu items for
      * @return array
      */
-    protected function _getMenuItemsFromEvent(EntityInterface $menu, array $modules = [])
+    protected function _getMenuItemsFromEvent($menuName, array $modules = [])
     {
         $event = new Event((string)EventName::GET_MENU_ITEMS(), $this, [
-            'name' => $menu->name,
+            'name' => $menuName,
             'user' => $this->user,
             'fullBaseUrl' => $this->fullBaseUrl,
             'modules' => $modules
