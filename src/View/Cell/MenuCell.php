@@ -114,7 +114,7 @@ class MenuCell extends Cell
     /**
      * Menu items getter using Event.
      *
-     * @param \Cake\Datasource\EntityInterface $menu Menu entity
+     * @param string $menuName Menu name
      * @param array $modules Modules to fetch menu items for
      * @return array
      */
@@ -192,7 +192,7 @@ class MenuCell extends Cell
         }
 
         if (static::TYPE_MODULE === $type) {
-            $item = $this->_getMenuItemsFromEvent($menu, [$item['url']]);
+            $item = $this->_getMenuItemsFromEvent($menu->get('name'), [$item['url']]);
             reset($item);
             $item = current($item);
         }
