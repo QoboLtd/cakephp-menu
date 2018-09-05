@@ -40,6 +40,8 @@ final class MenuItemFactory
                 foreach ($value as $k => $v) {
                     $menuItem->addAttribute($k, $v);
                 }
+            } elseif ($key == 'viewElement') {
+                call_user_func_array([$menuItem, 'setViewElement'], $value);
             } else {
                 $method = 'set' . ucfirst(Inflector::camelize($key));
                 if (method_exists($menuItem, $method)) {
