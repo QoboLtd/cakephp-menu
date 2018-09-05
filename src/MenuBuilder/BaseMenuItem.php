@@ -90,6 +90,11 @@ abstract class BaseMenuItem implements MenuItemInterface
     private $conditions = [];
 
     /**
+     * @var array List of attributes to be included in menu item link or button
+     */
+    private $attributes = [];
+
+    /**
      * @inheritdoc
      *
      * @return string the label of this menu item, or null if this menu item has no label.
@@ -412,5 +417,28 @@ abstract class BaseMenuItem implements MenuItemInterface
         }
 
         return true;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param string $attributeName Attribute's name
+     * @param string $attributeValue Attribute's value
+     * @return void
+     */
+    public function addAttribute($attributeName, $attributeValue)
+    {
+        $this->attributes[$attributeName] = $attributeValue;
+    }
+
+    /**
+     * Returns an associative array including all the defined attributes.
+     * The array's key defines the attribute name.
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
     }
 }

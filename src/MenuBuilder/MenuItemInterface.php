@@ -198,4 +198,22 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * @return void
      */
     public function setRawHtml($rawHtml);
+
+    /**
+     * Adds an HTML attribute for this menu item.
+     * If the attribute already exists it will be overwritten.
+     *
+     * @param string $attributeName Attribute's name
+     * @param string $attributeValue Attribute's value
+     * @return void
+     */
+    public function addAttribute($attributeName, $attributeValue);
+
+    /**
+     * Returns an associative array including all the defined attributes.
+     * The array's key defines the attribute name.
+     *
+     * @return array
+     */
+    public function getAttributes();
 }
