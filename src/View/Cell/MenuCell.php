@@ -96,7 +96,6 @@ class MenuCell extends Cell
             $menuItems = $this->_getMenuItemsFromEvent($name);
         }
 
-
         // maintain backwards compatibility for menu arrays
         if (is_array($menuItems)) {
             $menuItems = $this->_normalizeItems($menuItems);

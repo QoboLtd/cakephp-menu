@@ -36,6 +36,10 @@ final class MenuItemFactory
                     $childItem = static::createMenuItem($v);
                     $menuItem->addMenuItem($childItem);
                 }
+            } elseif ($key == 'attributes') {
+                foreach ($value as $k => $v) {
+                    $menuItem->addAttribute($k, $v);
+                }
             } else {
                 $method = 'set' . ucfirst(Inflector::camelize($key));
                 if (method_exists($menuItem, $method)) {

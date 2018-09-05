@@ -106,7 +106,7 @@ class BaseMenuRenderClassTest extends TestCase
 
         $this->menu->addMenuItem($item);
 
-        $expected = '<ul><li><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Button</button></li></ul>';
+        $expected = '<ul><li><button type="button" class="btn btn-default">Button</button></li></ul>';
 
         $this->assertEquals($expected, $this->menuRenderer->render());
     }

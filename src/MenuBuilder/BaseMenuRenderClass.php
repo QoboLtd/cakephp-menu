@@ -156,7 +156,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
             $method = self::DEFAULT_RENDER_METHOD;
         }
 
-        $result = call_user_func([$this, $method], $item, $extLabel);
+        $result = call_user_func([$this, $method], $item, $extLabel, $item->getAttributes());
         $result .= !empty($item->getRawHtml()) ? $item->getRawHtml() : '';
 
         return $result;
@@ -167,7 +167,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param MenuItemInterface $item menu item entity
      * @param string $extLabel additional label elements
-     * @param array $params additional params
+     * @param array $params HTML attributes
      * @return string generated HTML element
      */
     protected function buildLink(MenuItemInterface $item, $extLabel = '', $params = [])
@@ -194,11 +194,14 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param MenuItemLinkButton $item menu item entity
      * @param string $extLabel additional label elements
+     * @param array $params HTML attributes
      * @return string generated HTML element
      */
-    protected function buildLinkButton(MenuItemLinkButton $item, $extLabel)
+    protected function buildLinkButton(MenuItemLinkButton $item, $extLabel, $params = [])
     {
-        $params = ['class' => 'btn btn-default'];
+        if (empty($params['class'])) {
+            $params['class'] = 'btn btn-default';
+        }
 
         if (!empty($item->getDataType())) {
             $params['data-type'] = $item->getDataType();
@@ -216,7 +219,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param MenuItemLinkModal $item menu item entity
      * @param string $extLabel additional label elements
-     * @param array $params additional params
+     * @param array $params HTML attributes
      * @return string generated HTML element
      */
     protected function buildLinkModal(MenuItemLinkModal $item, $extLabel, $params = [])
@@ -234,15 +237,16 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param MenuItemLinkButtonModal $item menu item entity
      * @param string $extLabel additional label elements
+     * @param array $params HTML attributes
      * @return string generated HTML element
      */
-    protected function buildLinkButtonModal(MenuItemLinkButtonModal $item, $extLabel)
+    protected function buildLinkButtonModal(MenuItemLinkButtonModal $item, $extLabel, $params = [])
     {
         $item->setUrl('#');
 
-        $params = [
-            'class' => 'btn btn-default',
-        ];
+        if (empty($params['class'])) {
+            $params['class'] = 'btn btn-default';
+        }
 
         return $this->buildLinkModal($item, $extLabel, $params);
     }
@@ -252,7 +256,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param MenuItemPostlink $item menu item entity
      * @param string $postFix additional label elements
-     * @param array $params additional params
+     * @param array $params HTML attributes
      * @return string generated HTML element
      */
     protected function buildPostlink(MenuItemPostlink $item, $postFix, $params = [])
@@ -275,11 +279,14 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param MenuItemPostlinkButton $item menu item entity
      * @param string $postFix additional label elements
+     * @param array $params HTML attributes
      * @return string generated HTML element
      */
-    protected function buildPostlinkButton(MenuItemPostlinkButton $item, $postFix)
+    protected function buildPostlinkButton(MenuItemPostlinkButton $item, $postFix, $params = [])
     {
-        $params['class'] = 'btn btn-default';
+        if (empty($params['class'])) {
+            $params['class'] = 'btn btn-default';
+        }
 
         return $this->buildPostlink($item, $postFix, $params);
     }
@@ -291,11 +298,13 @@ class BaseMenuRenderClass implements MenuRenderInterface
      * @param string $postFix additional label elements
      * @return string generated HTML element
      */
-    protected function buildButton(MenuItemButton $item, $postFix)
+    protected function buildButton(MenuItemButton $item, $postFix, $params = [])
     {
-        $params = [
-            'type' => 'button',
-        ];
+        $params['type'] = 'button';
+
+        if (empty($params['class'])) {
+            $params['class'] = 'btn btn-default';
+        }
 
         if (!empty($item->getExtraAttribute())) {
             $params['class'] = $item->getExtraAttribute();
@@ -316,9 +325,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
             $label .= ' ' . $this->format['itemLabelPostfix'];
         }
 
-        $result = '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' . $label . '</button>';
-
-        return $result;
+        return $this->viewEntity->Html->tag('button', $label, $params);
     }
 
     /**
