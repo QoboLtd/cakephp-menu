@@ -39,7 +39,7 @@ class MenuButtonsRender extends BaseMenuRenderClass
             'itemEnd' => '',
             'childItemStart' => '<li>',
             'childItemEnd' => '</li>',
-            'itemWithChildrenStart' => '<div class="btn-group btn-group-sm">',
+            'itemWithChildrenStart' => '<div class="btn-group btn-group-sm dropdown-toggle">',
             'itemWithChildrenEnd' => '</div>',
             'itemLabelPostfix' => '<span class="caret"></span>',
         ];
