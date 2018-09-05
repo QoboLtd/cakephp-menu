@@ -158,6 +158,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
 
         $result = call_user_func([$this, $method], $item, $extLabel, $item->getAttributes());
         $result .= !empty($item->getRawHtml()) ? $item->getRawHtml() : '';
+        $result .= $item->renderViewElement($this->viewEntity);
 
         return $result;
     }

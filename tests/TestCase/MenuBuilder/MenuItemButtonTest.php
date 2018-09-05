@@ -119,8 +119,8 @@ class MenuItemButtonTest extends TestCase
     public function providerButtonExtraAttributes()
     {
         return [
-            ['foo', 'foo', "Didn't work with strings" ],
-            [ ['hey' => 'jude'], ['hey' => 'jude'], "Can't use arrays" ],
+            ['foo', 'foo', "Didn't work with strings"],
+            [['hey' => 'jude'], ['hey' => 'jude'], "Can't use arrays"],
         ];
     }
 
@@ -229,5 +229,13 @@ class MenuItemButtonTest extends TestCase
 
         $child1->disable();
         $this->assertFalse($item->isEnabled());
+    }
+
+    public function testAttributes()
+    {
+        $item = new MenuItemButton();
+        $item->addAttribute('one', 1);
+        $attrs = $item->getAttributes();
+        $this->assertEquals(1, $attrs['one']);
     }
 }
