@@ -11,6 +11,8 @@
  */
 namespace Menu\MenuBuilder;
 
+use Cake\View\View;
+
 /**
  *  MenuItemInterface
  *
@@ -198,6 +200,26 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * @return void
      */
     public function setRawHtml($rawHtml);
+
+    /**
+     * Assigns a view element to be rendered and appended to the auto generated menu item.
+     * This can be used to extend default behaviour like invoke modals or vue applications
+     *
+     * @param string $name Name of template file
+     * @param array $data Array of data to be made available to the rendered view (i.e. the Element)
+     * @param array $options Array of options.
+     * @see View::element()
+     */
+    public function setViewElement($name, array $data = [], array $options = []);
+
+    /**
+     * Renders the view element provided by setViewElement by using the provided view instance.
+     * Returns null if no view element was defined.
+     *
+     * @param View $view View instance that will be used for rendering
+     * @return null|string
+     */
+    public function renderViewElement(View $view);
 
     /**
      * Adds an HTML attribute for this menu item.
