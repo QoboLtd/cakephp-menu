@@ -69,9 +69,10 @@ class MenuCell extends Cell
      * @param array $user User info
      * @param bool $fullBaseUrl Full-base URL flag
      * @param string $renderer Menu renderer class name
+     * @param mixed $context The object that generates the menu to be used as the event subject
      * @return void
      */
-    public function display($name, array $user, $fullBaseUrl = false, $renderer = null)
+    public function display($name, array $user, $fullBaseUrl = false, $renderer = null, $context = null)
     {
         // validate menu name
         $this->_validateName($name);
@@ -90,10 +91,10 @@ class MenuCell extends Cell
             $menu = $this->Menus->findByName($name)->firstOrFail();
 
             $menuItems = $menu->default ?
-                $this->_getMenuItemsFromEvent($name) :
+                $this->_getMenuItemsFromEvent($name, [], $context) :
                 $this->_getMenuItemsFromTable($menu);
         } catch (Exception $e) {
-            $menuItems = $this->_getMenuItemsFromEvent($name);
+            $menuItems = $this->_getMenuItemsFromEvent($name, [], $context);
         }
 
         // maintain backwards compatibility for menu arrays
@@ -115,11 +116,16 @@ class MenuCell extends Cell
      *
      * @param string $menuName Menu name
      * @param array $modules Modules to fetch menu items for
+     * @param null|mixed $subject Event subject to be used. $this will be used in null
      * @return array
      */
-    protected function _getMenuItemsFromEvent($menuName, array $modules = [])
+    protected function _getMenuItemsFromEvent($menuName, array $modules = [], $subject = null)
     {
-        $event = new Event((string)EventName::GET_MENU_ITEMS(), $this, [
+        if (empty($subject)) {
+            $subject = $this;
+        }
+
+        $event = new Event((string)EventName::GET_MENU_ITEMS(), $subject, [
             'name' => $menuName,
             'user' => $this->user,
             'fullBaseUrl' => $this->fullBaseUrl,
