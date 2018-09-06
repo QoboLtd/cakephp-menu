@@ -86,6 +86,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @var bool
      */
     private $enabled = true;
+
     /**
      * @var array List of callbacks to be evaluated as conditions
      */
@@ -99,7 +100,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     /**
      * @var array Parameters for view element to be rendered
      */
-    private $viewElement = [];
+    protected $viewElement = [];
 
     /**
      * @inheritdoc
