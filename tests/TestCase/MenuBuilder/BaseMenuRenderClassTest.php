@@ -198,4 +198,18 @@ class BaseMenuRenderClassTest extends TestCase
 
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
+
+    public function testRenderMenuWithViewElement()
+    {
+        $item = new MenuItemButton();
+        $item->setUrl('http://example.com');
+        $item->setLabel('Button');
+        $item->setViewElement('custom-button', ['text' => 'custom-button']);
+
+        $this->menu->addMenuItem($item);
+
+        $expected = '<ul><li><button type="button" class="btn btn-default">Button</button><div>custom-button</div></li></ul>';
+
+        $this->assertEquals($expected, $this->menuRenderer->render());
+    }
 }

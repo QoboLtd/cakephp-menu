@@ -11,6 +11,8 @@
  */
 namespace Menu\MenuBuilder;
 
+use Cake\View\View;
+
 abstract class BaseMenuItem implements MenuItemInterface
 {
     use MenuItemContainerTrait;
@@ -84,6 +86,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @var bool
      */
     private $enabled = true;
+
     /**
      * @var array List of callbacks to be evaluated as conditions
      */
@@ -93,6 +96,11 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @var array List of attributes to be included in menu item link or button
      */
     private $attributes = [];
+
+    /**
+     * @var array Parameters for view element to be rendered
+     */
+    protected $viewElement = [];
 
     /**
      * @inheritdoc
@@ -440,5 +448,33 @@ abstract class BaseMenuItem implements MenuItemInterface
     public function getAttributes()
     {
         return $this->attributes;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param string $name Name of template file
+     * @param array $data Array of data to be made available to the rendered view (i.e. the Element)
+     * @param array $options Array of options.
+     * @see View::element()
+     */
+    public function setViewElement($name, array $data = [], array $options = [])
+    {
+        $this->viewElement = [$name, $data, $options];
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param View $view View instance that will be used for rendering
+     * @return null|string
+     */
+    public function renderViewElement(View $view)
+    {
+        if (empty($this->viewElement)) {
+            return null;
+        }
+
+        return call_user_func_array([$view, 'element'], $this->viewElement);
     }
 }
