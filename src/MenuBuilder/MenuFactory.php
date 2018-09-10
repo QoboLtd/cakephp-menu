@@ -79,6 +79,21 @@ class MenuFactory
      */
     protected $MenuItems;
 
+
+    /**
+     * MenuFactory constructor.
+     * @param array $user User information
+     * @param bool $fullBaseUrl Full-base URL flag
+     */
+    public function __construct(array $user, $fullBaseUrl = false)
+    {
+        $this->Menus = TableRegistry::get('Menu.Menus');
+        $this->MenuItems = TableRegistry::get('Menu.MenuItems');
+
+        $this->user = $user;
+        $this->fullBaseUrl = (bool)$fullBaseUrl;
+    }
+
     /**
      * Returns a menu instance based on the provided name.
      * If the name was found in database, it is checked whether the default option is enabled
@@ -134,20 +149,6 @@ class MenuFactory
         }
 
         return new $renderClass($menu, $view);
-    }
-
-    /**
-     * MenuFactory constructor.
-     * @param array $user User information
-     * @param bool $fullBaseUrl Full-base URL flag
-     */
-    public function __construct(array $user, $fullBaseUrl = false)
-    {
-        $this->Menus = TableRegistry::get('Menu.Menus');
-        $this->MenuItems = TableRegistry::get('Menu.MenuItems');
-
-        $this->user = $user;
-        $this->fullBaseUrl = (bool)$fullBaseUrl;
     }
 
     /**
