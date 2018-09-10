@@ -62,7 +62,7 @@ class MenuFactory
     protected $_defaults = [
         'url' => '#',
         'label' => 'Undefined',
-        'icon' => 'circle-o',
+        'icon' => 'cube',
         'order' => 0,
         'target' => '_self',
         'children' => [],
@@ -141,7 +141,7 @@ class MenuFactory
      * @param array $user User information
      * @param bool $fullBaseUrl Full-base URL flag
      */
-    private function __construct(array $user, $fullBaseUrl = false)
+    public function __construct(array $user, $fullBaseUrl = false)
     {
         $this->Menus = TableRegistry::get('Menu.Menus');
         $this->MenuItems = TableRegistry::get('Menu.MenuItems');
@@ -160,24 +160,24 @@ class MenuFactory
     protected function getMenuByName($name, $context = null)
     {
         // validate menu name
-        $this->_validateName($name);
+        $this->validateName($name);
 
         // get menu
         try {
             $menuEntity = $this->Menus->findByName($name)->firstOrFail();
 
             $menuInstance = $menuEntity->default ?
-                $this->_getMenuItemsFromEvent($name, [], $context) :
-                $this->_getMenuItemsFromTable($menuEntity);
+                $this->getMenuItemsFromEvent($name, [], $context) :
+                $this->getMenuItemsFromTable($menuEntity);
         } catch (Exception $e) {
-            $menuInstance = static::_getMenuItemsFromEvent($name, [], $context);
+            $menuInstance = static::getMenuItemsFromEvent($name, [], $context);
         }
 
         // maintain backwards compatibility for menu arrays
         if (is_array($menuInstance)) {
-            $menuInstance = $this->_normalizeItems($menuInstance);
+            $menuInstance = $this->normalizeItems($menuInstance);
             if ($menuEntity->default) {
-                $menuInstance = $this->_sortItems($menuInstance);
+                $menuInstance = $this->sortItems($menuInstance);
             }
 
             $menuInstance = self::createMenu($menuInstance);
@@ -194,7 +194,7 @@ class MenuFactory
      * @param null|mixed $subject Event subject to be used. $this will be used in null
      * @return Menu
      */
-    protected function _getMenuItemsFromEvent($menuName, array $modules = [], $subject = null)
+    protected function getMenuItemsFromEvent($menuName, array $modules = [], $subject = null)
     {
         if (empty($subject)) {
             $subject = $this;
@@ -217,7 +217,7 @@ class MenuFactory
      * @param EntityInterface $menu Menu entity
      * @return array
      */
-    protected function _getMenuItemsFromTable(EntityInterface $menu)
+    protected function getMenuItemsFromTable(EntityInterface $menu)
     {
         $query = $this->MenuItems->find('threaded', [
             'conditions' => ['MenuItems.menu_id' => $menu->id],
@@ -231,7 +231,7 @@ class MenuFactory
         $result = [];
         $count = 0;
         foreach ($query->all() as $entity) {
-            $item = $this->_getMenuItem($menu, $entity->toArray(), ++$count);
+            $item = $this->getMenuItem($menu, $entity->toArray(), ++$count);
 
             if (empty($item)) {
                 continue;
@@ -250,7 +250,7 @@ class MenuFactory
      * @param int $order Menu item order
      * @return array
      */
-    protected function _getMenuItem(EntityInterface $menu, array $item, $order = 0)
+    protected function getMenuItem(EntityInterface $menu, array $item, $order = 0)
     {
         if (empty($item)) {
             return [];
@@ -265,12 +265,12 @@ class MenuFactory
         if (!empty($children)) {
             $count = 0;
             foreach ($children as $key => $child) {
-                $children[$key] = $this->_getMenuItem($menu, $child, ++$count);
+                $children[$key] = $this->getMenuItem($menu, $child, ++$count);
             }
         }
 
         if (static::TYPE_MODULE === $type) {
-            $item = $this->_getMenuItemsFromEvent($menu->get('name'), [$item['url']]);
+            $item = $this->getMenuItemsFromEvent($menu->get('name'), [$item['url']]);
             reset($item);
             $item = current($item);
         }
@@ -301,7 +301,7 @@ class MenuFactory
      * @return void
      * @throws InvalidArgumentException
      */
-    protected function _validateName($name)
+    protected function validateName($name)
     {
         if (!is_string($name)) {
             throw new InvalidArgumentException('Menu [name] must be a string.');
@@ -318,7 +318,7 @@ class MenuFactory
      * @param array $items Menu items
      * @return array
      */
-    protected function _normalizeItems(array $items)
+    protected function normalizeItems(array $items)
     {
         // merge item properties with defaults
         $func = function (&$item, $k) use (&$func) {
@@ -354,7 +354,7 @@ class MenuFactory
      * @param string $key Sort-by key
      * @return array
      */
-    protected function _sortItems(array $items, $key = 'order')
+    protected function sortItems(array $items, $key = 'order')
     {
         $cmp = function (&$a, &$b) use (&$cmp, $key) {
             if (!empty($a['children'])) {
