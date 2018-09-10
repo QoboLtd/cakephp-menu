@@ -151,8 +151,10 @@ class MenuFactory
     }
 
     /**
-     * @param $name Menu's name
-     * @param null $context  The object that generates the menu to be used as the event subject
+     * Returns a menu instance based on the provided name
+     *
+     * @param string $name Menu's name
+     * @param null|mixed $context  The object that generates the menu to be used as the event subject
      * @return Menu
      */
     protected function getMenuByName($name, $context = null)
@@ -177,6 +179,8 @@ class MenuFactory
             if ($menuEntity->default) {
                 $menuInstance = $this->_sortItems($menuInstance);
             }
+
+            $menuInstance = self::createMenu($menuInstance);
         }
 
         return $menuInstance;
