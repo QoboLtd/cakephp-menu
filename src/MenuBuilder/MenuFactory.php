@@ -70,14 +70,14 @@ class MenuFactory
     ];
 
     /**
-     * @var Table
+     * @var \Cake\ORM\Table
      */
     protected $Menus;
 
     /**
-     * @var Table
+     * @var \Cake\ORM\Table
      */
-    private $MenuItems;
+    protected $MenuItems;
 
     /**
      * Returns a menu instance based on the provided name.
@@ -89,7 +89,7 @@ class MenuFactory
      * @param array $user User info
      * @param bool $fullBaseUrl Full-base URL flag
      * @param mixed $context The object that generates the menu to be used as the event subject
-     * @return Menu
+     * @return \Menu\MenuBuilder\Menu
      */
     public static function getMenu($name, array $user, $fullBaseUrl = false, $context = null)
     {
@@ -119,8 +119,8 @@ class MenuFactory
      *
      * @param string $renderer Renderer short name or FQN
      * @param Menu $menu Menu to be rendered
-     * @param View $view View to be used for rendering
-     * @return MenuRenderInterface
+     * @param \Cake\View\View $view View to be used for rendering
+     * @return \Menu\MenuBuilder\MenuRenderInterface
      * @throws Exception
      */
     public static function getMenuRenderer($renderer, Menu $menu, View $view)
@@ -155,7 +155,7 @@ class MenuFactory
      *
      * @param string $name Menu's name
      * @param null|mixed $context  The object that generates the menu to be used as the event subject
-     * @return Menu
+     * @return \Menu\MenuBuilder\Menu
      */
     protected function getMenuByName($name, $context = null)
     {
@@ -192,7 +192,7 @@ class MenuFactory
      * @param string $menuName Menu name
      * @param array $modules Modules to fetch menu items for
      * @param null|mixed $subject Event subject to be used. $this will be used in null
-     * @return Menu
+     * @return \Menu\MenuBuilder\Menu
      */
     protected function getMenuItemsFromEvent($menuName, array $modules = [], $subject = null)
     {
@@ -214,7 +214,7 @@ class MenuFactory
     /**
      * Menu items getter using database table.
      *
-     * @param EntityInterface $menu Menu entity
+     * @param \Cake\Datasource\EntityInterface $menu Menu entity
      * @return array
      */
     protected function getMenuItemsFromTable(EntityInterface $menu)
@@ -245,7 +245,7 @@ class MenuFactory
     /**
      * Menu item getter.
      *
-     * @param EntityInterface $menu Menu entity
+     * @param \Cake\Datasource\EntityInterface $menu Menu entity
      * @param array $item Menu item
      * @param int $order Menu item order
      * @return array
@@ -299,7 +299,7 @@ class MenuFactory
      *
      * @param string $name Menu name
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     protected function validateName($name)
     {
