@@ -2,8 +2,8 @@
 
 use Menu\MenuBuilder\MenuFactory;
 
-$entity = isset($entity) ? $entity : null;
+$context = isset($context) ? $context : null;
 
-$menu = MenuFactory::getMenu($name, $user, false, $entity);
+$menu = MenuFactory::getMenu($name, $user, false, $context);
 $renderer = MenuFactory::getMenuRenderer($renderer, $menu, $this);
 echo $renderer->render();
