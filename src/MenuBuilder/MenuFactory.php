@@ -79,7 +79,6 @@ class MenuFactory
      */
     protected $MenuItems;
 
-
     /**
      * MenuFactory constructor.
      * @param array $user User information
