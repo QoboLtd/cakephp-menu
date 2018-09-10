@@ -28,40 +28,6 @@ class MenuCell extends Cell
     const DEFAULT_RENDERER = 'Menu\\MenuBuilder\\SystemMenuRenderAdminLte';
 
     /**
-     * Module type identifier
-     */
-    const TYPE_MODULE = 'module';
-
-    /**
-     * Current session user.
-     *
-     * @var array
-     */
-    protected $user = [];
-
-    /**
-     * Full-base URL flag.
-     *
-     * @var boolean
-     */
-    protected $fullBaseUrl = false;
-
-    /**
-     * Menu item defaults.
-     *
-     * @var array
-     */
-    protected $_defaults = [
-        'url' => '#',
-        'label' => 'Undefined',
-        'icon' => 'circle-o',
-        'order' => 0,
-        'target' => '_self',
-        'children' => [],
-        'desc' => ''
-    ];
-
-    /**
      * Default display method.
      *
      * Retrieves menu items and rendering format and passes them to the Cell View.
@@ -82,7 +48,7 @@ class MenuCell extends Cell
         trigger_error('Using Menu cell is deprecated. Use Menu element instead', E_USER_DEPRECATED);
 
         $this->set('menuItems', MenuFactory::getMenu($name, $user, $fullBaseUrl, $context));
-        $this->set('user', $this->user);
+        $this->set('user', $user);
         $this->set('name', $name);
         $this->set('renderer', $renderer);
     }
