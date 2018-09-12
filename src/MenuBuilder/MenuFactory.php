@@ -12,6 +12,7 @@
 
 namespace Menu\MenuBuilder;
 
+use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\Event\EventDispatcherTrait;
@@ -53,21 +54,6 @@ class MenuFactory
      * @var boolean
      */
     protected $fullBaseUrl = false;
-
-    /**
-     * Menu item defaults.
-     *
-     * @var array
-     */
-    protected $_defaults = [
-        'url' => '#',
-        'label' => 'Undefined',
-        'icon' => 'cube',
-        'order' => 0,
-        'target' => '_self',
-        'children' => [],
-        'desc' => ''
-    ];
 
     /**
      * @var \Cake\ORM\Table
@@ -113,6 +99,21 @@ class MenuFactory
     }
 
     /**
+     * Extends the provided menu container by adding the provided menu array
+     *
+     * @param \Menu\MenuBuilder\Menu $menu Menu to be extended
+     * @param array $items List of items to be appended to the provided menu instance
+     * @return void
+     */
+    public static function addToMenu(Menu $menu, array $items)
+    {
+        $normalisedItems = self::normaliseItems($items);
+        foreach ($normalisedItems as $item) {
+            $menu->addMenuItem(MenuItemFactory::createMenuItem($item));
+        }
+    }
+
+    /**
      * Constructs a menu instance by using the provided menu array
      *
      * @param array $menu Menu configuration
@@ -121,9 +122,7 @@ class MenuFactory
     public static function createMenu(array $menu)
     {
         $menuInstance = new Menu();
-        foreach ($menu as $menuItem) {
-            $menuInstance->addMenuItem(MenuItemFactory::createMenuItem($menuItem));
-        }
+        self::addToMenu($menuInstance, $menu);
 
         return $menuInstance;
     }
@@ -175,7 +174,7 @@ class MenuFactory
 
         // maintain backwards compatibility for menu arrays
         if (is_array($menuInstance)) {
-            $menuInstance = $this->normalizeItems($menuInstance);
+            $menuInstance = self::normaliseItems($menuInstance);
             if ($menuEntity->default) {
                 $menuInstance = $this->sortItems($menuInstance);
             }
@@ -313,22 +312,43 @@ class MenuFactory
     }
 
     /**
-     * Menu items normalization method.
+     * Applies the menu defaults on the provided menu item.
+     * Defaults will be loaded from Configuration Menu.defaults if the provided array is empty
      *
-     * @param array $items Menu items
-     * @return array
+     * @param array $items List of menu items
+     * @param array|null $defaults List of default values for a menu item
+     * @return array The provided list of menu items including the defaults
      */
-    protected function normalizeItems(array $items)
+    public static function applyDefaults(array $items, array $defaults = null)
     {
+        $defaults = empty($defaults) ? Configure::readOrFail('Menu.defaults') : $defaults;
+
         // merge item properties with defaults
-        $func = function (&$item, $k) use (&$func) {
+        $func = function (&$item, $k) use (&$func, $defaults) {
             if (!empty($item['children'])) {
                 array_walk($item['children'], $func);
             }
 
-            $item = array_merge($this->_defaults, $item);
+            $item = array_merge($defaults, $item);
         };
         array_walk($items, $func);
+
+        return $items;
+    }
+
+    /**
+     * Normalises the provided array menu items for the given module
+     * Part of the normalisation is to
+     * - merge duplicated labels, recursively
+     * - apply defaults defined in Menu.defaults, recursively
+     *
+     * @param array $items Menu items
+     * @return array
+     */
+    public static function normaliseItems(array $items)
+    {
+        // merge item properties with defaults
+        $items = self::applyDefaults($items);
 
         // merge duplicated labels recursively
         $result = [];
