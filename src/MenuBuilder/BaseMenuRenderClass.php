@@ -297,6 +297,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param MenuItemButton $item menu item entity
      * @param string $postFix additional label elements
+     * @param array $params Parameters
      * @return string generated HTML element
      */
     protected function buildButton(MenuItemButton $item, $postFix, $params = [])

@@ -457,6 +457,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param array $data Array of data to be made available to the rendered view (i.e. the Element)
      * @param array $options Array of options.
      * @see View::element()
+     * @return void
      */
     public function setViewElement($name, array $data = [], array $options = [])
     {
