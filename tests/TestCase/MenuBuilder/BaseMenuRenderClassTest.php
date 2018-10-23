@@ -1,20 +1,20 @@
 <?php
-namespace Menu\Test\TestCase\MenuBuilder;
+namespace Qobo\Menu\Test\TestCase\MenuBuilder;
 
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
-use Menu\MenuBuilder\BaseMenuRenderClass;
-use Menu\MenuBuilder\Menu;
-use Menu\MenuBuilder\MenuInterface;
-use Menu\MenuBuilder\MenuItemButton;
-use Menu\MenuBuilder\MenuItemLink;
-use Menu\MenuBuilder\MenuItemLinkButton;
-use Menu\MenuBuilder\MenuItemLinkButtonModal;
-use Menu\MenuBuilder\MenuItemLinkModal;
-use Menu\MenuBuilder\MenuItemPostlink;
-use Menu\MenuBuilder\MenuItemPostlinkButton;
-use Menu\MenuBuilder\MenuItemSeparator;
-use Menu\MenuBuilder\MenuRenderInterface;
+use Qobo\Menu\MenuBuilder\BaseMenuRenderClass;
+use Qobo\Menu\MenuBuilder\Menu;
+use Qobo\Menu\MenuBuilder\MenuInterface;
+use Qobo\Menu\MenuBuilder\MenuItemButton;
+use Qobo\Menu\MenuBuilder\MenuItemLink;
+use Qobo\Menu\MenuBuilder\MenuItemLinkButton;
+use Qobo\Menu\MenuBuilder\MenuItemLinkButtonModal;
+use Qobo\Menu\MenuBuilder\MenuItemLinkModal;
+use Qobo\Menu\MenuBuilder\MenuItemPostlink;
+use Qobo\Menu\MenuBuilder\MenuItemPostlinkButton;
+use Qobo\Menu\MenuBuilder\MenuItemSeparator;
+use Qobo\Menu\MenuBuilder\MenuRenderInterface;
 
 class BaseMenuRenderClassTest extends TestCase
 {

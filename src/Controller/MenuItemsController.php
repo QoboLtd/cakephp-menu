@@ -9,17 +9,17 @@
  * @copyright     Copyright (c) Qobo Ltd. (https://www.qobo.biz)
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Menu\Controller;
+namespace Qobo\Menu\Controller;
 
 use Cake\Core\Configure;
 use Cake\Event\Event;
-use Menu\Controller\AppController;
+use Qobo\Menu\Controller\AppController;
 use Qobo\Utils\Utility;
 
 /**
  * MenuItems Controller
  *
- * @property \Menu\Model\Table\MenuItemsTable $MenuItems
+ * @property \Qobo\Menu\Model\Table\MenuItemsTable $MenuItems
  */
 class MenuItemsController extends AppController
 {

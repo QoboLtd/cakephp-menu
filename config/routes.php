@@ -2,7 +2,7 @@
 use Cake\Routing\Router;
 
 Router::plugin(
-    'Menu',
+    'Qobo/Menu',
     ['path' => '/menu'],
     function ($routes) {
         $routes->fallbacks('DashedRoute');

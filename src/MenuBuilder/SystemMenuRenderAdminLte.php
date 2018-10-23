@@ -9,7 +9,7 @@
  * @copyright     Copyright (c) Qobo Ltd. (https://www.qobo.biz)
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Menu\MenuBuilder;
+namespace Qobo\Menu\MenuBuilder;
 
 use Cake\View\View;
 
@@ -23,7 +23,7 @@ class SystemMenuRenderAdminLte extends BaseMenuRenderClass
     /**
      *  __construct method
      *
-     * @param \Menu\MenuBuilder\Menu $menu collection of menu items
+     * @param \Qobo\Menu\MenuBuilder\Menu $menu collection of menu items
      * @param \Cake\View\View $viewEntity View instance
      * @return void
      */

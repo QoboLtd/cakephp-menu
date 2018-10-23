@@ -20,12 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Menu\\": "src"
+            "Qobo\\Menu\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Menu\\Test\\": "tests",
+            "Qobo\\Menu\\Test\\": "tests",
             "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
         }
     }

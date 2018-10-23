@@ -9,13 +9,8 @@
  * @copyright     Copyright (c) Qobo Ltd. (https://www.qobo.biz)
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Qobo\Menu\MenuBuilder;
+namespace Menu\MenuBuilder;
 
-/**
- *  class MenuItemPostlinkButton
- *
- */
-class MenuItemPostlinkButton extends MenuItemPostlink
+class MenuItemButtonGroup extends BaseMenuItem
 {
-
 }

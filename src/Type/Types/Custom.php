@@ -9,9 +9,9 @@
  * @copyright     Copyright (c) Qobo Ltd. (https://www.qobo.biz)
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Menu\Type\Types;
+namespace Qobo\Menu\Type\Types;
 
-use Menu\Type\TypeInterface;
+use Qobo\Menu\Type\TypeInterface;
 
 class Custom implements TypeInterface
 {

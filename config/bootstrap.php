@@ -9,7 +9,7 @@ $config = Configure::read('Menu');
 $config = $config ? $config : [];
 
 // load default plugin config
-Configure::load('Menu.menu');
+Configure::load('Qobo/Menu.menu');
 
 // overwrite default plugin config by app level config
 Configure::write('Menu', array_replace_recursive(

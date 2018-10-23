@@ -42,7 +42,7 @@ echo $this->Html->scriptBlock(
                 <div class="btn-group btn-group-sm" role="group">
                 <?= $this->Html->link(
                     '<i class="fa fa-plus"></i> ' . __('Add'),
-                    ['controller' => 'MenuItems', 'action' => 'add', $navMenu->id],
+                    ['plugin' => 'Qobo/Menu', 'controller' => 'MenuItems', 'action' => 'add', $navMenu->id],
                     ['escape' => false, 'title' => __('Add'), 'class' => 'btn btn-default']
                 ); ?>
                 </div>
@@ -104,12 +104,12 @@ echo $this->Html->scriptBlock(
                                 <div class="btn-group btn-group-xs" role="group">
                                 <?= $this->Html->link(
                                     '<i class="fa fa-pencil"></i>',
-                                    ['controller' => 'MenuItems', 'action' => 'edit', $menuItem->id],
+                                    ['plugin' => 'Qobo/Menu', 'controller' => 'MenuItems', 'action' => 'edit', $menuItem->id],
                                     ['title' => __('Edit'), 'class' => 'btn btn-default', 'escape' => false]
                                 ) ?>
                                 <?= $this->Form->postLink(
                                     '<i class="fa fa-trash"></i>',
-                                    ['controller' => 'MenuItems', 'action' => 'delete', $menuItem->id],
+                                    ['plugin' => 'Qobo/Menu', 'controller' => 'MenuItems', 'action' => 'delete', $menuItem->id],
                                     [
                                         'confirm' => __('Are you sure you want to delete # {0}?', $menuItem->label),
                                         'title' => __('Delete'),
@@ -121,12 +121,12 @@ echo $this->Html->scriptBlock(
                                 <div class="btn-group btn-group-xs" role="group">
                                     <?= $this->Form->postLink(
                                         '<i class="fa fa-arrow-up"></i>',
-                                        ['controller' => 'MenuItems', 'action' => 'moveNode', $menuItem->id, 'up'],
+                                        ['plugin' => 'Qobo/Menu', 'controller' => 'MenuItems', 'action' => 'moveNode', $menuItem->id, 'up'],
                                         ['title' => __('Move up'), 'class' => 'btn btn-default', 'escape' => false]
                                     ) ?>
                                     <?= $this->Form->postLink(
                                         '<i class="fa fa-arrow-down"></i>',
-                                        ['controller' => 'MenuItems', 'action' => 'moveNode', $menuItem->id, 'down'],
+                                        ['plugin' => 'Qobo/Menu', 'controller' => 'MenuItems', 'action' => 'moveNode', $menuItem->id, 'down'],
                                         ['title' => __('Move down'), 'class' => 'btn btn-default', 'escape' => false]
                                     ) ?>
                                 </div>

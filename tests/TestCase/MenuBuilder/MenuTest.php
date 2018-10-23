@@ -1,9 +1,9 @@
 <?php
-namespace Menu\Test\TestCase\MenuBuilder;
+namespace Qobo\Menu\Test\TestCase\MenuBuilder;
 
 use Cake\TestSuite\TestCase;
-use Menu\MenuBuilder\Menu;
-use Menu\MenuBuilder\MenuItemButton;
+use Qobo\Menu\MenuBuilder\Menu;
+use Qobo\Menu\MenuBuilder\MenuItemButton;
 
 class MenuTest extends TestCase
 {

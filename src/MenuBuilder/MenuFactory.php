@@ -10,7 +10,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace Menu\MenuBuilder;
+namespace Qobo\Menu\MenuBuilder;
 
 use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
@@ -21,9 +21,9 @@ use Cake\ORM\TableRegistry;
 use Cake\View\View;
 use Exception;
 use InvalidArgumentException;
-use Menu\Event\EventName;
-use Menu\MenuBuilder\Menu;
-use Menu\MenuBuilder\MenuItemFactory;
+use Qobo\Menu\Event\EventName;
+use Qobo\Menu\MenuBuilder\Menu;
+use Qobo\Menu\MenuBuilder\MenuItemFactory;
 
 /**
  * Class MenuFactory
@@ -72,8 +72,8 @@ class MenuFactory
      */
     public function __construct(array $user, $fullBaseUrl = false)
     {
-        $this->Menus = TableRegistry::get('Menu.Menus');
-        $this->MenuItems = TableRegistry::get('Menu.MenuItems');
+        $this->Menus = TableRegistry::get('Qobo/Menu.Menus');
+        $this->MenuItems = TableRegistry::get('Qobo/Menu.MenuItems');
 
         $this->user = $user;
         $this->fullBaseUrl = (bool)$fullBaseUrl;

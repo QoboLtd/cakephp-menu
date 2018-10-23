@@ -9,10 +9,10 @@
  * @copyright     Copyright (c) Qobo Ltd. (https://www.qobo.biz)
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Menu\MenuBuilder;
+namespace Qobo\Menu\MenuBuilder;
 
 use Cake\Utility\Inflector;
-use Menu\MenuBuilder\BaseMenuItem;
+use Qobo\Menu\MenuBuilder\BaseMenuItem;
 
 /**
  *  MenuItemFactory class
@@ -25,7 +25,7 @@ final class MenuItemFactory
      *  createMenuItem method
      *
      * @param array $item menu item definition
-     * @return \Menu\MenuBuilder\MenuItemInterface object
+     * @return \Qobo\Menu\MenuBuilder\MenuItemInterface object
      */
     public static function createMenuItem($item)
     {

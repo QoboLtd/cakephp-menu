@@ -9,14 +9,14 @@
  * @copyright     Copyright (c) Qobo Ltd. (https://www.qobo.biz)
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Menu\Controller;
+namespace Qobo\Menu\Controller;
 
-use Menu\Controller\AppController;
+use Qobo\Menu\Controller\AppController;
 
 /**
  * Menus Controller
  *
- * @property \Menu\Model\Table\MenusTable $Menus
+ * @property \Qobo\Menu\Model\Table\MenusTable $Menus
  */
 class MenusController extends AppController
 {

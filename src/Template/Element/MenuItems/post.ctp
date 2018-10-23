@@ -10,7 +10,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-use Menu\Type\TypeFactory;
+use Qobo\Menu\Type\TypeFactory;
 
 echo $this->Html->css(
     [

@@ -10,7 +10,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace Menu\MenuBuilder;
+namespace Qobo\Menu\MenuBuilder;
 
 trait MenuItemContainerTrait
 {

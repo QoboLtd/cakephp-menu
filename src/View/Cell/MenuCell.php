@@ -9,23 +9,23 @@
  * @copyright     Copyright (c) Qobo Ltd. (https://www.qobo.biz)
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Menu\View\Cell;
+namespace Qobo\Menu\View\Cell;
 
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\View\Cell;
 use Exception;
 use InvalidArgumentException;
-use Menu\Event\EventName;
-use Menu\MenuBuilder\Menu;
-use Menu\MenuBuilder\MenuFactory;
+use Qobo\Menu\Event\EventName;
+use Qobo\Menu\MenuBuilder\Menu;
+use Qobo\Menu\MenuBuilder\MenuFactory;
 
 class MenuCell extends Cell
 {
     /**
      * Default menu renderer class
      */
-    const DEFAULT_RENDERER = 'Menu\\MenuBuilder\\SystemMenuRenderAdminLte';
+    const DEFAULT_RENDERER = 'Qobo\\Menu\\MenuBuilder\\SystemMenuRenderAdminLte';
 
     /**
      * Default display method.

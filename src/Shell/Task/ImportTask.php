@@ -9,7 +9,7 @@
  * @copyright     Copyright (c) Qobo Ltd. (https://www.qobo.biz)
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Menu\Shell\Task;
+namespace Qobo\Menu\Shell\Task;
 
 use Cake\Console\Shell;
 use Cake\Core\Configure;

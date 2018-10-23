@@ -9,11 +9,11 @@
  * @copyright     Copyright (c) Qobo Ltd. (https://www.qobo.biz)
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Menu\Type\Types;
+namespace Qobo\Menu\Type\Types;
 
 use Cake\Core\App;
 use Cake\Utility\Inflector;
-use Menu\Type\TypeInterface;
+use Qobo\Menu\Type\TypeInterface;
 use Qobo\Utils\Utility;
 
 class Module implements TypeInterface

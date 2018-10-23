@@ -1,10 +1,10 @@
 <?php
-namespace Menu\Test\TestCase\MenuBuilder;
+namespace Qobo\Menu\Test\TestCase\MenuBuilder;
 
 use Cake\TestSuite\TestCase;
-use Menu\MenuBuilder\BaseMenuItem;
-use Menu\MenuBuilder\MenuItemButton;
-use Menu\Model\Entity\MenuItem;
+use Qobo\Menu\MenuBuilder\BaseMenuItem;
+use Qobo\Menu\MenuBuilder\MenuItemButton;
+use Qobo\Menu\Model\Entity\MenuItem;
 
 class MenuItemButtonTest extends TestCase
 {

@@ -9,13 +9,13 @@
  * @copyright     Copyright (c) Qobo Ltd. (https://www.qobo.biz)
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Menu\Model\Table;
+namespace Qobo\Menu\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use Menu\Model\Entity\Menu;
+use Qobo\Menu\Model\Entity\Menu;
 
 /**
  * Menus Model

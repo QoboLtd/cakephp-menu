@@ -11,9 +11,9 @@
  */
 
 use Cake\Event\Event;
-use Menu\Event\EventName;
-use Menu\MenuBuilder\Menu;
-use Menu\MenuBuilder\MenuItemFactory;
+use Qobo\Menu\Event\EventName;
+use Qobo\Menu\MenuBuilder\Menu;
+use Qobo\Menu\MenuBuilder\MenuItemFactory;
 
 if ($menuItems instanceof Menu) {
     $menu = $menuItems;

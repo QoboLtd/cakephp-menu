@@ -10,4 +10,4 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-echo $this->element('Menus/post');
+echo $this->element('Qobo/Menus/post');

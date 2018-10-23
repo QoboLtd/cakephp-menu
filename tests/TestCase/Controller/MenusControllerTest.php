@@ -1,8 +1,8 @@
 <?php
-namespace Menu\Test\TestCase\Controller;
+namespace Qobo\Menu\Test\TestCase\Controller;
 
 use Cake\TestSuite\IntegrationTestCase;
-use Menu\Controller\MenusController;
+use Qobo\Menu\Controller\MenusController;
 
 /**
  * Menu\Controller\MenusController Test Case
@@ -16,8 +16,8 @@ class MenusControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'plugin.menu.menus',
-        'plugin.menu.menu_items'
+        'plugin.qobo/menu.menus',
+        'plugin.qobo/menu.menu_items'
     ];
 
     /**

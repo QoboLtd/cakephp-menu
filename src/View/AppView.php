@@ -9,7 +9,7 @@
  * @copyright     Copyright (c) Qobo Ltd. (https://www.qobo.biz)
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Menu\View\AppView;
+namespace Qobo\Menu\View\AppView;
 
 class AppView extends View
 {
@@ -22,6 +22,6 @@ class AppView extends View
     public function initialize()
     {
         parent::initialize();
-        $this->loadHelper('Menu.Menu');
+        $this->loadHelper('Qobo/Menu.Menu');
     }
 }

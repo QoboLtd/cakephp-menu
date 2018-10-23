@@ -9,7 +9,7 @@
  * @copyright     Copyright (c) Qobo Ltd. (https://www.qobo.biz)
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Menu\Model\Entity;
+namespace Qobo\Menu\Model\Entity;
 
 use Cake\ORM\Entity;
 
@@ -21,7 +21,7 @@ use Cake\ORM\Entity;
  * @property bool $active
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
- * @property \Menu\Model\Entity\MenuItem[] $menu_items
+ * @property \Qobo\Menu\Model\Entity\MenuItem[] $menu_items
  */
 class Menu extends Entity
 {

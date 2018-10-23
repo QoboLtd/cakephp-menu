@@ -9,7 +9,7 @@
  * @copyright     Copyright (c) Qobo Ltd. (https://www.qobo.biz)
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Menu\Type;
+namespace Qobo\Menu\Type;
 
 use Cake\Filesystem\Folder;
 use Cake\Utility\Inflector;
@@ -24,7 +24,7 @@ final class TypeFactory
      * Create and return menu item type object.
      *
      * @param string $type Type name
-     * @return \Menu\Type\TypeInterface
+     * @return \Qobo\Menu\Type\TypeInterface
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */

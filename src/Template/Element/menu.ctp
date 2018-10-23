@@ -1,6 +1,6 @@
 <?php
 
-use Menu\MenuBuilder\MenuFactory;
+use Qobo\Menu\MenuBuilder\MenuFactory;
 
 $context = isset($context) ? $context : null;
 
