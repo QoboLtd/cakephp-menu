@@ -22,32 +22,6 @@ interface MenuItemInterface extends MenuItemContainerInterface
 {
 
     /**
-     *  getChildren method
-     *
-     * @deprecated Use getMenuItems method instead.
-     * @return array list of child items
-     */
-    public function getChildren();
-
-    /**
-     *  addChild method
-     *
-     * @param MenuItemInterface $item menu item
-     * @deprecated Use addMenuItem method instead.
-     * @return void
-     */
-    public function addChild(MenuItemInterface $item);
-
-    /**
-     * removeChild method
-     *
-     * @param string $childId to identify child item to be removed
-     * @deprecated Use removeMenuItem method instead.
-     * @return void
-     */
-    public function removeChild($childId);
-
-    /**
      * Sets the enabled flag to the provided value
      * @param bool $enabled Indicates whether this Menu item is enabled
      * @return void
