@@ -40,7 +40,7 @@ class MenuItemsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('menu_items');
+        $this->table('qobo_menu_items');
         $this->displayField('label');
         $this->primaryKey('id');
 

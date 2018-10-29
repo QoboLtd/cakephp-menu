@@ -30,7 +30,7 @@ echo $this->Html->scriptBlock(
 <section class="content">
     <div class="row">
         <div class="col-xs-12 col-md-6">
-            <div class="box box-solid">
+            <div class="box box-primary">
                 <div class="box-body">
                 <?= $this->Form->create($navMenu); ?>
                     <div class="row">

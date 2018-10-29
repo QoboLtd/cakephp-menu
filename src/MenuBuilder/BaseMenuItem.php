@@ -11,10 +11,12 @@
  */
 namespace Menu\MenuBuilder;
 
-use Cake\Network\Exception\NotImplementedException;
+use Cake\View\View;
 
 abstract class BaseMenuItem implements MenuItemInterface
 {
+    use MenuItemContainerTrait;
+
     /**
      * const DEFAULT_MENU_ITEM_TYPE
      */
@@ -81,14 +83,29 @@ abstract class BaseMenuItem implements MenuItemInterface
     protected $rawHtml = '';
 
     /**
-     * @var $children
+     * @var bool
      */
-    protected $children = [];
+    private $enabled = true;
 
     /**
-     *  getLabel method
+     * @var array List of callbacks to be evaluated as conditions
+     */
+    private $conditions = [];
+
+    /**
+     * @var array List of attributes to be included in menu item link or button
+     */
+    private $attributes = [];
+
+    /**
+     * @var array Parameters for view element to be rendered
+     */
+    protected $viewElement = [];
+
+    /**
+     * @inheritdoc
      *
-     * @return string menu item label
+     * @return string the label of this menu item, or null if this menu item has no label.
      */
     public function getLabel()
     {
@@ -96,9 +113,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  setLabel method
+     * @inheritdoc
      *
-     * @param string $label for menu item
+     * @param string $label the new label, or null for no label.
      * @return void
      */
     public function setLabel($label)
@@ -107,9 +124,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  getIcon method
+     * @inheritdoc
      *
-     * @return string menu item icon name
+     * @return string the icon of this menu item, or null if this menu item has no icon.
      */
     public function getIcon()
     {
@@ -117,9 +134,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  setIcon method
+     * @inheritdoc
      *
-     * @param string $icon for menu item
+     * @param string $icon the new icon, or null for no icon.
      * @return void
      */
     public function setIcon($icon)
@@ -128,9 +145,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  getTarget method
+     * @inheritdoc
      *
-     * @return string menu item target
+     * @return string the target of this menu item.
      */
     public function getTarget()
     {
@@ -138,19 +155,20 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  setTarget method
+     * @inheritdoc
      *
-     * @param string $target for menu item
+     * @param string $target the new target.
      * @return void
      */
     public function setTarget($target)
     {
         $this->target = $target;
     }
+
     /**
-     *  getDescription method
+     * @inheritdoc
      *
-     * @return string menu item description
+     * @return string the description of this menu item, or null if this menu item has no description.
      */
     public function getDescription()
     {
@@ -158,9 +176,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  setDescription method
+     * @inheritdoc
      *
-     * @param string $descr for menu item
+     * @param string $descr the new description, or null for no description.
      * @return void
      */
     public function setDescription($descr)
@@ -169,9 +187,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  getUrl method
+     * @inheritdoc
      *
-     * @return array or string menu item URL
+     * @return string|array the URL of this menu item, or null if this menu item has no URL.
      */
     public function getUrl()
     {
@@ -179,9 +197,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  setUrl method
+     * @inheritdoc
      *
-     * @param string or array $url for menu item
+     * @param string|array $url the new URL, or null for no URL.
      * @return void
      */
     public function setUrl($url)
@@ -209,6 +227,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     {
         $this->confirmMsg = $message;
     }
+
     /**
      *  getExtraAttribute method
      *
@@ -220,9 +239,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     * getRawHtml method
+     * @inheritdoc
      *
-     * @return string raw html
+     * @return string the raw HTML for this menu item, or null if no HTML was provided.
      */
     public function getRawHtml()
     {
@@ -230,9 +249,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     * setRawHtml method
+     * @inheritdoc
      *
-     * @param string $rawHtml for menu item, i.e. modal window or so
+     * @param string $rawHtml the new HTML, or null for no HTML.
      * @return void
      */
     public function setRawHtml($rawHtml)
@@ -252,9 +271,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     * getOrder method
+     * @inheritdoc
      *
-     * @return int menu item order
+     * @return int the position of this menu item.
      */
     public function getOrder()
     {
@@ -262,9 +281,9 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     * setOrder method
+     * @inheritdoc
      *
-     * @param int $order for menu item
+     * @param int $order the new position.
      * @return void
      */
     public function setOrder($order)
@@ -294,38 +313,131 @@ abstract class BaseMenuItem implements MenuItemInterface
     }
 
     /**
-     *  addChild method
+     * @inheritdoc
      *
-     * @param MenuItemInterface $child menu item
+     * @param bool $enabled Indicates whether this Menu item is enabled
      * @return void
      */
-    public function addChild(MenuItemInterface $child)
+    public function setEnabled($enabled)
     {
-        array_push($this->children, $child);
+        $this->enabled = $enabled;
     }
 
     /**
-     * removeChild method
+     * @inheritdoc
      *
-     * @param string $childId to be removed
      * @return void
      */
-    public function removeChild($childId)
+    public function enable()
     {
-        throw new NotImplementedException('Method ' . __METHOD__ . ' is not implemented yet!');
+        $this->setEnabled(true);
     }
 
     /**
-     *  getChildren method
+     * @inheritdoc
      *
-     * @return array list of child items
+     * @return void
      */
-    public function getChildren()
+    public function disable()
     {
-        usort($this->children, function ($a, $b) {
-            return $a->getOrder() > $b->getOrder();
-        });
+        $this->setEnabled(false);
+    }
 
-        return $this->children;
+    /**
+     * @inheritdoc
+     *
+     * @param callable $callback Callback to be evaluated as a boolean expression
+     * @return void
+     */
+    public function disableIf(callable $callback)
+    {
+        $this->conditions[] = $callback;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        // Enabled flag is set to false
+        if (!$this->enabled) {
+            return false;
+        }
+
+        // Evaluate each one of the defined conditions
+        foreach ($this->conditions as $condition) {
+            $disabled = call_user_func($condition, $this);
+            if ($disabled) {
+                return false;
+            }
+        }
+
+        // Parent menu items are enabled only and only if they have at least one child enabled
+        if (!empty($this->menuItems)) {
+            /** @var MenuItemInterface $menuItem */
+            foreach ($this->menuItems as $menuItem) {
+                if ($menuItem->isEnabled()) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param string $attributeName Attribute's name
+     * @param string $attributeValue Attribute's value
+     * @return void
+     */
+    public function addAttribute($attributeName, $attributeValue)
+    {
+        $this->attributes[$attributeName] = $attributeValue;
+    }
+
+    /**
+     * Returns an associative array including all the defined attributes.
+     * The array's key defines the attribute name.
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param string $name Name of template file
+     * @param array $data Array of data to be made available to the rendered view (i.e. the Element)
+     * @param array $options Array of options.
+     * @see View::element()
+     * @return void
+     */
+    public function setViewElement($name, array $data = [], array $options = [])
+    {
+        $this->viewElement = [$name, $data, $options];
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param View $view View instance that will be used for rendering
+     * @return null|string
+     */
+    public function renderViewElement(View $view)
+    {
+        if (empty($this->viewElement)) {
+            return null;
+        }
+
+        return call_user_func_array([$view, 'element'], $this->viewElement);
     }
 }

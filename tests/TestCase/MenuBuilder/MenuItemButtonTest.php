@@ -2,10 +2,15 @@
 namespace Menu\Test\TestCase\MenuBuilder;
 
 use Cake\TestSuite\TestCase;
+use Menu\MenuBuilder\BaseMenuItem;
 use Menu\MenuBuilder\MenuItemButton;
+use Menu\Model\Entity\MenuItem;
 
 class MenuItemButtonTest extends TestCase
 {
+    /**
+     * @var BaseMenuItem
+     */
     public $menuItem;
 
     public function setUp()
@@ -114,8 +119,8 @@ class MenuItemButtonTest extends TestCase
     public function providerButtonExtraAttributes()
     {
         return [
-            ['foo', 'foo', "Didn't work with strings" ],
-            [ ['hey' => 'jude'], ['hey' => 'jude'], "Can't use arrays" ],
+            ['foo', 'foo', "Didn't work with strings"],
+            [['hey' => 'jude'], ['hey' => 'jude'], "Can't use arrays"],
         ];
     }
 
@@ -174,8 +179,8 @@ class MenuItemButtonTest extends TestCase
      */
     public function testAddChild($data, $expected, $msg)
     {
-        $this->menuItem->addChild($data);
-        $this->assertEquals($expected, $this->menuItem->getChildren(), $msg);
+        $this->menuItem->addMenuItem($data);
+        $this->assertEquals($expected, $this->menuItem->getMenuItems(), $msg);
     }
 
     public function providerButtonChildren()
@@ -185,5 +190,52 @@ class MenuItemButtonTest extends TestCase
         return [
             [$dummy, [$dummy], "Cannot identify an objects array"],
         ];
+    }
+
+    public function testEnabledFlag()
+    {
+        $item = new MenuItemButton();
+        $this->assertTrue($item->isEnabled());
+        $item->disable();
+        $this->assertFalse($item->isEnabled());
+        $item->enable();
+        $this->assertTrue($item->isEnabled());
+    }
+
+    public function testConditions()
+    {
+        $item = new MenuItemButton();
+        $item->disableIf(function () {
+            return false;
+        });
+        $this->assertTrue($item->isEnabled());
+        $item->disableIf(function () {
+            return true;
+        });
+        $this->assertFalse($item->isEnabled());
+    }
+
+    public function testEnabledFlagNested()
+    {
+        $child1 = new MenuItemButton();
+
+        $child2 = new MenuItemButton();
+        $child2->disable();
+
+        $item = new MenuItemButton();
+        $item->addMenuItem($child1);
+        $item->addMenuItem($child2);
+        $this->assertTrue($item->isEnabled());
+
+        $child1->disable();
+        $this->assertFalse($item->isEnabled());
+    }
+
+    public function testAttributes()
+    {
+        $item = new MenuItemButton();
+        $item->addAttribute('one', 1);
+        $attrs = $item->getAttributes();
+        $this->assertEquals(1, $attrs['one']);
     }
 }
