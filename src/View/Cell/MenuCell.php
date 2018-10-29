@@ -160,6 +160,7 @@ class MenuCell extends Cell
      *
      * @param \Cake\Datasource\EntityInterface $menu Menu entity
      * @param array $item Menu item
+     * @param int $order Order
      * @return array
      */
     protected function _getMenuItem(EntityInterface $menu, array $item, $order = 0)
