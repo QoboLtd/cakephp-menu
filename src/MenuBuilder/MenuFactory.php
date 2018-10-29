@@ -162,6 +162,7 @@ class MenuFactory
         $this->validateName($name);
 
         // get menu
+        $menuEntity = null;
         try {
             $menuEntity = $this->Menus->findByName($name)->firstOrFail();
 
@@ -175,7 +176,7 @@ class MenuFactory
         // maintain backwards compatibility for menu arrays
         if (is_array($menuInstance)) {
             $menuInstance = self::normaliseItems($menuInstance);
-            if ($menuEntity->default) {
+            if ($menuEntity instanceof EntityInterface && $menuEntity->default) {
                 $menuInstance = $this->sortItems($menuInstance);
             }
 
