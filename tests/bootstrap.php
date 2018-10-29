@@ -83,7 +83,7 @@ $cache = [
     ]
 ];
 
-Cake\Cache\Cache::setConfig($cache);
+Cake\Cache\Cache::config($cache);
 Cake\Core\Configure::write('Session', [
     'defaults' => 'php'
 ]);
@@ -93,13 +93,13 @@ if (!getenv('db_dsn')) {
     putenv('db_dsn=sqlite:///:memory:');
 }
 
-Cake\Datasource\ConnectionManager::setConfig('default', [
+Cake\Datasource\ConnectionManager::config('default', [
     'url' => getenv('db_dsn'),
     'quoteIdentifiers' => true,
     'timezone' => 'UTC'
 ]);
 
-Cake\Datasource\ConnectionManager::setConfig('test', [
+Cake\Datasource\ConnectionManager::config('test', [
     'url' => getenv('db_dsn'),
     'quoteIdentifiers' => true,
     'timezone' => 'UTC'
