@@ -11,6 +11,8 @@
  */
 namespace Menu\View\AppView;
 
+use Cake\View\View;
+
 class AppView extends View
 {
     /**

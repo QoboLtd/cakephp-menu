@@ -41,7 +41,7 @@ class MenuItemsController extends AppController
      * @param string $menuId Menu id
      * @return \Cake\Http\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add($menuId)
+    public function add(string $menuId)
     {
         $menu = $this->MenuItems->Menus->get($menuId);
         $menuItem = $this->MenuItems->newEntity();
@@ -73,7 +73,7 @@ class MenuItemsController extends AppController
      * @return \Cake\Http\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(string $id = null)
     {
         $menuItem = $this->MenuItems->get($id, [
             'contain' => ['Menus']
@@ -104,7 +104,7 @@ class MenuItemsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(string $id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $menuItem = $this->MenuItems->get($id);
@@ -125,7 +125,7 @@ class MenuItemsController extends AppController
      * @throws InvalidPrimaryKeyException When provided id is invalid.
      * @return \Cake\Http\Response|null Redirects to index or referer.
      */
-    public function moveNode($id = null, $action = '')
+    public function moveNode(string $id = null, string $action = '')
     {
         $moveActions = ['up', 'down'];
         if (!in_array($action, $moveActions)) {

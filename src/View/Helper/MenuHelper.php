@@ -22,10 +22,10 @@ class MenuHelper extends Helper
     /**
      * Set the full base URL recursivelly for all the menu and their children.
      *
-     * @param array $menu Given menu
-     * @return array $menus
+     * @param mixed[] $menu Given menu
+     * @return mixed[] $menus
      */
-    public function setFullBaseUrl(array $menu = [])
+    public function setFullBaseUrl(array $menu = []): array
     {
         $menu = array_map(
             function ($v) {

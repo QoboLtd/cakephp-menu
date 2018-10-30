@@ -21,7 +21,7 @@ class MenuItemButtonTest extends TestCase
     /**
      * @dataProvider providerGetButtonLabels
      */
-    public function testGetLabel($data, $expected)
+    public function testGetLabel(string $data, string $expected): void
     {
         $this->menuItem->setLabel($data);
         $result = $this->menuItem->getLabel();
@@ -29,7 +29,10 @@ class MenuItemButtonTest extends TestCase
         $this->assertEquals($result, $expected);
     }
 
-    public function providerGetButtonLabels()
+    /**
+     * @return mixed[]
+     */
+    public function providerGetButtonLabels(): array
     {
         return [
             ['', ''],
@@ -40,7 +43,7 @@ class MenuItemButtonTest extends TestCase
     /**
      * @dataProvider providerGetButtonIcons
      */
-    public function testGetIcon($data, $expected)
+    public function testGetIcon(string $data, string $expected): void
     {
         $this->menuItem->setIcon($data);
         $result = $this->menuItem->getIcon();
@@ -48,7 +51,10 @@ class MenuItemButtonTest extends TestCase
         $this->assertEquals($result, $expected);
     }
 
-    public function providerGetButtonIcons()
+    /**
+     * @return mixed[]
+     */
+    public function providerGetButtonIcons(): array
     {
         return [
             ['fa fa-smile-o', 'fa fa-smile-o'],
@@ -58,14 +64,19 @@ class MenuItemButtonTest extends TestCase
 
     /**
      * @dataProvider providerConfirmMsg
+     * @param mixed $data Data
+     * @param string $expected Expected result
      */
-    public function testConfigMessage($data, $expected)
+    public function testConfigMessage($data, string $expected): void
     {
         $this->menuItem->setConfirmMsg($data);
         $this->assertEquals($expected, $this->menuItem->getConfirmMsg());
     }
 
-    public function providerConfirmMsg()
+    /**
+     * @return mixed[]
+     */
+    public function providerConfirmMsg(): array
     {
         return [
             [null, ''],
@@ -76,13 +87,16 @@ class MenuItemButtonTest extends TestCase
     /**
      * @dataProvider providerButtonUrls
      */
-    public function testGetUrl($data, $expected, $msg)
+    public function testGetUrl(string $data, string $expected, string $msg): void
     {
         $this->menuItem->setUrl($data);
         $this->assertEquals($expected, $this->menuItem->getUrl(), $msg);
     }
 
-    public function providerButtonUrls()
+    /**
+     * @return mixed[]
+     */
+    public function providerButtonUrls(): array
     {
         return [
             ['foobar', 'foobar', "Basic setter"],
@@ -93,13 +107,16 @@ class MenuItemButtonTest extends TestCase
     /**
      * @dataProvider providerButtonDescription
      */
-    public function testDescription($data, $expected, $msg)
+    public function testDescription(string $data, string $expected, string $msg): void
     {
         $this->menuItem->setDescription($data);
         $this->assertEquals($data, $this->menuItem->getDescription(), $msg);
     }
 
-    public function providerButtonDescription()
+    /**
+     * @return mixed[]
+     */
+    public function providerButtonDescription(): array
     {
         return [
             ['foobar content', 'foobar content', "Couldn't set basic content"],
@@ -109,14 +126,20 @@ class MenuItemButtonTest extends TestCase
 
     /**
      * @dataProvider providerButtonExtraAttributes
+     * @param mixed $data Data
+     * @param mixed $expected Expected result
+     * @param string $msg Message
      */
-    public function testExtraAttributes($data, $expected, $msg)
+    public function testExtraAttributes($data, $expected, string $msg): void
     {
         $this->menuItem->setExtraAttribute($data);
         $this->assertEquals($expected, $this->menuItem->getExtraAttribute(), "Doesn't match");
     }
 
-    public function providerButtonExtraAttributes()
+    /**
+     * @return mixed[]
+     */
+    public function providerButtonExtraAttributes(): array
     {
         return [
             ['foo', 'foo', "Didn't work with strings"],
@@ -126,14 +149,20 @@ class MenuItemButtonTest extends TestCase
 
     /**
      * @dataProvider providerButtonOrder
+     * @param mixed $data Data
+     * @param int $expected Expected result
+     * @param string $msg Message
      */
-    public function testOrder($data, $expected, $msg)
+    public function testOrder($data, int $expected, string $msg): void
     {
         $this->menuItem->setOrder($data);
         $this->assertEquals($expected, $this->menuItem->getOrder(), $msg);
     }
 
-    public function providerButtonOrder()
+    /**
+     * @return mixed[]
+     */
+    public function providerButtonOrder(): array
     {
         return [
             ['', 0, "Wrong casting"],
@@ -145,13 +174,16 @@ class MenuItemButtonTest extends TestCase
     /**
      * @dataProvider providerButtonDataType
      */
-    public function testDataType($data, $expected, $msg)
+    public function testDataType(string $data, string $expected, string $msg): void
     {
         $this->menuItem->setDataType($data);
         $this->assertEquals($expected, $this->menuItem->getDataType(), $msg);
     }
 
-    public function providerButtonDataType()
+    /**
+     * @return mixed[]
+     */
+    public function providerButtonDataType(): array
     {
         return [
             ['foo', 'foo', 'Cannot set a string'],
@@ -161,13 +193,16 @@ class MenuItemButtonTest extends TestCase
     /**
      * @dataProvider providerButtonTarget
      */
-    public function testTarget($data, $expected, $msg)
+    public function testTarget(string $data, string $expected, string $msg): void
     {
         $this->menuItem->setTarget($data);
         $this->assertEquals($expected, $this->menuItem->getTarget(), $msg);
     }
 
-    public function providerButtonTarget()
+    /**
+     * @return mixed[]
+     */
+    public function providerButtonTarget(): array
     {
         return [
             ['foo', 'foo', "Cannot set a string to Target"],
@@ -176,14 +211,20 @@ class MenuItemButtonTest extends TestCase
 
     /**
      * @dataProvider providerButtonChildren
+     * @param mixed $data Data
+     * @param mixed $expected Expected result
+     * @param string $msg Message
      */
-    public function testAddChild($data, $expected, $msg)
+    public function testAddChild($data, $expected, string $msg): void
     {
         $this->menuItem->addMenuItem($data);
         $this->assertEquals($expected, $this->menuItem->getMenuItems(), $msg);
     }
 
-    public function providerButtonChildren()
+    /**
+     * @return mixed[]
+     */
+    public function providerButtonChildren(): array
     {
         $dummy = new MenuItemButton();
 
@@ -192,7 +233,7 @@ class MenuItemButtonTest extends TestCase
         ];
     }
 
-    public function testEnabledFlag()
+    public function testEnabledFlag(): void
     {
         $item = new MenuItemButton();
         $this->assertTrue($item->isEnabled());
@@ -202,7 +243,7 @@ class MenuItemButtonTest extends TestCase
         $this->assertTrue($item->isEnabled());
     }
 
-    public function testConditions()
+    public function testConditions(): void
     {
         $item = new MenuItemButton();
         $item->disableIf(function () {
@@ -215,7 +256,7 @@ class MenuItemButtonTest extends TestCase
         $this->assertFalse($item->isEnabled());
     }
 
-    public function testEnabledFlagNested()
+    public function testEnabledFlagNested(): void
     {
         $child1 = new MenuItemButton();
 
@@ -231,7 +272,7 @@ class MenuItemButtonTest extends TestCase
         $this->assertFalse($item->isEnabled());
     }
 
-    public function testAttributes()
+    public function testAttributes(): void
     {
         $item = new MenuItemButton();
         $item->addAttribute('one', 1);

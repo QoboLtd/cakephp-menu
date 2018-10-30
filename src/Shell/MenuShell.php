@@ -13,6 +13,9 @@ namespace Menu\Shell;
 
 use Cake\Console\Shell;
 
+/**
+ * @property \Menu\Shell\Task\ImportTask $Import
+ */
 class MenuShell extends Shell
 {
     /**

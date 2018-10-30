@@ -70,9 +70,9 @@ class ImportTask extends Shell
     /**
      * Get system menus.
      *
-     * @return array
+     * @return mixed[]
      */
-    protected function getSystemMenus()
+    protected function getSystemMenus(): array
     {
         $data = [
             [
