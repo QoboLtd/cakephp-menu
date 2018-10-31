@@ -33,7 +33,7 @@ class MenuShell extends Shell
         $parser = parent::getOptionParser();
 
         $parser
-            ->description('Menu Shell that handle\'s related tasks.')
+            ->setDescription('Menu Shell that handle\'s related tasks.')
             ->addSubcommand(
                 'import',
                 ['help' => 'Import system menus.', 'parser' => $this->Import->getOptionParser()]
