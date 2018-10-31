@@ -23,6 +23,7 @@ use Exception;
 use InvalidArgumentException;
 use Menu\Event\EventName;
 use Menu\MenuBuilder\Menu;
+use Menu\MenuBuilder\MenuInterface;
 use Menu\MenuBuilder\MenuItemFactory;
 
 /**
@@ -89,9 +90,9 @@ class MenuFactory
      * @param mixed[] $user User info
      * @param bool $fullBaseUrl Full-base URL flag
      * @param mixed $context The object that generates the menu to be used as the event subject
-     * @return \Menu\MenuBuilder\Menu
+     * @return \Menu\MenuBuilder\MenuInterface
      */
-    public static function getMenu(string $name, array $user, bool $fullBaseUrl = false, $context = null)
+    public static function getMenu(string $name, array $user, bool $fullBaseUrl = false, $context = null): MenuInterface
     {
         $instance = new self($user, $fullBaseUrl);
 
@@ -101,11 +102,11 @@ class MenuFactory
     /**
      * Extends the provided menu container by adding the provided menu array
      *
-     * @param \Menu\MenuBuilder\Menu $menu Menu to be extended
+     * @param \Menu\MenuBuilder\MenuInterface $menu Menu to be extended
      * @param mixed[] $items List of items to be appended to the provided menu instance
      * @return void
      */
-    public static function addToMenu(Menu $menu, array $items): void
+    public static function addToMenu(MenuInterface $menu, array $items): void
     {
         $normalisedItems = self::normaliseItems($items);
         foreach ($normalisedItems as $item) {
@@ -117,9 +118,9 @@ class MenuFactory
      * Constructs a menu instance by using the provided menu array
      *
      * @param mixed[] $menu Menu configuration
-     * @return \Menu\MenuBuilder\Menu
+     * @return \Menu\MenuBuilder\MenuInterface
      */
-    public static function createMenu(array $menu): \Menu\MenuBuilder\Menu
+    public static function createMenu(array $menu): MenuInterface
     {
         $menuInstance = new Menu();
         self::addToMenu($menuInstance, $menu);
@@ -136,7 +137,7 @@ class MenuFactory
      * @return \Menu\MenuBuilder\MenuRenderInterface
      * @throws Exception
      */
-    public static function getMenuRenderer(string $renderer, \Menu\MenuBuilder\Menu $menu, View $view)
+    public static function getMenuRenderer(string $renderer, \Menu\MenuBuilder\Menu $menu, View $view): MenuRenderInterface
     {
         $renderClass = $renderer;
         if (!class_exists($renderClass)) {
@@ -154,9 +155,9 @@ class MenuFactory
      *
      * @param string $name Menu's name
      * @param null|mixed $context  The object that generates the menu to be used as the event subject
-     * @return \Menu\MenuBuilder\Menu
+     * @return \Menu\MenuBuilder\MenuInterface
      */
-    protected function getMenuByName(string $name, $context = null)
+    protected function getMenuByName(string $name, $context = null): MenuInterface
     {
         // validate menu name
         $this->validateName($name);
@@ -166,7 +167,7 @@ class MenuFactory
         try {
             $menuEntity = $this->Menus->findByName($name)->firstOrFail();
 
-            $menuInstance = $menuEntity->default ?
+            $menuInstance = $menuEntity->get('default') ?
                 $this->getMenuItemsFromEvent($name, [], $context) :
                 $this->getMenuItemsFromTable($menuEntity);
         } catch (Exception $e) {
@@ -176,7 +177,7 @@ class MenuFactory
         // maintain backwards compatibility for menu arrays
         if (is_array($menuInstance)) {
             $menuInstance = self::normaliseItems($menuInstance);
-            if ($menuEntity instanceof EntityInterface && $menuEntity->default) {
+            if ($menuEntity instanceof EntityInterface && $menuEntity->get('default')) {
                 $menuInstance = $this->sortItems($menuInstance);
             }
 
@@ -192,9 +193,9 @@ class MenuFactory
      * @param string $menuName Menu name
      * @param mixed[] $modules Modules to fetch menu items for
      * @param null|mixed $subject Event subject to be used. $this will be used in null
-     * @return \Menu\MenuBuilder\Menu
+     * @return \Menu\MenuBuilder\MenuInterface
      */
-    protected function getMenuItemsFromEvent(string $menuName, array $modules = [], $subject = null)
+    protected function getMenuItemsFromEvent(string $menuName, array $modules = [], $subject = null): MenuInterface
     {
         if (empty($subject)) {
             $subject = $this;
@@ -215,9 +216,9 @@ class MenuFactory
      * Menu items getter using database table.
      *
      * @param \Cake\Datasource\EntityInterface $menu Menu entity
-     * @return array
+     * @return mixed[]
      */
-    protected function getMenuItemsFromTable(EntityInterface $menu)
+    protected function getMenuItemsFromTable(EntityInterface $menu): array
     {
         $query = $this->MenuItems->find('threaded', [
             'conditions' => ['MenuItems.menu_id' => $menu->id],
