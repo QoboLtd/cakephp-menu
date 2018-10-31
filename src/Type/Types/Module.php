@@ -21,9 +21,9 @@ class Module implements TypeInterface
     /**
      * System modules getter.
      *
-     * @return array
+     * @return mixed[]
      */
-    public function getList()
+    public function getList(): array
     {
         $result = [];
         $controllers = Utility::getControllers();

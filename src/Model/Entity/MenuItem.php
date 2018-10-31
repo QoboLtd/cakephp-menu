@@ -51,7 +51,7 @@ class MenuItem extends Entity
      *
      * @return string
      */
-    protected function _getTarget()
+    protected function _getTarget(): string
     {
         return $this->new_window ? '_blank' : '_self';
     }

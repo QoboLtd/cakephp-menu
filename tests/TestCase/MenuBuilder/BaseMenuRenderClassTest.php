@@ -62,14 +62,14 @@ class BaseMenuRenderClassTest extends TestCase
         parent::tearDown();
     }
 
-    public function testRenderEmptyMenu()
+    public function testRenderEmptyMenu(): void
     {
         $expected = '<ul></ul>';
 
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
 
-    public function testRenderMenuWithDisabledItem()
+    public function testRenderMenuWithDisabledItem(): void
     {
         $item = new MenuItemLink();
         $item->setUrl('http://example.com');
@@ -81,7 +81,7 @@ class BaseMenuRenderClassTest extends TestCase
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
 
-    public function testRenderMenuWithNestedDisabledItem()
+    public function testRenderMenuWithNestedDisabledItem(): void
     {
         $item = new MenuItemLink();
         $item->setUrl('#');
@@ -98,7 +98,7 @@ class BaseMenuRenderClassTest extends TestCase
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
 
-    public function testRenderMenuWithButton()
+    public function testRenderMenuWithButton(): void
     {
         $item = new MenuItemButton();
         $item->setUrl('http://example.com');
@@ -111,7 +111,7 @@ class BaseMenuRenderClassTest extends TestCase
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
 
-    public function testRenderMenuWithLinkButton()
+    public function testRenderMenuWithLinkButton(): void
     {
         $item = new MenuItemLinkButton();
         $item->setUrl('http://example.com');
@@ -124,7 +124,7 @@ class BaseMenuRenderClassTest extends TestCase
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
 
-    public function testRenderMenuWithLinkButtonModal()
+    public function testRenderMenuWithLinkButtonModal(): void
     {
         $item = new MenuItemLinkButtonModal();
         $item->setUrl('http://example.com');
@@ -137,7 +137,7 @@ class BaseMenuRenderClassTest extends TestCase
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
 
-    public function testRenderMenuWithLinkModal()
+    public function testRenderMenuWithLinkModal(): void
     {
         $item = new MenuItemLinkModal();
         $item->setUrl('http://example.com');
@@ -150,7 +150,7 @@ class BaseMenuRenderClassTest extends TestCase
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
 
-    public function testRenderMenuWithPostLink()
+    public function testRenderMenuWithPostLink(): void
     {
         $item = new MenuItemPostlink();
         $item->setUrl('http://example.com');
@@ -169,7 +169,7 @@ class BaseMenuRenderClassTest extends TestCase
         $this->assertRegExp('/' . $pattern . '/', $this->menuRenderer->render());
     }
 
-    public function testRenderMenuWithPostlinkButton()
+    public function testRenderMenuWithPostlinkButton(): void
     {
         $item = new MenuItemPostlinkButton();
         $item->setUrl('http://example.com');
@@ -188,7 +188,7 @@ class BaseMenuRenderClassTest extends TestCase
         $this->assertRegExp('/' . $pattern . '/', $this->menuRenderer->render());
     }
 
-    public function testRenderMenuWithSeparator()
+    public function testRenderMenuWithSeparator(): void
     {
         $item = new MenuItemSeparator();
 
@@ -199,7 +199,7 @@ class BaseMenuRenderClassTest extends TestCase
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
 
-    public function testRenderMenuWithViewElement()
+    public function testRenderMenuWithViewElement(): void
     {
         $item = new MenuItemButton();
         $item->setUrl('http://example.com');

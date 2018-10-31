@@ -67,16 +67,16 @@ class MenuFactory
 
     /**
      * MenuFactory constructor.
-     * @param array $user User information
+     * @param mixed[] $user User information
      * @param bool $fullBaseUrl Full-base URL flag
      */
-    public function __construct(array $user, $fullBaseUrl = false)
+    public function __construct(array $user, bool $fullBaseUrl = false)
     {
         $this->Menus = TableRegistry::get('Menu.Menus');
         $this->MenuItems = TableRegistry::get('Menu.MenuItems');
 
         $this->user = $user;
-        $this->fullBaseUrl = (bool)$fullBaseUrl;
+        $this->fullBaseUrl = $fullBaseUrl;
     }
 
     /**
@@ -86,12 +86,12 @@ class MenuFactory
      * Otherwise, the menu instance is constructed base on the menu settings defined in database
      *
      * @param string $name Menu name
-     * @param array $user User info
+     * @param mixed[] $user User info
      * @param bool $fullBaseUrl Full-base URL flag
      * @param mixed $context The object that generates the menu to be used as the event subject
      * @return \Menu\MenuBuilder\Menu
      */
-    public static function getMenu($name, array $user, $fullBaseUrl = false, $context = null)
+    public static function getMenu(string $name, array $user, bool $fullBaseUrl = false, $context = null)
     {
         $instance = new self($user, $fullBaseUrl);
 
@@ -102,10 +102,10 @@ class MenuFactory
      * Extends the provided menu container by adding the provided menu array
      *
      * @param \Menu\MenuBuilder\Menu $menu Menu to be extended
-     * @param array $items List of items to be appended to the provided menu instance
+     * @param mixed[] $items List of items to be appended to the provided menu instance
      * @return void
      */
-    public static function addToMenu(Menu $menu, array $items)
+    public static function addToMenu(Menu $menu, array $items): void
     {
         $normalisedItems = self::normaliseItems($items);
         foreach ($normalisedItems as $item) {
@@ -116,10 +116,10 @@ class MenuFactory
     /**
      * Constructs a menu instance by using the provided menu array
      *
-     * @param array $menu Menu configuration
+     * @param mixed[] $menu Menu configuration
      * @return \Menu\MenuBuilder\Menu
      */
-    public static function createMenu(array $menu)
+    public static function createMenu(array $menu): \Menu\MenuBuilder\Menu
     {
         $menuInstance = new Menu();
         self::addToMenu($menuInstance, $menu);
@@ -131,18 +131,18 @@ class MenuFactory
      * Creates and returns an instance of the specified menu renderer name (can be the short or the fully qualified name)
      *
      * @param string $renderer Renderer short name or FQN
-     * @param Menu $menu Menu to be rendered
+     * @param \Menu\MenuBuilder\Menu $menu Menu to be rendered
      * @param \Cake\View\View $view View to be used for rendering
      * @return \Menu\MenuBuilder\MenuRenderInterface
      * @throws Exception
      */
-    public static function getMenuRenderer($renderer, Menu $menu, View $view)
+    public static function getMenuRenderer(string $renderer, \Menu\MenuBuilder\Menu $menu, View $view)
     {
         $renderClass = $renderer;
         if (!class_exists($renderClass)) {
             $renderClass = 'Menu\\MenuBuilder\\Menu' . ucfirst($renderer) . 'Render';
             if (!class_exists($renderClass)) {
-                throw new \InvalidArgumentException('Menu render class [' . $renderClass . '] is not found!');
+                throw new InvalidArgumentException('Menu render class [' . $renderClass . '] is not found!');
             }
         }
 
@@ -156,12 +156,13 @@ class MenuFactory
      * @param null|mixed $context  The object that generates the menu to be used as the event subject
      * @return \Menu\MenuBuilder\Menu
      */
-    protected function getMenuByName($name, $context = null)
+    protected function getMenuByName(string $name, $context = null)
     {
         // validate menu name
         $this->validateName($name);
 
         // get menu
+        $menuEntity = null;
         try {
             $menuEntity = $this->Menus->findByName($name)->firstOrFail();
 
@@ -175,7 +176,7 @@ class MenuFactory
         // maintain backwards compatibility for menu arrays
         if (is_array($menuInstance)) {
             $menuInstance = self::normaliseItems($menuInstance);
-            if ($menuEntity->default) {
+            if ($menuEntity instanceof EntityInterface && $menuEntity->default) {
                 $menuInstance = $this->sortItems($menuInstance);
             }
 
@@ -189,11 +190,11 @@ class MenuFactory
      * Menu items getter using Event.
      *
      * @param string $menuName Menu name
-     * @param array $modules Modules to fetch menu items for
+     * @param mixed[] $modules Modules to fetch menu items for
      * @param null|mixed $subject Event subject to be used. $this will be used in null
      * @return \Menu\MenuBuilder\Menu
      */
-    protected function getMenuItemsFromEvent($menuName, array $modules = [], $subject = null)
+    protected function getMenuItemsFromEvent(string $menuName, array $modules = [], $subject = null)
     {
         if (empty($subject)) {
             $subject = $this;
@@ -245,11 +246,11 @@ class MenuFactory
      * Menu item getter.
      *
      * @param \Cake\Datasource\EntityInterface $menu Menu entity
-     * @param array $item Menu item
+     * @param mixed[] $item Menu item
      * @param int $order Menu item order
-     * @return array
+     * @return mixed[]
      */
-    protected function getMenuItem(EntityInterface $menu, array $item, $order = 0)
+    protected function getMenuItem(EntityInterface $menu, array $item, int $order = 0): array
     {
         if (empty($item)) {
             return [];
@@ -300,12 +301,8 @@ class MenuFactory
      * @return void
      * @throws \InvalidArgumentException
      */
-    protected function validateName($name)
+    protected function validateName(string $name): void
     {
-        if (!is_string($name)) {
-            throw new InvalidArgumentException('Menu [name] must be a string.');
-        }
-
         if (empty($name)) {
             throw new InvalidArgumentException('Menu [name] cannot be empty.');
         }
@@ -315,11 +312,11 @@ class MenuFactory
      * Applies the menu defaults on the provided menu item.
      * Defaults will be loaded from Configuration Menu.defaults if the provided array is empty
      *
-     * @param array $items List of menu items
+     * @param mixed[] $items List of menu items
      * @param array|null $defaults List of default values for a menu item
-     * @return array The provided list of menu items including the defaults
+     * @return mixed[] The provided list of menu items including the defaults
      */
-    public static function applyDefaults(array $items, array $defaults = null)
+    public static function applyDefaults(array $items, array $defaults = null): array
     {
         $defaults = empty($defaults) ? Configure::readOrFail('Menu.defaults') : $defaults;
 
@@ -342,10 +339,10 @@ class MenuFactory
      * - merge duplicated labels, recursively
      * - apply defaults defined in Menu.defaults, recursively
      *
-     * @param array $items Menu items
-     * @return array
+     * @param mixed[] $items Menu items
+     * @return mixed[]
      */
-    public static function normaliseItems(array $items)
+    public static function normaliseItems(array $items): array
     {
         // merge item properties with defaults
         $items = self::applyDefaults($items);
@@ -370,11 +367,11 @@ class MenuFactory
     /**
      * Method for sorting array items by specified key.
      *
-     * @param array $items List of items to be sorted
+     * @param mixed[] $items List of items to be sorted
      * @param string $key Sort-by key
-     * @return array
+     * @return mixed[]
      */
-    protected function sortItems(array $items, $key = 'order')
+    protected function sortItems(array $items, string $key = 'order'): array
     {
         $cmp = function (&$a, &$b) use (&$cmp, $key) {
             if (!empty($a['children'])) {

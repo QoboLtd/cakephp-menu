@@ -28,10 +28,10 @@ final class TypeFactory
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
-    public static function create($type)
+    public static function create(string $type): \Menu\Type\TypeInterface
     {
-        if (!is_string($type)) {
-            throw new InvalidArgumentException('Type must be a string.');
+        if (empty($type)) {
+            throw new InvalidArgumentException('Type must be a non-empty string.');
         }
 
         $className = __NAMESPACE__ . '\\Types\\' . Inflector::camelize($type);
@@ -50,9 +50,9 @@ final class TypeFactory
     /**
      * Menu item types getter.
      *
-     * @return array
+     * @return mixed[]
      */
-    public static function getList()
+    public static function getList(): array
     {
         $result = [];
         $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Types';
