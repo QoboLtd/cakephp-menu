@@ -13,6 +13,8 @@ namespace Menu\Controller;
 
 use Cake\Core\Configure;
 use Cake\Event\Event;
+use Cake\Http\Response;
+use Cake\ORM\TableRegistry;
 use Menu\Controller\AppController;
 use Qobo\Utils\Utility;
 
@@ -39,14 +41,14 @@ class MenuItemsController extends AppController
      * Add method
      *
      * @param string $menuId Menu id
-     * @return \Cake\Http\Response|void Redirects on successful add, renders view otherwise.
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add(string $menuId)
+    public function add(string $menuId): ?Response
     {
-        $menu = $this->MenuItems->Menus->get($menuId);
+        $menu = TableRegistry::get('Menus')->get($menuId);
         $menuItem = $this->MenuItems->newEntity();
         if ($this->request->is('post')) {
-            $data = $this->request->data;
+            $data = $this->request->getData();
             $data['menu_id'] = $menu->id;
             $menuItem = $this->MenuItems->patchEntity($menuItem, $data);
             if ($this->MenuItems->save($menuItem)) {
@@ -70,20 +72,21 @@ class MenuItemsController extends AppController
      * Edit method
      *
      * @param string|null $id Menu Item id.
-     * @return \Cake\Http\Response|void Redirects on successful edit, renders view otherwise.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function edit(string $id = null)
+    public function edit(string $id = null): ?Response
     {
         $menuItem = $this->MenuItems->get($id, [
             'contain' => ['Menus']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $menuItem = $this->MenuItems->patchEntity($menuItem, $this->request->data);
+            $data = (array)$this->request->getData();
+            $menuItem = $this->MenuItems->patchEntity($menuItem, $data);
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success(__('The menu item has been saved.'));
 
-                return $this->redirect(['controller' => 'Menus', 'action' => 'view', $menuItem->menu->id]);
+                return $this->redirect(['controller' => 'Menus', 'action' => 'view', $menuItem->get('menu')->get('id')]);
             } else {
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
@@ -91,7 +94,7 @@ class MenuItemsController extends AppController
 
         $parentMenuItems = $this->MenuItems
             ->find('treeList', ['spacer' => self::TREE_SPACER])
-            ->where(['MenuItems.menu_id' => $menuItem->menu->id, 'MenuItems.id !=' => $id]);
+            ->where(['MenuItems.menu_id' => $menuItem->get('menu')->get('id'), 'MenuItems.id !=' => $id]);
 
         $this->set(compact('menuItem', 'parentMenuItems'));
         $this->set('_serialize', ['menuItem']);
@@ -104,7 +107,7 @@ class MenuItemsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete(string $id = null)
+    public function delete(string $id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $menuItem = $this->MenuItems->get($id);
@@ -122,10 +125,9 @@ class MenuItemsController extends AppController
      *
      * @param  string $id menu id
      * @param  string $action move action
-     * @throws InvalidPrimaryKeyException When provided id is invalid.
      * @return \Cake\Http\Response|null Redirects to index or referer.
      */
-    public function moveNode(string $id = null, string $action = '')
+    public function moveNode(string $id = null, string $action = ''): ?Response
     {
         $moveActions = ['up', 'down'];
         if (!in_array($action, $moveActions)) {
@@ -136,9 +138,9 @@ class MenuItemsController extends AppController
         $menuItem = $this->MenuItems->get($id);
         $moveFunction = 'move' . $action;
         if ($this->MenuItems->{$moveFunction}($menuItem)) {
-            $this->Flash->success(__('{0} has been moved {1} successfully.', $menuItem->label, $action));
+            $this->Flash->success(__('{0} has been moved {1} successfully.', $menuItem->get('label'), $action));
         } else {
-            $this->Flash->error(__('Fail to move {0} {1}.', $menuItem->label, $action));
+            $this->Flash->error(__('Fail to move {0} {1}.', $menuItem->get('label'), $action));
         }
 
         return $this->redirect($this->referer());
