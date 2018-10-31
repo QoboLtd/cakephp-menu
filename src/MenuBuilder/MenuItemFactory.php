@@ -12,6 +12,7 @@
 namespace Menu\MenuBuilder;
 
 use Cake\Utility\Inflector;
+use InvalidArgumentException;
 use Menu\MenuBuilder\BaseMenuItem;
 
 /**
@@ -27,7 +28,7 @@ final class MenuItemFactory
      * @param array $item menu item definition
      * @return \Menu\MenuBuilder\MenuItemInterface object
      */
-    public static function createMenuItem($item)
+    public static function createMenuItem($item): MenuItemInterface
     {
         $menuItem = static::_getMenuItemObject($item);
         foreach ($item as $key => $value) {
@@ -57,9 +58,10 @@ final class MenuItemFactory
      * _getMenuItemObject method
      *
      * @param array $data menu definition
-     * @return \Menu\MenuBuilder\MenuItemInterface object or throw exception
+     * @return \Menu\MenuBuilder\MenuItemInterface object
+     * @throws InvalidArgumentException
      */
-    protected static function _getMenuItemObject($data)
+    protected static function _getMenuItemObject($data): MenuItemInterface
     {
         $itemType = !empty($data['type']) ? $data['type'] : BaseMenuItem::DEFAULT_MENU_ITEM_TYPE;
 
@@ -70,6 +72,6 @@ final class MenuItemFactory
             return new $className();
         }
 
-        throw new \InvalidArgumentException("Unknown menu item type [$itemType]!");
+        throw new InvalidArgumentException("Unknown menu item type [$itemType]!");
     }
 }

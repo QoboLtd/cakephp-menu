@@ -33,37 +33,37 @@ abstract class BaseMenuItem implements MenuItemInterface
     const MENU_ITEM_INTERFACE = 'MenuItemInterface';
 
     /**
-     * @var $label
+     * @var string Text label for this menu item
      */
     protected $label = '';
 
     /**
-     * @var $icon
+     * @var string Icon class for this menu item
      */
     protected $icon = '';
 
     /**
-     * @var $target
+     * @var string Target to be used in links
      */
     protected $target = '_self';
 
     /**
-     * @var $desc
+     * @var string Long description for this menu
      */
     protected $description = '';
 
     /**
-     * @var $url
+     * @var string URL
      */
     protected $url = '#';
 
     /**
-     * @var string confirmMsg
+     * @var string Confirmation message
      */
     protected $confirmMsg = '';
 
     /**
-     * @var string extraAttribute
+     * @var string
      */
     protected $extraAttribute = '';
 
@@ -73,17 +73,17 @@ abstract class BaseMenuItem implements MenuItemInterface
     protected $order = 1;
 
     /**
-     * @var $dataType
+     * @var string
      */
     protected $dataType = '';
 
     /**
-     * @var $rawHtml
+     * @var string Raw HTML
      */
     protected $rawHtml = '';
 
     /**
-     * @var bool
+     * @var bool Indicates whether this menu item is enabled
      */
     private $enabled = true;
 
@@ -107,7 +107,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *
      * @return string the label of this menu item, or null if this menu item has no label.
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return $this->label;
     }
@@ -118,7 +118,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param string $label the new label, or null for no label.
      * @return void
      */
-    public function setLabel($label)
+    public function setLabel(string $label): void
     {
         $this->label = $label;
     }
@@ -128,7 +128,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *
      * @return string the icon of this menu item, or null if this menu item has no icon.
      */
-    public function getIcon()
+    public function getIcon(): string
     {
         return $this->icon;
     }
@@ -139,7 +139,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param string $icon the new icon, or null for no icon.
      * @return void
      */
-    public function setIcon($icon)
+    public function setIcon(string $icon): void
     {
         $this->icon = $icon;
     }
@@ -149,7 +149,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *
      * @return string the target of this menu item.
      */
-    public function getTarget()
+    public function getTarget(): string
     {
         return $this->target;
     }
@@ -160,7 +160,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param string $target the new target.
      * @return void
      */
-    public function setTarget($target)
+    public function setTarget(string $target): void
     {
         $this->target = $target;
     }
@@ -170,7 +170,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *
      * @return string the description of this menu item, or null if this menu item has no description.
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -181,7 +181,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param string $descr the new description, or null for no description.
      * @return void
      */
-    public function setDescription($descr)
+    public function setDescription(string $descr): void
     {
         $this->description = $descr;
     }
@@ -191,7 +191,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *
      * @return string|array the URL of this menu item, or null if this menu item has no URL.
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
@@ -202,7 +202,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param string|array $url the new URL, or null for no URL.
      * @return void
      */
-    public function setUrl($url)
+    public function setUrl($url): void
     {
         $this->url = $url;
     }
@@ -212,7 +212,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *
      * @return string confirmation message
      */
-    public function getConfirmMsg()
+    public function getConfirmMsg(): string
     {
         return $this->confirmMsg;
     }
@@ -223,7 +223,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param string $message for confirmation alert
      * @return void
      */
-    public function setConfirmMsg($message)
+    public function setConfirmMsg(string $message): void
     {
         $this->confirmMsg = $message;
     }
@@ -233,7 +233,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *
      * @return string menu item extraAttribute
      */
-    public function getExtraAttribute()
+    public function getExtraAttribute(): string
     {
         return $this->extraAttribute;
     }
@@ -243,7 +243,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *
      * @return string the raw HTML for this menu item, or null if no HTML was provided.
      */
-    public function getRawHtml()
+    public function getRawHtml(): string
     {
         return $this->rawHtml;
     }
@@ -254,7 +254,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param string $rawHtml the new HTML, or null for no HTML.
      * @return void
      */
-    public function setRawHtml($rawHtml)
+    public function setRawHtml(string $rawHtml): void
     {
         $this->rawHtml = $rawHtml;
     }
@@ -262,10 +262,10 @@ abstract class BaseMenuItem implements MenuItemInterface
     /**
      *  setExtraAttribute method
      *
-     * @param string $attr for menu item
+     * @param string $attr Extra attributes for the menu item
      * @return void
      */
-    public function setExtraAttribute($attr)
+    public function setExtraAttribute(string $attr)
     {
         $this->extraAttribute = $attr;
     }
@@ -275,7 +275,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *
      * @return int the position of this menu item.
      */
-    public function getOrder()
+    public function getOrder(): int
     {
         return $this->order;
     }
@@ -286,9 +286,9 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param int $order the new position.
      * @return void
      */
-    public function setOrder($order)
+    public function setOrder(int $order): void
     {
-        $this->order = (int)$order;
+        $this->order = $order;
     }
 
     /**
@@ -296,7 +296,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *
      * @return string dataType attribute
      */
-    public function getDataType()
+    public function getDataType(): string
     {
         return $this->dataType;
     }
@@ -307,7 +307,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param string $dataType for menu item
      * @return void
      */
-    public function setDataType($dataType)
+    public function setDataType(string $dataType): void
     {
         $this->dataType = $dataType;
     }
@@ -318,7 +318,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param bool $enabled Indicates whether this Menu item is enabled
      * @return void
      */
-    public function setEnabled($enabled)
+    public function setEnabled(bool $enabled): void
     {
         $this->enabled = $enabled;
     }
@@ -328,7 +328,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *
      * @return void
      */
-    public function enable()
+    public function enable(): void
     {
         $this->setEnabled(true);
     }
@@ -338,7 +338,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *
      * @return void
      */
-    public function disable()
+    public function disable(): void
     {
         $this->setEnabled(false);
     }
@@ -349,7 +349,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param callable $callback Callback to be evaluated as a boolean expression
      * @return void
      */
-    public function disableIf(callable $callback)
+    public function disableIf(callable $callback): void
     {
         $this->conditions[] = $callback;
     }
@@ -359,7 +359,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *
      * @return bool
      */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         // Enabled flag is set to false
         if (!$this->enabled) {
@@ -396,7 +396,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param string $attributeValue Attribute's value
      * @return void
      */
-    public function addAttribute($attributeName, $attributeValue)
+    public function addAttribute(string $attributeName, string $attributeValue): void
     {
         $this->attributes[$attributeName] = $attributeValue;
     }
@@ -405,9 +405,9 @@ abstract class BaseMenuItem implements MenuItemInterface
      * Returns an associative array including all the defined attributes.
      * The array's key defines the attribute name.
      *
-     * @return array
+     * @return string[]
      */
-    public function getAttributes()
+    public function getAttributes(): array
     {
         return $this->attributes;
     }
@@ -416,12 +416,12 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @inheritdoc
      *
      * @param string $name Name of template file
-     * @param array $data Array of data to be made available to the rendered view (i.e. the Element)
-     * @param array $options Array of options.
+     * @param mixed[] $data Array of data to be made available to the rendered view (i.e. the Element)
+     * @param mixed[] $options Array of options.
      * @see View::element()
      * @return void
      */
-    public function setViewElement($name, array $data = [], array $options = [])
+    public function setViewElement(string $name, array $data = [], array $options = []): void
     {
         $this->viewElement = [$name, $data, $options];
     }
@@ -432,7 +432,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param View $view View instance that will be used for rendering
      * @return null|string
      */
-    public function renderViewElement(View $view)
+    public function renderViewElement(View $view): ?string
     {
         if (empty($this->viewElement)) {
             return null;

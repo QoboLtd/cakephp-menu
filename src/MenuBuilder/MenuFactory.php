@@ -16,7 +16,6 @@ use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\Event\EventDispatcherTrait;
-use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\View\View;
 use Exception;

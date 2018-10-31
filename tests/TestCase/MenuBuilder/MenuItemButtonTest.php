@@ -79,7 +79,7 @@ class MenuItemButtonTest extends TestCase
     public function providerConfirmMsg(): array
     {
         return [
-            [null, ''],
+            ['', ''],
             ["It's a trap!", "It's a trap!"],
         ];
     }
@@ -143,7 +143,6 @@ class MenuItemButtonTest extends TestCase
     {
         return [
             ['foo', 'foo', "Didn't work with strings"],
-            [['hey' => 'jude'], ['hey' => 'jude'], "Can't use arrays"],
         ];
     }
 
@@ -165,8 +164,6 @@ class MenuItemButtonTest extends TestCase
     public function providerButtonOrder(): array
     {
         return [
-            ['', 0, "Wrong casting"],
-            ['abc', 0, "Wrong casting"],
             [1, 1, "Cannot get integers running"],
         ];
     }
@@ -275,8 +272,8 @@ class MenuItemButtonTest extends TestCase
     public function testAttributes(): void
     {
         $item = new MenuItemButton();
-        $item->addAttribute('one', 1);
+        $item->addAttribute('one', '1');
         $attrs = $item->getAttributes();
-        $this->assertEquals(1, $attrs['one']);
+        $this->assertEquals('1', $attrs['one']);
     }
 }
