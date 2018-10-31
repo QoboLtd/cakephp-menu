@@ -12,9 +12,7 @@
 namespace Menu\Shell\Task;
 
 use Cake\Console\Shell;
-use Cake\Core\Configure;
-use Cake\ORM\Entity;
-use Cake\ORM\Table;
+use Cake\Datasource\EntityInterface;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -59,7 +57,7 @@ class ImportTask extends Shell
             $entity = $table->patchEntity($entity, $menu);
             $result = $table->save($entity);
             if (!$result) {
-                $this->err("Errors: \n", implode("\n", $this->getImportErrors($entity)));
+                $this->err("Errors: \n" . implode("\n", $this->getImportErrors($entity)));
                 $this->abort("Failed to create menu [" . $menu['name'] . "]");
             }
         }
@@ -97,18 +95,18 @@ class ImportTask extends Shell
     /**
      * Get import errors from entity object.
      *
-     * @param  \Cake\ORM\Entity $entity Entity instance
-     * @return array
+     * @param \Cake\Datasource\EntityInterface $entity Entity instance
+     * @return string[]
      */
-    protected function getImportErrors(Entity $entity)
+    protected function getImportErrors(EntityInterface $entity): array
     {
         $result = [];
 
-        if (empty($entity->errors())) {
+        if (empty($entity->getErrors())) {
             return $result;
         }
 
-        foreach ($entity->errors() as $field => $error) {
+        foreach ($entity->getErrors() as $field => $error) {
             $msg = "[$field] ";
             $msg .= is_array($error) ? implode(', ', $error) : $error;
             $result[] = $msg;
