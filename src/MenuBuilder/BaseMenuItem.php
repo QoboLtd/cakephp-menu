@@ -53,7 +53,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     protected $description = '';
 
     /**
-     * @var string URL
+     * @var array|string URL
      */
     protected $url = '#';
 
@@ -191,7 +191,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      *
      * @return string|array the URL of this menu item, or null if this menu item has no URL.
      */
-    public function getUrl(): string
+    public function getUrl()
     {
         return $this->url;
     }
@@ -265,7 +265,7 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @param string $attr Extra attributes for the menu item
      * @return void
      */
-    public function setExtraAttribute(string $attr)
+    public function setExtraAttribute(string $attr): void
     {
         $this->extraAttribute = $attr;
     }

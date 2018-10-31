@@ -25,10 +25,10 @@ final class MenuItemFactory
     /**
      *  createMenuItem method
      *
-     * @param array $item menu item definition
+     * @param mixed[] $item menu item definition
      * @return \Menu\MenuBuilder\MenuItemInterface object
      */
-    public static function createMenuItem($item): MenuItemInterface
+    public static function createMenuItem(array $item): MenuItemInterface
     {
         $menuItem = static::_getMenuItemObject($item);
         foreach ($item as $key => $value) {
@@ -57,11 +57,11 @@ final class MenuItemFactory
     /**
      * _getMenuItemObject method
      *
-     * @param array $data menu definition
+     * @param mixed[] $data menu definition
      * @return \Menu\MenuBuilder\MenuItemInterface object
      * @throws InvalidArgumentException
      */
-    protected static function _getMenuItemObject($data): MenuItemInterface
+    protected static function _getMenuItemObject(array $data): MenuItemInterface
     {
         $itemType = !empty($data['type']) ? $data['type'] : BaseMenuItem::DEFAULT_MENU_ITEM_TYPE;
 

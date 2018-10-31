@@ -32,7 +32,7 @@ interface MenuItemContainerInterface
     /**
      *  Returns the menu items.
      *
-     * @return array List of menu items
+     * @return \Menu\MenuBuilder\MenuItemInterface[] List of menu items
      */
     public function getMenuItems(): array;
 
