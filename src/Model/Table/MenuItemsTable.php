@@ -116,6 +116,9 @@ class MenuItemsTable extends Table
     /**
      * Fallback to default values for icon and url
      *
+     * @param \Cake\Event\Event $event Triggered event instance.
+     * @param \Cake\Datasource\EntityInterface $entity Entity to be saved.
+     * @param \ArrayObject $options Options passed to the save() method.
      * @return void
      */
     public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options): void
