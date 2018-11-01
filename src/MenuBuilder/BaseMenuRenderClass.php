@@ -12,6 +12,7 @@
 namespace Menu\MenuBuilder;
 
 use Cake\View\View;
+use \BadMethodCallException;
 use \ReflectionClass;
 use \ReflectionException;
 
@@ -26,22 +27,22 @@ class BaseMenuRenderClass implements MenuRenderInterface
     const DEFAULT_RENDER_METHOD = 'buildLink';
 
     /**
-     * @var $format array with formats
+     * @var array $format array with formats
      */
     protected $format = [];
 
     /**
-     * @var Menu $menu
+     * @var \Menu\MenuBuilder\Menu $menu
      */
     protected $menu = null;
 
     /**
-     * @var View $viewEntity
+     * @var \Cake\View\View $viewEntity
      */
     protected $viewEntity = null;
 
     /**
-     * @var $noLabel
+     * @var bool Indicate whether we should skip displaying the labels
      */
     protected $noLabel = false;
 
@@ -61,10 +62,10 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      * setFormat method
      *
-     * @param array $format containing all required keys
+     * @param string[] $format containing all required keys
      * @return void
      */
-    public function setFormat(array $format = [])
+    public function setFormat(array $format = []): void
     {
         $this->format = $format;
     }
@@ -72,9 +73,9 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      * getFormat method
      *
-     * @return array $format containing menu settings
+     * @return string[]
      */
-    public function getFormat()
+    public function getFormat(): array
     {
         return $this->format;
     }
@@ -85,7 +86,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      * @param array $options to generate menu
      * @return string rendered menu as per specified format
      */
-    public function render(array $options = [])
+    public function render(array $options = []): string
     {
         $html = $this->format['menuStart'];
         $html .= !empty($options['title']) ? $options['title'] : '';
@@ -109,7 +110,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      * @param \Menu\MenuBuilder\MenuItemInterface $item menu item definition
      * @return string rendered menu item as HTML
      */
-    protected function renderMenuItem(MenuItemInterface $item)
+    protected function renderMenuItem(MenuItemInterface $item): string
     {
         $children = $item->getMenuItems();
 
@@ -144,7 +145,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      * @param string $extLabel additional label elements
      * @return string generated HTML element
      */
-    protected function buildItem(MenuItemInterface $item, $extLabel)
+    protected function buildItem(MenuItemInterface $item, string $extLabel = ''): string
     {
         try {
             $shortClass = (new ReflectionClass($item))->getShortName();
@@ -156,7 +157,12 @@ class BaseMenuRenderClass implements MenuRenderInterface
             $method = self::DEFAULT_RENDER_METHOD;
         }
 
-        $result = call_user_func([$this, $method], $item, $extLabel, $item->getAttributes());
+        /** @var callable $callable */
+        $callable = [$this, $method];
+        if (!is_callable($callable)) {
+            throw new BadMethodCallException(sprintf('Method %s does not exist', $method));
+        }
+        $result = call_user_func($callable, $item, $extLabel, $item->getAttributes());
         $result .= !empty($item->getRawHtml()) ? $item->getRawHtml() : '';
         $result .= $item->renderViewElement($this->viewEntity);
 
@@ -168,10 +174,10 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param MenuItemInterface $item menu item entity
      * @param string $extLabel additional label elements
-     * @param array $params HTML attributes
+     * @param string[] $params HTML attributes
      * @return string generated HTML element
      */
-    protected function buildLink(MenuItemInterface $item, $extLabel = '', $params = [])
+    protected function buildLink(MenuItemInterface $item, string $extLabel = '', array $params = []): string
     {
         $params['title'] = __($item->getLabel());
         $params['escape'] = false;
@@ -195,10 +201,10 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param MenuItemLinkButton $item menu item entity
      * @param string $extLabel additional label elements
-     * @param array $params HTML attributes
+     * @param string[] $params HTML attributes
      * @return string generated HTML element
      */
-    protected function buildLinkButton(MenuItemLinkButton $item, $extLabel, $params = [])
+    protected function buildLinkButton(MenuItemLinkButton $item, string $extLabel = '', array $params = []): string
     {
         if (empty($params['class'])) {
             $params['class'] = 'btn btn-default';
@@ -220,10 +226,10 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param MenuItemLinkModal $item menu item entity
      * @param string $extLabel additional label elements
-     * @param array $params HTML attributes
+     * @param string[] $params HTML attributes
      * @return string generated HTML element
      */
-    protected function buildLinkModal(MenuItemLinkModal $item, $extLabel, $params = [])
+    protected function buildLinkModal(MenuItemLinkModal $item, string $extLabel = '', array $params = []): string
     {
         $item->setUrl('#');
 
@@ -238,10 +244,10 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param MenuItemLinkButtonModal $item menu item entity
      * @param string $extLabel additional label elements
-     * @param array $params HTML attributes
+     * @param string[] $params HTML attributes
      * @return string generated HTML element
      */
-    protected function buildLinkButtonModal(MenuItemLinkButtonModal $item, $extLabel, $params = [])
+    protected function buildLinkButtonModal(MenuItemLinkButtonModal $item, string $extLabel = '', array $params = []): string
     {
         $item->setUrl('#');
 
@@ -257,10 +263,10 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param MenuItemPostlink $item menu item entity
      * @param string $postFix additional label elements
-     * @param array $params HTML attributes
+     * @param string[] $params HTML attributes
      * @return string generated HTML element
      */
-    protected function buildPostlink(MenuItemPostlink $item, $postFix, $params = [])
+    protected function buildPostlink(MenuItemPostlink $item, string $postFix = '', array $params = []): string
     {
         $params['title'] = $item->getLabel();
         $params['escape'] = false;
@@ -280,10 +286,10 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param MenuItemPostlinkButton $item menu item entity
      * @param string $postFix additional label elements
-     * @param array $params HTML attributes
+     * @param string[] $params HTML attributes
      * @return string generated HTML element
      */
-    protected function buildPostlinkButton(MenuItemPostlinkButton $item, $postFix, $params = [])
+    protected function buildPostlinkButton(MenuItemPostlinkButton $item, string $postFix = '', array $params = []): string
     {
         if (empty($params['class'])) {
             $params['class'] = 'btn btn-default';
@@ -297,10 +303,10 @@ class BaseMenuRenderClass implements MenuRenderInterface
      *
      * @param MenuItemButton $item menu item entity
      * @param string $postFix additional label elements
-     * @param array $params Parameters
+     * @param string[] $params Parameters
      * @return string generated HTML element
      */
-    protected function buildButton(MenuItemButton $item, $postFix, $params = [])
+    protected function buildButton(MenuItemButton $item, string $postFix = '', array $params = []): string
     {
         $params['type'] = 'button';
 
@@ -337,7 +343,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
      * @param string $postFix additional label elements
      * @return string generated HTML element
      */
-    protected function buildSeparator(MenuItemSeparator $item, $postFix)
+    protected function buildSeparator(MenuItemSeparator $item, string $postFix = ''): string
     {
         $result = '<hr class="separator" />';
 

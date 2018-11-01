@@ -43,6 +43,5 @@ class MenuButtonsRender extends BaseMenuRenderClass
             'itemWithChildrenEnd' => '</div>',
             'itemLabelPostfix' => '<span class="caret"></span>',
         ];
-        $this->class = 'btn btn-default';
     }
 }

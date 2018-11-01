@@ -27,14 +27,14 @@ interface MenuItemContainerInterface
      * @param MenuItemInterface $item the menu item to be added
      * @return void
      */
-    public function addMenuItem(MenuItemInterface $item);
+    public function addMenuItem(MenuItemInterface $item): void;
 
     /**
      *  Returns the menu items.
      *
-     * @return array List of menu items
+     * @return \Menu\MenuBuilder\MenuItemInterface[] List of menu items
      */
-    public function getMenuItems();
+    public function getMenuItems(): array;
 
     /**
      * Removes the specified menu item from this container.
@@ -43,5 +43,5 @@ interface MenuItemContainerInterface
      * @param MenuItemInterface $item  The item to be removed from the menu.
      * @return void
      */
-    public function removeMenuItem(MenuItemInterface $item);
+    public function removeMenuItem(MenuItemInterface $item): void;
 }

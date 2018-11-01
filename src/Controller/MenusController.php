@@ -11,6 +11,7 @@
  */
 namespace Menu\Controller;
 
+use Cake\ORM\TableRegistry;
 use Menu\Controller\AppController;
 
 /**
@@ -51,13 +52,13 @@ class MenusController extends AppController
             ]
         ]);
 
-        if ($menu->menu_items) {
-            $tree = $this->Menus->MenuItems
+        if ($menu->get('menu_items')) {
+            $tree = TableRegistry::get('Menu.MenuItems')
                 ->find('treeList', ['spacer' => self::TREE_SPACER])
                 ->where(['MenuItems.menu_id' => $menu->id])
                 ->toArray();
             // create node property in the entity object
-            foreach ($menu->menu_items as $menuItem) {
+            foreach ($menu->get('menu_items') as $menuItem) {
                 if (!array_key_exists($menuItem->id, $tree)) {
                     continue;
                 }
@@ -72,19 +73,21 @@ class MenusController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|void Redirects on successful add, renders view otherwise.
+     * @return void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add(): void
     {
         $menu = $this->Menus->newEntity();
         if ($this->request->is('post')) {
-            $menu = $this->Menus->patchEntity($menu, $this->request->data);
+            $data = (array)$this->request->getData();
+            $menu = $this->Menus->patchEntity($menu, $data);
             if ($this->Menus->save($menu)) {
-                $this->Flash->success(__('The menu has been saved.'));
+                $this->Flash->success((string)__('The menu has been saved.'));
+                $this->redirect(['action' => 'index']);
 
-                return $this->redirect(['action' => 'index']);
+                return;
             } else {
-                $this->Flash->error(__('The menu could not be saved. Please, try again.'));
+                $this->Flash->error((string)__('The menu could not be saved. Please, try again.'));
             }
         }
         $this->set('navMenu', $menu);
@@ -95,22 +98,23 @@ class MenusController extends AppController
      * Edit method
      *
      * @param string|null $id Menu id.
-     * @return \Cake\Http\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Http\Exception\NotFoundException When record not found.
+     * @return void Redirects on successful edit, renders view otherwise.
      */
-    public function edit(string $id = null)
+    public function edit(string $id = null): void
     {
         $menu = $this->Menus->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $menu = $this->Menus->patchEntity($menu, $this->request->data);
+            $data = (array)$this->request->getData();
+            $menu = $this->Menus->patchEntity($menu, $data);
             if ($this->Menus->save($menu)) {
-                $this->Flash->success(__('The menu has been saved.'));
+                $this->Flash->success((string)__('The menu has been saved.'));
+                $this->redirect(['action' => 'index']);
 
-                return $this->redirect(['action' => 'index']);
+                return;
             } else {
-                $this->Flash->error(__('The menu could not be saved. Please, try again.'));
+                $this->Flash->error((string)__('The menu could not be saved. Please, try again.'));
             }
         }
         $this->set('navMenu', $menu);
@@ -121,19 +125,19 @@ class MenusController extends AppController
      * Delete method
      *
      * @param string|null $id Menu id.
-     * @return \Cake\Http\Response|null Redirects to index.
+     * @return void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete(string $id = null)
+    public function delete(string $id = null): void
     {
         $this->request->allowMethod(['post', 'delete']);
         $menu = $this->Menus->get($id);
         if ($this->Menus->delete($menu)) {
-            $this->Flash->success(__('The menu has been deleted.'));
+            $this->Flash->success((string)__('The menu has been deleted.'));
         } else {
-            $this->Flash->error(__('The menu could not be deleted. Please, try again.'));
+            $this->Flash->error((string)__('The menu could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        $this->redirect(['action' => 'index']);
     }
 }
