@@ -5,14 +5,14 @@ return [
         'allControllers' => true,
         'systemMenus' => [
             [
-                'name' => MENU_MAIN,
+                'name' => 'main_menu',
                 'active' => true,
                 'default' => true,
                 'deny_edit' => true,
                 'deny_delete' => true
             ],
             [
-                'name' => MENU_ADMIN,
+                'name' => 'admin_menu',
                 'active' => true,
                 'default' => true,
                 'deny_edit' => true,
