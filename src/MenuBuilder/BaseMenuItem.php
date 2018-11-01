@@ -393,10 +393,10 @@ abstract class BaseMenuItem implements MenuItemInterface
      * @inheritdoc
      *
      * @param string $attributeName Attribute's name
-     * @param string $attributeValue Attribute's value
+     * @param array|string $attributeValue Attribute's value
      * @return void
      */
-    public function addAttribute(string $attributeName, string $attributeValue): void
+    public function addAttribute(string $attributeName, $attributeValue): void
     {
         $this->attributes[$attributeName] = $attributeValue;
     }

@@ -201,10 +201,10 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * If the attribute already exists it will be overwritten.
      *
      * @param string $attributeName Attribute's name
-     * @param string $attributeValue Attribute's value
+     * @param string|array $attributeValue Attribute's value
      * @return void
      */
-    public function addAttribute(string $attributeName, string $attributeValue): void;
+    public function addAttribute(string $attributeName, $attributeValue): void;
 
     /**
      * Returns an associative array including all the defined attributes.
