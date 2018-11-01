@@ -72,24 +72,7 @@ class ImportTask extends Shell
      */
     protected function getSystemMenus(): array
     {
-        $data = [
-            [
-                'name' => MENU_MAIN,
-                'active' => true,
-                'default' => true,
-                'deny_edit' => true,
-                'deny_delete' => true
-            ],
-            [
-                'name' => MENU_ADMIN,
-                'active' => true,
-                'default' => true,
-                'deny_edit' => true,
-                'deny_delete' => true
-            ]
-        ];
-
-        return $data;
+        return (array)Cofigure::read('Menu.systemMenus');
     }
 
     /**
