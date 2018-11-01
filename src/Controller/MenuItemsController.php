@@ -52,12 +52,10 @@ class MenuItemsController extends AppController
             $menuItem = $this->MenuItems->patchEntity($menuItem, $data);
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success((string)__('The menu item has been saved.'));
-
                 $this->redirect(['controller' => 'Menus', 'action' => 'view', $menu->id]);
 
                 return;
             } else {
-                $this->Flash->error((string)__('The menu item could not be saved. Please, try again.'));
                 $this->Flash->error((string)__('The menu item could not be saved. Please, try again.'));
             }
         }
