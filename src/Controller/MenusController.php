@@ -54,7 +54,7 @@ class MenusController extends AppController
         ]);
 
         if ($menu->get('menu_items')) {
-            $tree = TableRegistry::get('MenuItems')
+            $tree = TableRegistry::get('Menu.MenuItems')
                 ->find('treeList', ['spacer' => self::TREE_SPACER])
                 ->where(['MenuItems.menu_id' => $menu->id])
                 ->toArray();
@@ -74,9 +74,9 @@ class MenusController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     * @return void Redirects on successful add, renders view otherwise.
      */
-    public function add(): ? Response
+    public function add(): void
     {
         $menu = $this->Menus->newEntity();
         if ($this->request->is('post')) {
@@ -84,8 +84,9 @@ class MenusController extends AppController
             $menu = $this->Menus->patchEntity($menu, $data);
             if ($this->Menus->save($menu)) {
                 $this->Flash->success(__('The menu has been saved.'));
+                $this->redirect(['action' => 'index']);
 
-                return $this->redirect(['action' => 'index']);
+                return;
             } else {
                 $this->Flash->error(__('The menu could not be saved. Please, try again.'));
             }
@@ -100,7 +101,7 @@ class MenusController extends AppController
      * @param string|null $id Menu id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      */
-    public function edit(string $id = null): ?Response
+    public function edit(string $id = null): void
     {
         $menu = $this->Menus->get($id, [
             'contain' => []
@@ -110,8 +111,9 @@ class MenusController extends AppController
             $menu = $this->Menus->patchEntity($menu, $data);
             if ($this->Menus->save($menu)) {
                 $this->Flash->success(__('The menu has been saved.'));
+                $this->redirect(['action' => 'index']);
 
-                return $this->redirect(['action' => 'index']);
+                return;
             } else {
                 $this->Flash->error(__('The menu could not be saved. Please, try again.'));
             }
@@ -124,10 +126,10 @@ class MenusController extends AppController
      * Delete method
      *
      * @param string|null $id Menu id.
-     * @return \Cake\Http\Response|null Redirects to index.
+     * @return void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete(string $id = null): ?Response
+    public function delete(string $id = null): void
     {
         $this->request->allowMethod(['post', 'delete']);
         $menu = $this->Menus->get($id);
@@ -137,6 +139,6 @@ class MenusController extends AppController
             $this->Flash->error(__('The menu could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        $this->redirect(['action' => 'index']);
     }
 }

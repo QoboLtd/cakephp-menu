@@ -41,11 +41,11 @@ class MenuItemsController extends AppController
      * Add method
      *
      * @param string $menuId Menu id
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     * @return void Redirects on successful add, renders view otherwise.
      */
-    public function add(string $menuId): ?Response
+    public function add(string $menuId): void
     {
-        $menu = TableRegistry::get('Menus')->get($menuId);
+        $menu = TableRegistry::get('Menu.Menus')->get($menuId);
         $menuItem = $this->MenuItems->newEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
@@ -54,7 +54,8 @@ class MenuItemsController extends AppController
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success(__('The menu item has been saved.'));
 
-                return $this->redirect(['controller' => 'Menus', 'action' => 'view', $menu->id]);
+                $this->redirect(['controller' => 'Menus', 'action' => 'view', $menu->id]);
+                return;
             } else {
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
@@ -72,10 +73,10 @@ class MenuItemsController extends AppController
      * Edit method
      *
      * @param string|null $id Menu Item id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
-    public function edit(string $id = null): ?Response
+    public function edit(string $id = null): void
     {
         $menuItem = $this->MenuItems->get($id, [
             'contain' => ['Menus']
@@ -85,8 +86,9 @@ class MenuItemsController extends AppController
             $menuItem = $this->MenuItems->patchEntity($menuItem, $data);
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success(__('The menu item has been saved.'));
+                $this->redirect(['controller' => 'Menus', 'action' => 'view', $menuItem->get('menu')->get('id')]);
 
-                return $this->redirect(['controller' => 'Menus', 'action' => 'view', $menuItem->get('menu')->get('id')]);
+                return;
             } else {
                 $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
             }
@@ -104,10 +106,10 @@ class MenuItemsController extends AppController
      * Delete method
      *
      * @param string|null $id Menu Item id.
-     * @return \Cake\Http\Response|null Redirects to index.
+     * @return void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete(string $id = null): ?Response
+    public function delete(string $id = null): void
     {
         $this->request->allowMethod(['post', 'delete']);
         $menuItem = $this->MenuItems->get($id);
@@ -117,7 +119,7 @@ class MenuItemsController extends AppController
             $this->Flash->error(__('The menu item could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect($this->referer());
+        $this->redirect($this->referer());
     }
 
     /**
@@ -125,15 +127,16 @@ class MenuItemsController extends AppController
      *
      * @param  string $id menu id
      * @param  string $action move action
-     * @return \Cake\Http\Response|null Redirects to index or referer.
+     * @return void Redirects to index or referer.
      */
-    public function moveNode(string $id = null, string $action = ''): ?Response
+    public function moveNode(string $id = null, string $action = ''): void
     {
         $moveActions = ['up', 'down'];
         if (!in_array($action, $moveActions)) {
             $this->Flash->error(__('Unknown move action.'));
+            $this->redirect(['action' => 'index']);
 
-            return $this->redirect(['action' => 'index']);
+            return;
         }
         $menuItem = $this->MenuItems->get($id);
         $moveFunction = 'move' . $action;
@@ -143,6 +146,6 @@ class MenuItemsController extends AppController
             $this->Flash->error(__('Fail to move {0} {1}.', $menuItem->get('label'), $action));
         }
 
-        return $this->redirect($this->referer());
+        $this->redirect($this->referer());
     }
 }
