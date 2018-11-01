@@ -44,7 +44,7 @@ class MenuItemsController extends AppController
      */
     public function add(string $menuId): void
     {
-        $menu = TableRegistry::get('Menu.Menus')->get($menuId);
+        $menu = TableRegistry::getTableLocator()->get('Menu.Menus')->get($menuId);
         $menuItem = $this->MenuItems->newEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();

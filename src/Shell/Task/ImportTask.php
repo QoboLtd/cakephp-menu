@@ -40,7 +40,7 @@ class ImportTask extends Shell
             return true;
         }
         // get menus table
-        $table = TableRegistry::get('Menu.Menus');
+        $table = TableRegistry::getTableLocator()->get('Menu.Menus');
 
         foreach ($data as $menu) {
             if (empty($menu['name'])) {
