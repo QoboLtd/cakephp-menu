@@ -24,6 +24,7 @@ use Menu\Event\EventName;
 use Menu\MenuBuilder\Menu;
 use Menu\MenuBuilder\MenuInterface;
 use Menu\MenuBuilder\MenuItemFactory;
+use RuntimeException;
 
 /**
  * Class MenuFactory
@@ -164,7 +165,16 @@ class MenuFactory
         // get menu
         $menuEntity = null;
         try {
-            $menuEntity = $this->Menus->findByName($name)->firstOrFail();
+            $menuEntity = $this->Menus
+                ->find('all')
+                ->where(['name' => $name])
+                ->firstOrFail();
+            if (!($menuEntity instanceof EntityInterface)) {
+                throw new RuntimeException(sprintf(
+                    'Expected value of type "Cake\Datasource\EntityInterface", got "%s" instead',
+                    gettype($menuEntity)
+                ));
+            }
 
             $menuInstance = $menuEntity->get('default') ?
                 $this->getMenuItemsFromEvent($name, [], $context) :

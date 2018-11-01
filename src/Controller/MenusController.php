@@ -11,7 +11,6 @@
  */
 namespace Menu\Controller;
 
-use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
 use Menu\Controller\AppController;
 
@@ -83,12 +82,12 @@ class MenusController extends AppController
             $data = (array)$this->request->getData();
             $menu = $this->Menus->patchEntity($menu, $data);
             if ($this->Menus->save($menu)) {
-                $this->Flash->success(__('The menu has been saved.'));
+                $this->Flash->success((string)__('The menu has been saved.'));
                 $this->redirect(['action' => 'index']);
 
                 return;
             } else {
-                $this->Flash->error(__('The menu could not be saved. Please, try again.'));
+                $this->Flash->error((string)__('The menu could not be saved. Please, try again.'));
             }
         }
         $this->set('navMenu', $menu);
@@ -99,7 +98,7 @@ class MenusController extends AppController
      * Edit method
      *
      * @param string|null $id Menu id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @return void Redirects on successful edit, renders view otherwise.
      */
     public function edit(string $id = null): void
     {
@@ -110,12 +109,12 @@ class MenusController extends AppController
             $data = (array)$this->request->getData();
             $menu = $this->Menus->patchEntity($menu, $data);
             if ($this->Menus->save($menu)) {
-                $this->Flash->success(__('The menu has been saved.'));
+                $this->Flash->success((string)__('The menu has been saved.'));
                 $this->redirect(['action' => 'index']);
 
                 return;
             } else {
-                $this->Flash->error(__('The menu could not be saved. Please, try again.'));
+                $this->Flash->error((string)__('The menu could not be saved. Please, try again.'));
             }
         }
         $this->set('navMenu', $menu);
@@ -134,9 +133,9 @@ class MenusController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $menu = $this->Menus->get($id);
         if ($this->Menus->delete($menu)) {
-            $this->Flash->success(__('The menu has been deleted.'));
+            $this->Flash->success((string)__('The menu has been deleted.'));
         } else {
-            $this->Flash->error(__('The menu could not be deleted. Please, try again.'));
+            $this->Flash->error((string)__('The menu could not be deleted. Please, try again.'));
         }
 
         $this->redirect(['action' => 'index']);

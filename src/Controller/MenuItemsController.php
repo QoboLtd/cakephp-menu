@@ -13,7 +13,6 @@ namespace Menu\Controller;
 
 use Cake\Core\Configure;
 use Cake\Event\Event;
-use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
 use Menu\Controller\AppController;
 use Qobo\Utils\Utility;
@@ -52,12 +51,13 @@ class MenuItemsController extends AppController
             $data['menu_id'] = $menu->id;
             $menuItem = $this->MenuItems->patchEntity($menuItem, $data);
             if ($this->MenuItems->save($menuItem)) {
-                $this->Flash->success(__('The menu item has been saved.'));
+                $this->Flash->success((string)__('The menu item has been saved.'));
 
                 $this->redirect(['controller' => 'Menus', 'action' => 'view', $menu->id]);
                 return;
             } else {
-                $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
+                $this->Flash->error((string)__('The menu item could not be saved. Please, try again.'));
+                $this->Flash->error((string)__('The menu item could not be saved. Please, try again.'));
             }
         }
 
@@ -85,12 +85,12 @@ class MenuItemsController extends AppController
             $data = (array)$this->request->getData();
             $menuItem = $this->MenuItems->patchEntity($menuItem, $data);
             if ($this->MenuItems->save($menuItem)) {
-                $this->Flash->success(__('The menu item has been saved.'));
+                $this->Flash->success((string)__('The menu item has been saved.'));
                 $this->redirect(['controller' => 'Menus', 'action' => 'view', $menuItem->get('menu')->get('id')]);
 
                 return;
             } else {
-                $this->Flash->error(__('The menu item could not be saved. Please, try again.'));
+                $this->Flash->error((string)__('The menu item could not be saved. Please, try again.'));
             }
         }
 
@@ -114,9 +114,9 @@ class MenuItemsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $menuItem = $this->MenuItems->get($id);
         if ($this->MenuItems->delete($menuItem)) {
-            $this->Flash->success(__('The menu item has been deleted.'));
+            $this->Flash->success((string)__('The menu item has been deleted.'));
         } else {
-            $this->Flash->error(__('The menu item could not be deleted. Please, try again.'));
+            $this->Flash->error((string)__('The menu item could not be deleted. Please, try again.'));
         }
 
         $this->redirect($this->referer());
@@ -133,7 +133,7 @@ class MenuItemsController extends AppController
     {
         $moveActions = ['up', 'down'];
         if (!in_array($action, $moveActions)) {
-            $this->Flash->error(__('Unknown move action.'));
+            $this->Flash->error((string)__('Unknown move action.'));
             $this->redirect(['action' => 'index']);
 
             return;
@@ -141,9 +141,9 @@ class MenuItemsController extends AppController
         $menuItem = $this->MenuItems->get($id);
         $moveFunction = 'move' . $action;
         if ($this->MenuItems->{$moveFunction}($menuItem)) {
-            $this->Flash->success(__('{0} has been moved {1} successfully.', $menuItem->get('label'), $action));
+            $this->Flash->success((string)__('{0} has been moved {1} successfully.', $menuItem->get('label'), $action));
         } else {
-            $this->Flash->error(__('Fail to move {0} {1}.', $menuItem->get('label'), $action));
+            $this->Flash->error((string)__('Fail to move {0} {1}.', $menuItem->get('label'), $action));
         }
 
         $this->redirect($this->referer());
