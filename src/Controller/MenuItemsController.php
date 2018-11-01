@@ -54,6 +54,7 @@ class MenuItemsController extends AppController
                 $this->Flash->success((string)__('The menu item has been saved.'));
 
                 $this->redirect(['controller' => 'Menus', 'action' => 'view', $menu->id]);
+
                 return;
             } else {
                 $this->Flash->error((string)__('The menu item could not be saved. Please, try again.'));
