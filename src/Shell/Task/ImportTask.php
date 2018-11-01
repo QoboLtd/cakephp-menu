@@ -12,6 +12,7 @@
 namespace Menu\Shell\Task;
 
 use Cake\Console\Shell;
+use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
 use Cake\ORM\TableRegistry;
 
@@ -72,7 +73,7 @@ class ImportTask extends Shell
      */
     protected function getSystemMenus(): array
     {
-        return (array)Cofigure::read('Menu.systemMenus');
+        return (array)Configure::read('Menu.systemMenus');
     }
 
     /**
