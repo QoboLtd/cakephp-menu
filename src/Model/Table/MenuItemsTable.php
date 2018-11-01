@@ -40,9 +40,9 @@ class MenuItemsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('qobo_menu_items');
-        $this->displayField('label');
-        $this->primaryKey('id');
+        $this->setTable('qobo_menu_items');
+        $this->setDisplayField('label');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Tree');
 

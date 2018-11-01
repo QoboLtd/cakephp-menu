@@ -53,7 +53,7 @@ class MenusController extends AppController
         ]);
 
         if ($menu->get('menu_items')) {
-            $tree = TableRegistry::get('Menu.MenuItems')
+            $tree = TableRegistry::getTableLocator()->get('Menu.MenuItems')
                 ->find('treeList', ['spacer' => self::TREE_SPACER])
                 ->where(['MenuItems.menu_id' => $menu->id])
                 ->toArray();

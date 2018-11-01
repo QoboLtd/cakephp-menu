@@ -74,8 +74,8 @@ class MenuFactory
      */
     public function __construct(array $user, bool $fullBaseUrl = false)
     {
-        $this->Menus = TableRegistry::get('Menu.Menus');
-        $this->MenuItems = TableRegistry::get('Menu.MenuItems');
+        $this->Menus = TableRegistry::getTableLocator()->get('Menu.Menus');
+        $this->MenuItems = TableRegistry::getTableLocator()->get('Menu.MenuItems');
 
         $this->user = $user;
         $this->fullBaseUrl = $fullBaseUrl;
