@@ -14,6 +14,7 @@ namespace Menu\MenuBuilder;
 
 use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
+use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\Event;
 use Cake\Event\EventDispatcherTrait;
 use Cake\ORM\TableRegistry;
@@ -179,7 +180,7 @@ class MenuFactory
             $menuInstance = $menuEntity->get('default') ?
                 $this->getMenuItemsFromEvent($name, [], $context) :
                 $this->getMenuItemsFromTable($menuEntity);
-        } catch (Exception $e) {
+        } catch (RecordNotFoundException $e) {
             $menuInstance = static::getMenuItemsFromEvent($name, [], $context);
         }
 
