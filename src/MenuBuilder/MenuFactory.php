@@ -218,8 +218,8 @@ class MenuFactory
             'modules' => $modules
         ]);
         $this->getEventManager()->dispatch($event);
-
-        return $event->result ? $event->result : [];
+        
+        return ($event->result instanceof MenuInterface) ? $event->result : new Menu();
     }
 
     /**

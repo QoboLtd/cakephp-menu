@@ -27,6 +27,7 @@ class MenusFixture extends TestFixture
         'id' => ['type' => 'uuid', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'name' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'active' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+        'default' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'created' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         '_constraints' => [
@@ -49,6 +50,7 @@ class MenusFixture extends TestFixture
             'id' => '00000000-0000-0000-0000-000000000001',
             'name' => 'menu1',
             'active' => 1,
+            'default' => 0,
             'created' => '2016-04-28',
             'modified' => '2016-04-28'
         ],
@@ -56,6 +58,7 @@ class MenusFixture extends TestFixture
             'id' => '00000000-0000-0000-0000-000000000002',
             'name' => 'main_menu',
             'active' => 1,
+            'default' => 1,
             'created' => '2018-02-08',
             'modified' => '2018-02-08'
         ],
@@ -63,6 +66,7 @@ class MenusFixture extends TestFixture
             'id' => '00000000-0000-0000-0000-000000000003',
             'name' => 'admin_menu',
             'active' => 1,
+            'default' => 1,
             'created' => '2018-02-08',
             'modified' => '2018-02-08'
         ]
