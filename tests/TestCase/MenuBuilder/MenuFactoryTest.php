@@ -90,7 +90,7 @@ class MenuFactoryTest extends TestCase
 
         $entity = $this->Menus->find('all')->first();
         $results = $this->invokeMethod($this->instance, 'getMenuItem', [$entity, $item]);
-        
+
         $assertResult = [
             'label' => 'my label',
             'icon' => 'my icon',
