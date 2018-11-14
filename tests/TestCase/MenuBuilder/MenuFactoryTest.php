@@ -1,11 +1,11 @@
 <?php
 namespace Menu\Test\TestCase\MenuBuilder;
 
+use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Menu\MenuBuilder\MenuFactory;
 use Menu\MenuBuilder\MenuInterface;
 use ReflectionClass;
-use Cake\ORM\TableRegistry;
 
 // use Cake\TestSuite\Fixture\TestFixture;
 
@@ -23,15 +23,15 @@ class MenuFactoryTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $configMenus = TableRegistry::exists('Menus') ? [] :  ['className' => 'Menu\Model\Table\MenusTable'];
-        $configMenuItems = TableRegistry::exists('MenuItems') ? [] :  ['className' => 'Menu\Model\Table\MenuItemsTable'];
+        $configMenus = TableRegistry::exists('Menus') ? [] : ['className' => 'Menu\Model\Table\MenusTable'];
+        $configMenuItems = TableRegistry::exists('MenuItems') ? [] : ['className' => 'Menu\Model\Table\MenuItemsTable'];
         $this->Menus = TableRegistry::get('Menus', $configMenus);
         $this->MenuItems = TableRegistry::get('MenuItems', $configMenuItems);
-    
+
         $this->instance = new MenuFactory(['user1'], true);
     }
-    
-    public function invokeMethod(&$object, $methodName, array $parameters = array())
+
+    public function invokeMethod(&$object, $methodName, array $parameters = [])
     {
         $reflection = new ReflectionClass(get_class($object));
         $method = $reflection->getMethod($methodName);
@@ -42,22 +42,22 @@ class MenuFactoryTest extends TestCase
 
     public function testGetMenuFromEvents()
     {
-        $results = $this->invokeMethod($this->instance, 'getMenu', ['main_menu',['user1']]);
+        $results = $this->invokeMethod($this->instance, 'getMenu', ['main_menu', ['user1']]);
         $this->assertTrue($results instanceof MenuInterface);
     }
-    
+
     public function testGetMenuFromTable()
     {
-        $results = $this->invokeMethod($this->instance, 'getMenu', ['menu1',['user1']]);
+        $results = $this->invokeMethod($this->instance, 'getMenu', ['menu1', ['user1']]);
         $this->assertTrue($results instanceof MenuInterface);
     }
-    
+
     public function testGetMenuItemEmpty()
     {
         $item = [];
         $entity = $this->Menus->find('all')->first();
         $results = $this->invokeMethod($this->instance, 'getMenuItem', [$entity, $item]);
-        
+
         $this->assertEmpty($results);
     }
 
