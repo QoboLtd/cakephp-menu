@@ -102,8 +102,14 @@ abstract class BaseMenuItem implements MenuItemInterface
      */
     protected $viewElement = [];
 
+    /**
+     * @var string HTML wrapper start element
+     */
     protected $wrapperStart = '';
 
+    /**
+     * @var string HTML wrapper end element
+     */
     protected $wrapperEnd = '';
 
     /**
@@ -469,7 +475,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     /**
      * Set Wrapper Start for MenuItem
      *
-     * @string $value of wrapper start
+     * @param string $value of wrapper start
      * @return void
      */
     public function setWrapperStart(string $value): void
