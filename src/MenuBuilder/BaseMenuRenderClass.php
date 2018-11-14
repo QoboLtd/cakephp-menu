@@ -116,6 +116,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
 
         $html = $this->format['itemStart'];
 
+        $html .= $item->getWrapperStart();
         $html .= $this->buildItem($item, !empty($children) && !empty($this->format['itemWithChildrenPostfix']) ? $this->format['itemWithChildrenPostfix'] : '');
 
         if (!empty($children)) {
@@ -133,6 +134,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
             $html .= $this->format['childMenuEnd'];
         }
 
+        $html .= $item->getWrapperEnd();
         $html .= $this->format['itemEnd'];
 
         return $html;
@@ -307,6 +309,42 @@ class BaseMenuRenderClass implements MenuRenderInterface
      * @return string generated HTML element
      */
     protected function buildButton(MenuItemButton $item, string $postFix = '', array $params = []): string
+    {
+        $params['type'] = 'button';
+
+        if (empty($params['class'])) {
+            $params['class'] = 'btn btn-default';
+        }
+
+        if (!empty($item->getExtraAttribute())) {
+            $params['class'] = $item->getExtraAttribute();
+        }
+
+        if (!empty($item->getMenuItems())) {
+            $params['data-toggle'] = 'dropdown';
+            $params['aria-haspopup'] = 'true';
+            $params['aria-expanded'] = 'false';
+        }
+
+        $label = $item->getLabel();
+        if (!empty($item->getIcon())) {
+            $label = '<i class="fa fa-' . $item->getIcon() . '"></i> ' . $label;
+        }
+
+        if (!empty($this->format['itemLabelPostfix'])) {
+            $label .= ' ' . $this->format['itemLabelPostfix'];
+        }
+
+        return $this->viewEntity->Html->tag('button', $label, $params);
+    }
+
+    /**
+     * @param MenuItemButtonGroup $item menu item entity
+     * @param string $postFix additional label elements
+     * @param string[] $params Parameters
+     * @return string generated HTML element
+     */
+    protected function buildButtonGroup(MenuItemButtonGroup $item, string $postFix = '', array $params = []): string
     {
         $params['type'] = 'button';
 
