@@ -343,10 +343,10 @@ class BaseMenuRenderClass implements MenuRenderInterface
     /**
      * @param MenuItemButtonGroup $item menu item entity
      * @param string $postFix additional label elements
-     * @param array $params Parameters
+     * @param string[] $params Parameters
      * @return string generated HTML element
      */
-    protected function buildButtonGroup(MenuItemButtonGroup $item, $postFix, $params = [])
+    protected function buildButtonGroup(MenuItemButtonGroup $item, string $postFix = '', array $params = []): string
     {
         $params['type'] = 'button';
 

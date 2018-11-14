@@ -448,12 +448,12 @@ abstract class BaseMenuItem implements MenuItemInterface
     /**
      * Set Wrapper for MenuItem
      *
-     * @string $value
+     * @param string $value of wrapper end
      * @return void
      */
-    public function setWrapperStart(string $value)
+    public function setWrapperEnd(string $value): void
     {
-        $this->wrapperStart = $value;
+        $this->wrapperEnd = $value;
     }
 
     /**
@@ -469,10 +469,10 @@ abstract class BaseMenuItem implements MenuItemInterface
     /**
      * Set Wrapper Start for MenuItem
      *
-     * @string $value
+     * @string $value of wrapper start
      * @return void
      */
-    public function setWrapperStart(string $value)
+    public function setWrapperStart(string $value): void
     {
         $this->wrapperStart = $value;
     }
