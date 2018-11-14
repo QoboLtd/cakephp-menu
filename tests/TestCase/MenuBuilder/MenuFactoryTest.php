@@ -7,14 +7,33 @@ use Menu\MenuBuilder\MenuFactory;
 use Menu\MenuBuilder\MenuInterface;
 use ReflectionClass;
 
-// use Cake\TestSuite\Fixture\TestFixture;
-
+/**
+ * Test Class for MenuFactory
+ */
 class MenuFactoryTest extends TestCase
 {
+    /**
+     * MenuFactory istance
+     * @var MenuInterface
+     */
     public $instance;
+
+    /**
+     * Model Menus
+     * @var Menu\Model\Table\MenusTable
+     */
     public $Menus;
+
+    /**
+     * Model MenusItems
+     * @var Menu\Model\Table\MenuItems
+     */
     public $MenuItems;
 
+    /**
+     * Need to use the fixure
+     * @var array
+     */
     public $fixtures = [
         'plugin.menu.menus',
         'plugin.menu.menu_items'
@@ -31,6 +50,13 @@ class MenuFactoryTest extends TestCase
         $this->instance = new MenuFactory(['user1'], true);
     }
 
+    /**
+     * Access protected and private method
+     * @param  Class &$object     Class to access
+     * @param  string $methodName Method name
+     * @param  array  $parameters arguments of the methods
+     * @return mixed
+     */
     public function invokeMethod(&$object, $methodName, array $parameters = [])
     {
         $reflection = new ReflectionClass(get_class($object));
@@ -40,18 +66,30 @@ class MenuFactoryTest extends TestCase
         return $method->invokeArgs($object, $parameters);
     }
 
+    /**
+     * test GetMenu() when default = 1
+     * @return void
+     */
     public function testGetMenuFromEvents()
     {
         $results = $this->invokeMethod($this->instance, 'getMenu', ['main_menu', ['user1']]);
         $this->assertTrue($results instanceof MenuInterface);
     }
 
+    /**
+     * test GetMenu() when default = 0
+     * @return void
+     */
     public function testGetMenuFromTable()
     {
         $results = $this->invokeMethod($this->instance, 'getMenu', ['menu1', ['user1']]);
         $this->assertTrue($results instanceof MenuInterface);
     }
 
+    /**
+     * test protected GetMenuItem()
+     * @return void
+     */
     public function testGetMenuItemEmpty()
     {
         $item = [];
@@ -61,6 +99,10 @@ class MenuFactoryTest extends TestCase
         $this->assertEmpty($results);
     }
 
+    /**
+     * test protected GetMenuItem()
+     * @return void
+     */
     public function testGetMenuItemWithChildren()
     {
         $children1 = [
@@ -103,6 +145,10 @@ class MenuFactoryTest extends TestCase
         $this->assertEquals($assertResult, $results);
     }
 
+    /**
+     * test protected GetMenuItem()
+     * @return void
+     */
     public function testGetMenuItemEmptyChildren()
     {
         $children = [];
