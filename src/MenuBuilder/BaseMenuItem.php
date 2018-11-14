@@ -103,6 +103,16 @@ abstract class BaseMenuItem implements MenuItemInterface
     protected $viewElement = [];
 
     /**
+     * @var string HTML wrapper start element
+     */
+    protected $wrapperStart = '';
+
+    /**
+     * @var string HTML wrapper end element
+     */
+    protected $wrapperEnd = '';
+
+    /**
      * @inheritdoc
      *
      * @return string the label of this menu item, or null if this menu item has no label.
@@ -439,5 +449,47 @@ abstract class BaseMenuItem implements MenuItemInterface
         }
 
         return call_user_func_array([$view, 'element'], $this->viewElement);
+    }
+
+    /**
+     * Set Wrapper for MenuItem
+     *
+     * @param string $value of wrapper end
+     * @return void
+     */
+    public function setWrapperEnd(string $value): void
+    {
+        $this->wrapperEnd = $value;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return string
+     */
+    public function getWrapperEnd(): string
+    {
+        return $this->wrapperEnd;
+    }
+
+    /**
+     * Set Wrapper Start for MenuItem
+     *
+     * @param string $value of wrapper start
+     * @return void
+     */
+    public function setWrapperStart(string $value): void
+    {
+        $this->wrapperStart = $value;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return string
+     */
+    public function getWrapperStart(): string
+    {
+        return $this->wrapperStart;
     }
 }

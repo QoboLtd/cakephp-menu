@@ -213,4 +213,39 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * @return string[]
      */
     public function getAttributes(): array;
+
+    /**
+     * Set Wrapper Start for MenuItem class
+     *
+     * Allows wrapping Html string within HTML div-like containers.
+     * Pretty useful for UI elements like button groups.
+     *
+     * @param string $value of the wrapper
+     * @return void
+     */
+    public function setWrapperStart(string $value): void;
+
+    /**
+     * Set Wrapper End for MenuItem class
+     *
+     * Allows wrapping Html string of MenuItem with div-like containers.
+     *
+     * @param string $value closing of the wrapper
+     * @return void
+     */
+    public function setWrapperEnd(string $value): void;
+
+    /**
+     * Return Wrapper start of MenuItem
+     *
+     * @return string
+     */
+    public function getWrapperStart(): string;
+
+    /**
+     * Return Wrapper end of MenuItem
+     *
+     * @return string
+     */
+    public function getWrapperEnd(): string;
 }
