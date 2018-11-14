@@ -14,19 +14,19 @@ class MenuFactoryTest extends TestCase
 {
     /**
      * MenuFactory istance
-     * @var MenuInterface
+     * @var \Menu\MenuBuilder\MenuFactory
      */
     public $instance;
 
     /**
      * Model Menus
-     * @var Menu\Model\Table\MenusTable
+     * @var \Cake\ORM\Table
      */
     public $Menus;
 
     /**
      * Model MenusItems
-     * @var Menu\Model\Table\MenuItems
+     * @var \Cake\ORM\Table
      */
     public $MenuItems;
 
@@ -52,12 +52,12 @@ class MenuFactoryTest extends TestCase
 
     /**
      * Access protected and private method
-     * @param  Class &$object     Class to access
+     * @param  \Menu\MenuBuilder\MenuFactory $object Class to access
      * @param  string $methodName Method name
-     * @param  array  $parameters arguments of the methods
+     * @param  mixed[] $parameters arguments of the methods
      * @return mixed
      */
-    public function invokeMethod(&$object, $methodName, array $parameters = [])
+    public function invokeMethod(\Menu\MenuBuilder\MenuFactory &$object, string $methodName, array $parameters = [])
     {
         $reflection = new ReflectionClass(get_class($object));
         $method = $reflection->getMethod($methodName);
@@ -70,7 +70,7 @@ class MenuFactoryTest extends TestCase
      * test GetMenu() when default = 1
      * @return void
      */
-    public function testGetMenuFromEvents()
+    public function testGetMenuFromEvents(): void
     {
         $results = $this->invokeMethod($this->instance, 'getMenu', ['main_menu', ['user1']]);
         $this->assertTrue($results instanceof MenuInterface);
@@ -80,7 +80,7 @@ class MenuFactoryTest extends TestCase
      * test GetMenu() when default = 0
      * @return void
      */
-    public function testGetMenuFromTable()
+    public function testGetMenuFromTable(): void
     {
         $results = $this->invokeMethod($this->instance, 'getMenu', ['menu1', ['user1']]);
         $this->assertTrue($results instanceof MenuInterface);
@@ -90,7 +90,7 @@ class MenuFactoryTest extends TestCase
      * test protected GetMenuItem()
      * @return void
      */
-    public function testGetMenuItemEmpty()
+    public function testGetMenuItemEmpty(): void
     {
         $item = [];
         $entity = $this->Menus->find('all')->first();
@@ -103,7 +103,7 @@ class MenuFactoryTest extends TestCase
      * test protected GetMenuItem()
      * @return void
      */
-    public function testGetMenuItemWithChildren()
+    public function testGetMenuItemWithChildren(): void
     {
         $children1 = [
                         'label' => 'CHmy label',
@@ -149,7 +149,7 @@ class MenuFactoryTest extends TestCase
      * test protected GetMenuItem()
      * @return void
      */
-    public function testGetMenuItemEmptyChildren()
+    public function testGetMenuItemEmptyChildren(): void
     {
         $children = [];
         $item = [
