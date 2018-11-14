@@ -102,6 +102,10 @@ abstract class BaseMenuItem implements MenuItemInterface
      */
     protected $viewElement = [];
 
+    protected $wrapperStart = '';
+
+    protected $wrapperEnd = '';
+
     /**
      * @inheritdoc
      *
@@ -439,5 +443,47 @@ abstract class BaseMenuItem implements MenuItemInterface
         }
 
         return call_user_func_array([$view, 'element'], $this->viewElement);
+    }
+
+    /**
+     * Set Wrapper for MenuItem
+     *
+     * @string $value
+     * @return void
+     */
+    public function setWrapperStart(string $value)
+    {
+        $this->wrapperStart = $value;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return string
+     */
+    public function getWrapperEnd(): string
+    {
+        return $this->wrapperEnd;
+    }
+
+    /**
+     * Set Wrapper Start for MenuItem
+     *
+     * @string $value
+     * @return void
+     */
+    public function setWrapperStart(string $value)
+    {
+        $this->wrapperStart = $value;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return string
+     */
+    public function getWrapperStart(): string
+    {
+        return $this->wrapperStart;
     }
 }
