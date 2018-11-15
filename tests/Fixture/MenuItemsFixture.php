@@ -49,7 +49,7 @@ class MenuItemsFixture extends TestFixture
             'label' => 'menu 1 item 1',
             'url' => 'http://www.google.com',
             'new_window' => 1,
-            'parent_id' => null,    // this is a root menu item
+            'parent_id' => null, // this is a root menu item
             'type' => 'link',
             'icon' => 'my_icon',
             'lft' => 1,
@@ -61,7 +61,7 @@ class MenuItemsFixture extends TestFixture
             'label' => 'menu 2 item 1',
             'url' => 'http://www.google.com',
             'new_window' => 1,
-            'parent_id' => null,    // this is a root menu item
+            'parent_id' => null, // this is a root menu item
             'type' => 'link',
             'icon' => 'my_icon',
             'lft' => 1,
