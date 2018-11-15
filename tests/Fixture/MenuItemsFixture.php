@@ -49,8 +49,8 @@ class MenuItemsFixture extends TestFixture
             'label' => 'menu 1 item 1',
             'url' => 'http://www.google.com',
             'new_window' => 1,
-            'parent_id' => '00000000-0000-0000-0000-00000000000a',
-            'type' => 'module',
+            'parent_id' => null,    // this is a root menu item
+            'type' => 'link',
             'icon' => 'my_icon',
             'lft' => 1,
             'rght' => 1
@@ -61,8 +61,32 @@ class MenuItemsFixture extends TestFixture
             'label' => 'menu 2 item 1',
             'url' => 'http://www.google.com',
             'new_window' => 1,
-            'parent_id' => '00000000-0000-0000-0000-00000000000a',
-            'type' => 'my_type',
+            'parent_id' => null,    // this is a root menu item
+            'type' => 'link',
+            'icon' => 'my_icon',
+            'lft' => 1,
+            'rght' => 1
+        ],
+        [
+            'id' => '00000000-0000-0000-0000-000000000004',
+            'menu_id' => '00000000-0000-0000-0000-000000000002',
+            'label' => 'menu 2 item 2',
+            'url' => 'http://www.google.com',
+            'new_window' => 1,
+            'parent_id' => null,
+            'type' => 'link',
+            'icon' => 'my_icon',
+            'lft' => 1,
+            'rght' => 1
+        ],
+        [
+            'id' => '00000000-0000-0000-0000-000000000005',
+            'menu_id' => '00000000-0000-0000-0000-000000000002',
+            'label' => 'menu 2 item 2 sub-item 1',
+            'url' => 'http://www.google.com',
+            'new_window' => 1,
+            'parent_id' => '00000000-0000-0000-0000-000000000004',
+            'type' => 'link',
             'icon' => 'my_icon',
             'lft' => 1,
             'rght' => 1
