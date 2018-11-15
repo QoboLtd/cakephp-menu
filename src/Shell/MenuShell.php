@@ -13,6 +13,9 @@ namespace Qobo\Menu\Shell;
 
 use Cake\Console\Shell;
 
+/**
+ * @property \Qobo\Menu\Shell\Task\ImportTask $Import
+ */
 class MenuShell extends Shell
 {
     /**
@@ -30,7 +33,7 @@ class MenuShell extends Shell
         $parser = parent::getOptionParser();
 
         $parser
-            ->description('Menu Shell that handle\'s related tasks.')
+            ->setDescription('Menu Shell that handle\'s related tasks.')
             ->addSubcommand(
                 'import',
                 ['help' => 'Import system menus.', 'parser' => $this->Import->getOptionParser()]

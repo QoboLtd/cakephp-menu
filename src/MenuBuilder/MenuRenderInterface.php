@@ -21,8 +21,8 @@ interface MenuRenderInterface
     /**
      *  render method
      *
-     * @param array $options to generate menu
+     * @param mixed[] $options to generate menu
      * @return string rendered menu as per specified format
      */
-    public function render(array $options = []);
+    public function render(array $options = []): string;
 }

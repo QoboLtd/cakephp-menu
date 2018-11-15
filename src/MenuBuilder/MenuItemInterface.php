@@ -22,37 +22,11 @@ interface MenuItemInterface extends MenuItemContainerInterface
 {
 
     /**
-     *  getChildren method
-     *
-     * @deprecated Use getMenuItems method instead.
-     * @return array list of child items
-     */
-    public function getChildren();
-
-    /**
-     *  addChild method
-     *
-     * @param MenuItemInterface $item menu item
-     * @deprecated Use addMenuItem method instead.
-     * @return void
-     */
-    public function addChild(MenuItemInterface $item);
-
-    /**
-     * removeChild method
-     *
-     * @param string $childId to identify child item to be removed
-     * @deprecated Use removeMenuItem method instead.
-     * @return void
-     */
-    public function removeChild($childId);
-
-    /**
      * Sets the enabled flag to the provided value
      * @param bool $enabled Indicates whether this Menu item is enabled
      * @return void
      */
-    public function setEnabled($enabled);
+    public function setEnabled(bool $enabled): void;
 
     /**
      * Sets the enabled flag to true.
@@ -60,7 +34,7 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * @see MenuItemInterface::setEnabled()
      * @return void
      */
-    public function enable();
+    public function enable(): void;
 
     /**
      * Sets the enabled flag to false.
@@ -68,14 +42,14 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * @see MenuItemInterface::setEnabled()
      * @return  void
      */
-    public function disable();
+    public function disable(): void;
 
     /**
      * Adds a new condition to determine whether this item must be disabled
      * @param callable $callback Callback to be evaluated as a boolean expression
      * @return void
      */
-    public function disableIf(callable $callback);
+    public function disableIf(callable $callback): void;
 
     /**
      * Returns true only and only if:
@@ -84,14 +58,14 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * - if having child menu items, one of them is enabled
      * @return bool
      */
-    public function isEnabled();
+    public function isEnabled(): bool;
 
     /**
      * Gets the text label for this menu item.
      *
      * @return string the label of this menu item, or null if this menu item has no label.
      */
-    public function getLabel();
+    public function getLabel(): string;
 
     /**
      * Sets the text label for this menu item to the specified label.
@@ -99,14 +73,14 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * @param string $label the new label, or null for no label.
      * @return void
      */
-    public function setLabel($label);
+    public function setLabel(string $label): void;
 
     /**
      * Gets the icon for this menu item.
      *
      * @return string the icon of this menu item, or null if this menu item has no icon.
      */
-    public function getIcon();
+    public function getIcon(): string;
 
     /**
      * Sets the icon for this menu item to the specified icon.
@@ -115,14 +89,14 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * @param string $icon the new icon, or null for no icon.
      * @return void
      */
-    public function setIcon($icon);
+    public function setIcon(string $icon): void;
 
     /**
      * Gets the text description for this menu item.
      *
      * @return string the description of this menu item, or null if this menu item has no description.
      */
-    public function getDescription();
+    public function getDescription(): string;
 
     /**
      * Sets the text description for this menu item to the specified description.
@@ -130,7 +104,7 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * @param string $descr the new description, or null for no description.
      * @return void
      */
-    public function setDescription($descr);
+    public function setDescription(string $descr): void;
 
     /**
      * Gets the URL for this menu item.
@@ -145,7 +119,7 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * @param string|array $url the new URL, or null for no URL.
      * @return void
      */
-    public function setUrl($url);
+    public function setUrl($url): void;
 
     /**
      * Gets the order position for this menu item.
@@ -153,7 +127,7 @@ interface MenuItemInterface extends MenuItemContainerInterface
      *
      * @return int the position of this menu item.
      */
-    public function getOrder();
+    public function getOrder(): int;
 
     /**
      * Sets the order position for this menu item to the specified order.
@@ -161,7 +135,7 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * @param int $order the new position.
      * @return void
      */
-    public function setOrder($order);
+    public function setOrder(int $order): void;
 
     /**
      * Gets the target for this menu item.
@@ -169,7 +143,7 @@ interface MenuItemInterface extends MenuItemContainerInterface
      *
      * @return string the target of this menu item.
      */
-    public function getTarget();
+    public function getTarget(): string;
 
     /**
      * Sets target for this menu item to the specified target.
@@ -184,14 +158,14 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * @param string $target the new target.
      * @return void
      */
-    public function setTarget($target);
+    public function setTarget(string $target): void;
 
     /**
      * Returns the raw HTML for this menu item.
      *
      * @return string the raw HTML for this menu item, or null if no HTML was provided.
      */
-    public function getRawHtml();
+    public function getRawHtml(): string;
 
     /**
      * Sets the raw HTML for this menu item to the specified HTML.
@@ -199,19 +173,19 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * @param string $rawHtml the new HTML, or null for no HTML.
      * @return void
      */
-    public function setRawHtml($rawHtml);
+    public function setRawHtml(string $rawHtml): void;
 
     /**
      * Assigns a view element to be rendered and appended to the auto generated menu item.
      * This can be used to extend default behaviour like invoke modals or vue applications
      *
      * @param string $name Name of template file
-     * @param array $data Array of data to be made available to the rendered view (i.e. the Element)
-     * @param array $options Array of options.
+     * @param mixed[] $data Array of data to be made available to the rendered view (i.e. the Element)
+     * @param mixed[] $options Array of options.
      * @see View::element()
      * @return void
      */
-    public function setViewElement($name, array $data = [], array $options = []);
+    public function setViewElement(string $name, array $data = [], array $options = []): void;
 
     /**
      * Renders the view element provided by setViewElement by using the provided view instance.
@@ -220,23 +194,58 @@ interface MenuItemInterface extends MenuItemContainerInterface
      * @param View $view View instance that will be used for rendering
      * @return null|string
      */
-    public function renderViewElement(View $view);
+    public function renderViewElement(View $view): ?string;
 
     /**
      * Adds an HTML attribute for this menu item.
      * If the attribute already exists it will be overwritten.
      *
      * @param string $attributeName Attribute's name
-     * @param string $attributeValue Attribute's value
+     * @param string|array $attributeValue Attribute's value
      * @return void
      */
-    public function addAttribute($attributeName, $attributeValue);
+    public function addAttribute(string $attributeName, $attributeValue): void;
 
     /**
      * Returns an associative array including all the defined attributes.
      * The array's key defines the attribute name.
      *
-     * @return array
+     * @return string[]
      */
-    public function getAttributes();
+    public function getAttributes(): array;
+
+    /**
+     * Set Wrapper Start for MenuItem class
+     *
+     * Allows wrapping Html string within HTML div-like containers.
+     * Pretty useful for UI elements like button groups.
+     *
+     * @param string $value of the wrapper
+     * @return void
+     */
+    public function setWrapperStart(string $value): void;
+
+    /**
+     * Set Wrapper End for MenuItem class
+     *
+     * Allows wrapping Html string of MenuItem with div-like containers.
+     *
+     * @param string $value closing of the wrapper
+     * @return void
+     */
+    public function setWrapperEnd(string $value): void;
+
+    /**
+     * Return Wrapper start of MenuItem
+     *
+     * @return string
+     */
+    public function getWrapperStart(): string;
+
+    /**
+     * Return Wrapper end of MenuItem
+     *
+     * @return string
+     */
+    public function getWrapperEnd(): string;
 }

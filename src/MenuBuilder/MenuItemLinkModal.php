@@ -14,16 +14,16 @@ namespace Qobo\Menu\MenuBuilder;
 class MenuItemLinkModal extends MenuItemLink
 {
     /**
-     * @var $modalTarget
+     * @var string $modalTarget
      */
-    protected $modalTarget = null;
+    protected $modalTarget = '';
 
     /**
      * getModalTarget method
      *
      * @return string modal target ID
      */
-    public function getModalTarget()
+    public function getModalTarget(): string
     {
         return $this->modalTarget;
     }
@@ -34,7 +34,7 @@ class MenuItemLinkModal extends MenuItemLink
      * @param string $modalTarget ID
      * @return void
      */
-    public function setModalTarget($modalTarget)
+    public function setModalTarget(string $modalTarget): void
     {
         $this->modalTarget = $modalTarget;
     }

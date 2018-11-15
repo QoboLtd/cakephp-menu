@@ -23,7 +23,7 @@ class MainMenuRenderAdminLte extends BaseMenuRenderClass
     /**
      *  __construct method
      *
-     * @param \Menu\MenuBuilder\Menu $menu Collection of menu items
+     * @param \Qobo\Menu\MenuBuilder\Menu $menu Collection of menu items
      * @param \Cake\View\View $viewEntity View instance
      * @return void
      */

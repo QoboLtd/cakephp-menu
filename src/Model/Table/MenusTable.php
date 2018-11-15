@@ -35,9 +35,9 @@ class MenusTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('qobo_menus');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->setTable('qobo_menus');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 

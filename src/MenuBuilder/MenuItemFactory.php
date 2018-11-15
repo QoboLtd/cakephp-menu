@@ -12,6 +12,7 @@
 namespace Qobo\Menu\MenuBuilder;
 
 use Cake\Utility\Inflector;
+use InvalidArgumentException;
 use Qobo\Menu\MenuBuilder\BaseMenuItem;
 
 /**
@@ -24,10 +25,10 @@ final class MenuItemFactory
     /**
      *  createMenuItem method
      *
-     * @param array $item menu item definition
+     * @param mixed[] $item menu item definition
      * @return \Qobo\Menu\MenuBuilder\MenuItemInterface object
      */
-    public static function createMenuItem($item)
+    public static function createMenuItem(array $item): MenuItemInterface
     {
         $menuItem = static::_getMenuItemObject($item);
         foreach ($item as $key => $value) {
@@ -56,10 +57,11 @@ final class MenuItemFactory
     /**
      * _getMenuItemObject method
      *
-     * @param array $data menu definition
-     * @return \Menu\MenuBuilder\MenuItemInterface object or throw exception
+     * @param mixed[] $data menu definition
+     * @return \Qobo\Menu\MenuBuilder\MenuItemInterface object
+     * @throws InvalidArgumentException
      */
-    protected static function _getMenuItemObject($data)
+    protected static function _getMenuItemObject(array $data): MenuItemInterface
     {
         $itemType = !empty($data['type']) ? $data['type'] : BaseMenuItem::DEFAULT_MENU_ITEM_TYPE;
 
@@ -70,6 +72,6 @@ final class MenuItemFactory
             return new $className();
         }
 
-        throw new \InvalidArgumentException("Unknown menu item type [$itemType]!");
+        throw new InvalidArgumentException("Unknown menu item type [$itemType]!");
     }
 }

@@ -40,9 +40,9 @@ class MenuItemsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('qobo_menu_items');
-        $this->displayField('label');
-        $this->primaryKey('id');
+        $this->setTable('qobo_menu_items');
+        $this->setDisplayField('label');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Tree');
 
@@ -114,18 +114,23 @@ class MenuItemsTable extends Table
     }
 
     /**
-     * {@inheritDoc}
+     * Fallback to default values for icon and url
+     *
+     * @param \Cake\Event\Event $event Triggered event instance.
+     * @param \Cake\Datasource\EntityInterface $entity Entity to be saved.
+     * @param \ArrayObject $options Options passed to the save() method.
+     * @return void
      */
-    public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options)
+    public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options): void
     {
         // fallback to default icon
-        if (!$entity->icon) {
-            $entity->icon = Configure::read('Icons.default');
+        if (!$entity->get('icon')) {
+            $entity->set('icon', Configure::read('Icons.default'));
         }
 
         // fallback to hashtag as default url
-        if (!$entity->url) {
-            $entity->url = '#';
+        if (!$entity->get('url')) {
+            $entity->set('url', '#');
         }
     }
 }

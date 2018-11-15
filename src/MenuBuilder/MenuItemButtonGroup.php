@@ -9,8 +9,11 @@
  * @copyright     Copyright (c) Qobo Ltd. (https://www.qobo.biz)
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Menu\MenuBuilder;
+namespace Qobo\Menu\MenuBuilder;
 
 class MenuItemButtonGroup extends BaseMenuItem
 {
+    protected $wrapperStart = '<div class="btn-group btn-group-sm">';
+
+    protected $wrapperEnd = '</div>';
 }

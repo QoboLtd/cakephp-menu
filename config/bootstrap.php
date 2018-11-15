@@ -17,14 +17,6 @@ Configure::write('Menu', array_replace_recursive(
     $config
 ));
 
-if (!defined('MENU_ADMIN')) {
-    define('MENU_ADMIN', 'admin_menu');
-}
-
-if (!defined('MENU_MAIN')) {
-    define('MENU_MAIN', 'main_menu');
-}
-
 /**
  * Render As types
  */

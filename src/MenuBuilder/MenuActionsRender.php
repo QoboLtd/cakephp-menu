@@ -23,7 +23,7 @@ class MenuActionsRender extends BaseMenuRenderClass
     /**
      *  __construct method
      *
-     * @param \Menu\MenuBuilder\Menu $menu Menu collection
+     * @param \Qobo\Menu\MenuBuilder\Menu $menu Menu collection
      * @param \Cake\View\View $viewEntity View instance
      * @return void
      */

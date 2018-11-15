@@ -19,8 +19,11 @@ class MenuTest extends TestCase
 
     /**
      * @dataProvider providerMenuItems
+     * @param mixed $data Data
+     * @param mixed[] $expected Expected result
+     * @param string $msg
      */
-    public function testAddMenuItem($data, $expected, $msg)
+    public function testAddMenuItem($data, array $expected, string $msg): void
     {
         if (is_array($data)) {
             foreach ($data as $testItem) {
@@ -34,7 +37,7 @@ class MenuTest extends TestCase
         $this->assertEquals($result, $expected, $msg);
     }
 
-    public function testAddRemove()
+    public function testAddRemove(): void
     {
         $item = new MenuItemButton();
         $this->instance->addMenuItem($item);
@@ -47,7 +50,10 @@ class MenuTest extends TestCase
         $this->assertEquals(0, count($this->instance->getMenuItems()));
     }
 
-    public function providerMenuItems()
+    /**
+     * @return mixed[]
+     */
+    public function providerMenuItems(): array
     {
         $return = [];
         $dummy = new MenuItemButton();
