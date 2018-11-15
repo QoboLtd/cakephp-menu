@@ -72,7 +72,7 @@ class MenuFactoryTest extends TestCase
      */
     public function testGetMenuFromEvents(): void
     {
-        $results = $this->invokeMethod($this->instance, 'getMenu', ['menu_from_event', ['user1']]);
+        $results = MenuFactory::getMenu('menu_from_event', []);
         $this->assertTrue($results instanceof MenuInterface);
         $this->assertEmpty($results->getMenuItems());
     }
