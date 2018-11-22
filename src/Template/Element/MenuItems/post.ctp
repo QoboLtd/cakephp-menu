@@ -60,10 +60,10 @@ $moduleType = TypeFactory::create('module');
                 <?= $this->Form->create($menuItem); ?>
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $this->Form->input('label') ?>
+                            <?= $this->Form->control('label') ?>
                         </div>
                         <div class="col-md-6">
-                            <?= $this->Form->input('icon', [
+                            <?= $this->Form->control('icon', [
                                 'type' => 'select',
                                 'options' => $icons,
                                 'class' => 'select2',
@@ -73,7 +73,7 @@ $moduleType = TypeFactory::create('module');
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $this->Form->input('type', [
+                            <?= $this->Form->control('type', [
                                 'type' => 'select',
                                 'options' => TypeFactory::getList(),
                                 'class' => 'select2',
@@ -85,14 +85,14 @@ $moduleType = TypeFactory::create('module');
                             <div id="type-inner-container">
                             <?php if ('custom' === $menuItem->type) : ?>
                                 <div id="item-<?= $menuItem->type ?>">
-                                    <?= $this->Form->input('url', [
+                                    <?= $this->Form->control('url', [
                                         'label' => __('URL')
                                     ]) ?>
                                 </div>
                             <?php endif; ?>
                             <?php if ('module' === $menuItem->type) : ?>
                                 <div id="item-<?= $menuItem->type ?>">
-                                    <?= $this->Form->input('url', [
+                                    <?= $this->Form->control('url', [
                                         'type' => 'select',
                                         'options' => $moduleType->getList(),
                                         'class' => 'select2',
@@ -107,7 +107,7 @@ $moduleType = TypeFactory::create('module');
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $this->Form->input('parent_id', [
+                            <?= $this->Form->control('parent_id', [
                                 'type' => 'select',
                                 'options' => $parentMenuItems,
                                 'class' => 'select2',
@@ -115,7 +115,7 @@ $moduleType = TypeFactory::create('module');
                             ]) ?>
                         </div>
                         <div class="col-md-6">
-                            <?= $this->Form->input('new_window', [
+                            <?= $this->Form->control('new_window', [
                                 'type' => 'checkbox',
                                 'class' => 'square',
                                 'label' => false,
@@ -133,14 +133,14 @@ $moduleType = TypeFactory::create('module');
                 <div class="hidden" id="type-outer-container">
                 <?php if ('custom' !== $menuItem->type) : ?>
                     <div id="item-custom">
-                        <?= $this->Form->input('url', [
+                        <?= $this->Form->control('url', [
                             'label' => __('URL')
                         ]) ?>
                     </div>
                 <?php endif; ?>
                 <?php if ('module' !== $menuItem->type) : ?>
                     <div id="item-module">
-                        <?= $this->Form->input('url', [
+                        <?= $this->Form->control('url', [
                             'type' => 'select',
                             'options' => $moduleType->getList(),
                             'class' => 'select2',

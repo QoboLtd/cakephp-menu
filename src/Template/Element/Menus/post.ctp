@@ -35,12 +35,12 @@ echo $this->Html->scriptBlock(
                 <?= $this->Form->create($navMenu); ?>
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $this->Form->input('name', [
+                            <?= $this->Form->control('name', [
                                 'disabled' => $navMenu->deny_edit
                             ]); ?>
                         </div>
                         <div class="col-md-6">
-                            <?= $this->Form->input('active', [
+                            <?= $this->Form->control('active', [
                                 'type' => 'checkbox',
                                 'disabled' => $navMenu->deny_edit,
                                 'class' => 'square',
@@ -53,7 +53,7 @@ echo $this->Html->scriptBlock(
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $this->Form->input('default', [
+                            <?= $this->Form->control('default', [
                                 'type' => 'checkbox',
                                 'class' => 'square',
                                 'label' => false,
