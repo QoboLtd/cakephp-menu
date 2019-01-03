@@ -114,7 +114,11 @@ class BaseMenuRenderClass implements MenuRenderInterface
     {
         $children = $item->getMenuItems();
 
-        $html = $this->format['itemStart'];
+        if (!empty($children) && !empty($this->format['itemStartWithChildren'])) {
+            $html = $this->format['itemStartWithChildren'];
+        } else {
+            $html = $this->format['itemStart'];
+        }
 
         $html .= $item->getWrapperStart();
         $html .= $this->buildItem($item, !empty($children) && !empty($this->format['itemWithChildrenPostfix']) ? $this->format['itemWithChildrenPostfix'] : '');
@@ -135,7 +139,12 @@ class BaseMenuRenderClass implements MenuRenderInterface
         }
 
         $html .= $item->getWrapperEnd();
-        $html .= $this->format['itemEnd'];
+
+        if (!empty($children) && !empty($this->format['itemEndWithChildren'])) {
+            $html .= $this->format['itemEndWithChildren'];
+        } else {
+            $html .= $this->format['itemEnd'];
+        }
 
         return $html;
     }
