@@ -31,12 +31,14 @@ class MainMenuRenderAdminLte extends BaseMenuRenderClass
     {
         parent::__construct($menu, $viewEntity);
         $format = [
-            'menuStart' => '<ul class="sidebar-menu">',
+            'menuStart' => '<ul class="sidebar-menu" data-widget="tree">',
             'menuEnd' => '</ul>',
             'childMenuStart' => '<ul class="treeview-menu">',
             'childMenuEnd' => '</ul>',
-            'itemStart' => '<li class="treeview">',
+            'itemStart' => '<li>',
+            'itemStartWithChildren' => '<li class="treeview">',
             'itemEnd' => '</li>',
+            'itemEndWithChildren' => '</li>',
             'itemWrapperStart' => '<span>',
             'itemWrapperEnd' => '</span>',
             //'item' => '<a href="%url%" target="%target%"><i class="fa fa-%icon%"></i> <span>%label%</span></a>',
