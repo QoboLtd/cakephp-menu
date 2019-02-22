@@ -12,10 +12,10 @@
 namespace Menu\MenuBuilder;
 
 use Cake\View\View;
+use Webmozart\Assert\Assert;
 use \BadMethodCallException;
 use \ReflectionClass;
 use \ReflectionException;
-use Webmozart\Assert\Assert;
 
 /**
  *  BaseMenuRenderClass class
