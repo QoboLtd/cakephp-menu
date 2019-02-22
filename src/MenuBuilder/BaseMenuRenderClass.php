@@ -12,6 +12,7 @@
 namespace Menu\MenuBuilder;
 
 use Cake\View\View;
+use Webmozart\Assert\Assert;
 use \BadMethodCallException;
 use \ReflectionClass;
 use \ReflectionException;
@@ -129,8 +130,8 @@ class BaseMenuRenderClass implements MenuRenderInterface
             });
 
             $html .= $this->format['childMenuStart'];
-            /** @var MenuItemInterface $childItem */
             foreach ($enabledChildren as $childItem) {
+                Assert::isInstanceOf($childItem, MenuItemInterface::class);
                 $html .= !empty($this->format['childItemStart']) ? $this->format['childItemStart'] : '';
                 $html .= $this->renderMenuItem($childItem);
                 $html .= !empty($this->format['childItemEnd']) ? $this->format['childItemEnd'] : '';
@@ -168,7 +169,6 @@ class BaseMenuRenderClass implements MenuRenderInterface
             $method = self::DEFAULT_RENDER_METHOD;
         }
 
-        /** @var callable $callable */
         $callable = [$this, $method];
         if (!is_callable($callable)) {
             throw new BadMethodCallException(sprintf('Method %s does not exist', $method));
