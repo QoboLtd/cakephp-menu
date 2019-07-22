@@ -99,7 +99,7 @@ abstract class BaseMenuItem implements MenuItemInterface
     private $attributes = [];
 
     /**
-     * @var array Parameters for view element to be rendered
+     * @var array<int, mixed> Parameters for view element to be rendered
      */
     protected $viewElement = [];
 

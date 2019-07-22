@@ -47,8 +47,8 @@ class MenuItemsController extends AppController
         $menu = TableRegistry::getTableLocator()->get('Menu.Menus')->get($menuId);
         $menuItem = $this->MenuItems->newEntity();
         if ($this->request->is('post')) {
-            $data = $this->request->getData();
-            $data['menu_id'] = $menu->id;
+            $data = (array)$this->request->getData();
+            $data['menu_id'] = $menu->get('id');
             $menuItem = $this->MenuItems->patchEntity($menuItem, $data);
             if ($this->MenuItems->save($menuItem)) {
                 $this->Flash->success((string)__('The menu item has been saved.'));
