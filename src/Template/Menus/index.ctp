@@ -34,7 +34,7 @@ echo $this->Html->scriptBlock(
 <section class="content-header">
     <div class="row">
         <div class="col-xs-12">
-            <h4><?= __('Menus'); ?></h4>
+            <h4><?= __d('Qobo/Menu', 'Menus'); ?></h4>
         </div>
     </div>
 </section>
@@ -44,38 +44,38 @@ echo $this->Html->scriptBlock(
             <table class="table table-hover table-condensed table-vertical-align table-datatable">
                 <thead>
                     <tr>
-                        <th><?= __('Name') ?></th>
-                        <th><?= __('Active') ?></th>
-                        <th><?= __('Default') ?></th>
-                        <th class="actions"><?= __('Actions'); ?></th>
+                        <th><?= __d('Qobo/Menu', 'Name') ?></th>
+                        <th><?= __d('Qobo/Menu', 'Active') ?></th>
+                        <th><?= __d('Qobo/Menu', 'Default') ?></th>
+                        <th class="actions"><?= __d('Qobo/Menu', 'Actions'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($menus as $menu) : ?>
                     <tr>
                         <td><?= h(Inflector::humanize($menu->name)) ?></td>
-                        <td><?= $menu->active ? __('Yes') : __('No') ?></td>
-                        <td><?= $menu->default ? __('Yes') : __('No') ?></td>
+                        <td><?= $menu->active ? __d('Qobo/Menu', 'Yes') : __d('Qobo/Menu', 'No') ?></td>
+                        <td><?= $menu->default ? __d('Qobo/Menu', 'Yes') : __d('Qobo/Menu', 'No') ?></td>
                         <td class="actions">
                             <div class="btn-toolbar" role="toolbar">
                                 <div class="btn-group btn-group-xs" role="group">
                                 <?= $this->Html->link(
                                     '<i class="fa fa-eye"></i>',
                                     ['action' => 'view', $menu->id],
-                                    ['title' => __('View'), 'class' => 'btn btn-default', 'escape' => false]
+                                    ['title' => __d('Qobo/Menu', 'View'), 'class' => 'btn btn-default', 'escape' => false]
                                 ) ?>
                                 <?= $this->Html->link(
                                     '<i class="fa fa-pencil"></i>',
                                     ['action' => 'edit', $menu->id],
-                                    ['title' => __('Edit'), 'class' => 'btn btn-default', 'escape' => false]
+                                    ['title' => __d('Qobo/Menu', 'Edit'), 'class' => 'btn btn-default', 'escape' => false]
                                 ) ?>
                                 <?php if (!$menu->deny_delete) : ?>
                                     <?= $this->Form->postLink(
                                         '<i class="fa fa-trash"></i>',
                                         ['action' => 'delete', $menu->id],
                                         [
-                                            'confirm' => __('Are you sure you want to delete # {0}?', $menu->name),
-                                            'title' => __('Delete'),
+                                            'confirm' => __d('Qobo/Menu', 'Are you sure you want to delete # {0}?', $menu->name),
+                                            'title' => __d('Qobo/Menu', 'Delete'),
                                             'class' => 'btn btn-default',
                                             'escape' => false
                                         ]

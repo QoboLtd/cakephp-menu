@@ -190,14 +190,14 @@ class BaseMenuRenderClass implements MenuRenderInterface
      */
     protected function buildLink(MenuItemInterface $item, string $extLabel = '', array $params = []): string
     {
-        $params['title'] = __($item->getLabel());
+        $params['title'] = $item->getLabel();
         $params['escape'] = false;
         $params['target'] = $item->getTarget();
 
         $label = '<i class="menu-icon fa fa-' . $item->getIcon() . '"></i> ';
         $label .= !empty($this->format['itemHeaderStart']) ? $this->format['itemHeaderStart'] : '';
         $label .= !empty($this->format['itemWrapperStart']) ? $this->format['itemWrapperStart'] : '';
-        $label .= $this->noLabel ? '' : __($item->getLabel());
+        $label .= $this->noLabel ? '' : $item->getLabel();
         $label .= !empty($this->format['itemWrapperEnd']) ? $this->format['itemWrapperEnd'] : '';
         $label .= $extLabel;
         $label .= !empty($item->getDescription()) ? $this->format['itemDescrStart'] . $item->getDescription() . $this->format['itemDescrEnd'] : '';
@@ -286,7 +286,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
             $params['confirm'] = $item->getConfirmMsg();
         }
 
-        $label = '<i class="fa fa-' . $item->getIcon() . '"></i> ' . ($this->noLabel ? '' : __($item->getLabel())) . $postFix;
+        $label = '<i class="fa fa-' . $item->getIcon() . '"></i> ' . ($this->noLabel ? '' : $item->getLabel()) . $postFix;
         $result = $this->viewEntity->Form->postLink($label, $item->getUrl(), $params);
 
         return $result;

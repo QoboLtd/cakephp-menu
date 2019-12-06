@@ -48,7 +48,7 @@ $moduleType = TypeFactory::create('module');
 <section class="content-header">
     <div class="row">
         <div class="col-xs-12 col-md-6">
-            <h4><?= __(('add' === $this->request->getParam('action') ? 'Create' : 'Edit') . ' {0}', ['Menu Item']) ?></h4>
+            <h4><?= __d('Qobo/Menu', '{0} {1}', ('add' === $this->request->getParam('action') ? 'Create' : 'Edit'), 'Menu Item') ?></h4>
         </div>
     </div>
 </section>
@@ -86,7 +86,7 @@ $moduleType = TypeFactory::create('module');
                             <?php if ('custom' === $menuItem->type) : ?>
                                 <div id="item-<?= $menuItem->type ?>">
                                     <?= $this->Form->control('url', [
-                                        'label' => __('URL')
+                                        'label' => __d('Qobo/Menu', 'URL')
                                     ]) ?>
                                 </div>
                             <?php endif; ?>
@@ -97,7 +97,7 @@ $moduleType = TypeFactory::create('module');
                                         'options' => $moduleType->getList(),
                                         'class' => 'select2',
                                         'empty' => true,
-                                        'label' => __('Module'),
+                                        'label' => __d('Qobo/Menu', 'Module'),
                                         'id' => 'item-module'
                                     ]) ?>
                                 </div>
@@ -127,14 +127,14 @@ $moduleType = TypeFactory::create('module');
                     </div>
                 </div>
                 <div class="box-footer">
-                    <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
+                    <?= $this->Form->button(__d('Qobo/Menu', 'Submit'), ['class' => 'btn btn-primary']) ?>
                 </div>
                 <?= $this->Form->end() ?>
                 <div class="hidden" id="type-outer-container">
                 <?php if ('custom' !== $menuItem->type) : ?>
                     <div id="item-custom">
                         <?= $this->Form->control('url', [
-                            'label' => __('URL')
+                            'label' => __d('Qobo/Menu', 'URL')
                         ]) ?>
                     </div>
                 <?php endif; ?>
@@ -145,7 +145,7 @@ $moduleType = TypeFactory::create('module');
                             'options' => $moduleType->getList(),
                             'class' => 'select2',
                             'empty' => true,
-                            'label' => __('Module'),
+                            'label' => __d('Qobo/Menu', 'Module'),
                             'id' => 'item-module'
                         ]) ?>
                     </div>
