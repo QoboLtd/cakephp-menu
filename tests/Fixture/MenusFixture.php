@@ -52,7 +52,7 @@ class MenusFixture extends TestFixture
             'active' => 1,
             'default' => 0,
             'created' => '2016-04-28',
-            'modified' => '2016-04-28'
+            'modified' => '2016-04-28',
         ],
         [
             'id' => '00000000-0000-0000-0000-000000000002',
@@ -60,7 +60,7 @@ class MenusFixture extends TestFixture
             'active' => 1,
             'default' => 0,
             'created' => '2018-02-08',
-            'modified' => '2018-02-08'
+            'modified' => '2018-02-08',
         ],
         [
             'id' => '00000000-0000-0000-0000-000000000003',
@@ -68,7 +68,7 @@ class MenusFixture extends TestFixture
             'active' => 1,
             'default' => 1,
             'created' => '2018-02-08',
-            'modified' => '2018-02-08'
-        ]
+            'modified' => '2018-02-08',
+        ],
     ];
 }

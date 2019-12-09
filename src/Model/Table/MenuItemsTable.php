@@ -49,15 +49,15 @@ class MenuItemsTable extends Table
         $this->belongsTo('Menus', [
             'foreignKey' => 'menu_id',
             'joinType' => 'INNER',
-            'className' => 'Menu.Menus'
+            'className' => 'Menu.Menus',
         ]);
         $this->belongsTo('ParentMenuItems', [
             'className' => 'Menu.MenuItems',
-            'foreignKey' => 'parent_id'
+            'foreignKey' => 'parent_id',
         ]);
         $this->hasMany('ChildMenuItems', [
             'className' => 'Menu.MenuItems',
-            'foreignKey' => 'parent_id'
+            'foreignKey' => 'parent_id',
         ]);
     }
 
