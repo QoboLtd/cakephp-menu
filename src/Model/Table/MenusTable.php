@@ -43,7 +43,7 @@ class MenusTable extends Table
 
         $this->hasMany('MenuItems', [
             'foreignKey' => 'menu_id',
-            'className' => 'Menu.MenuItems'
+            'className' => 'Menu.MenuItems',
         ]);
     }
 

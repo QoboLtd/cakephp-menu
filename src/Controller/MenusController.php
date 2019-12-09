@@ -48,8 +48,8 @@ class MenusController extends AppController
             'contain' => [
                 'MenuItems' => function ($q) {
                     return $q->order(['MenuItems.lft' => 'ASC']);
-                }
-            ]
+                },
+            ],
         ]);
 
         if ($menu->get('menu_items')) {
@@ -103,7 +103,7 @@ class MenusController extends AppController
     public function edit(string $id = null): void
     {
         $menu = $this->Menus->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = (array)$this->request->getData();

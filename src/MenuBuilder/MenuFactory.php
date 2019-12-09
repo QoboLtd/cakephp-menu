@@ -215,7 +215,7 @@ class MenuFactory
             'name' => $menuName,
             'user' => $this->user,
             'fullBaseUrl' => $this->fullBaseUrl,
-            'modules' => $modules
+            'modules' => $modules,
         ]);
         $this->getEventManager()->dispatch($event);
 
@@ -232,7 +232,7 @@ class MenuFactory
     {
         $query = $this->MenuItems->find('threaded', [
             'conditions' => ['MenuItems.menu_id' => $menu->id],
-            'order' => ['MenuItems.lft']
+            'order' => ['MenuItems.lft'],
         ]);
 
         if ($query->isEmpty()) {

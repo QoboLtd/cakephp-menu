@@ -22,7 +22,7 @@ class MenuShell extends Shell
      * {@inheritDoc}
      */
     public $tasks = [
-        'Menu.Import'
+        'Menu.Import',
     ];
 
     /**

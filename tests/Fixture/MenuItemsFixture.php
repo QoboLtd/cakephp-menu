@@ -53,7 +53,7 @@ class MenuItemsFixture extends TestFixture
             'type' => 'link',
             'icon' => 'my_icon',
             'lft' => 1,
-            'rght' => 1
+            'rght' => 1,
         ],
         [
             'id' => '00000000-0000-0000-0000-000000000003',
@@ -65,7 +65,7 @@ class MenuItemsFixture extends TestFixture
             'type' => 'link',
             'icon' => 'my_icon',
             'lft' => 1,
-            'rght' => 1
+            'rght' => 1,
         ],
         [
             'id' => '00000000-0000-0000-0000-000000000004',
@@ -77,7 +77,7 @@ class MenuItemsFixture extends TestFixture
             'type' => 'link',
             'icon' => 'my_icon',
             'lft' => 1,
-            'rght' => 1
+            'rght' => 1,
         ],
         [
             'id' => '00000000-0000-0000-0000-000000000005',
@@ -89,7 +89,7 @@ class MenuItemsFixture extends TestFixture
             'type' => 'link',
             'icon' => 'my_icon',
             'lft' => 1,
-            'rght' => 1
+            'rght' => 1,
         ],
     ];
 }

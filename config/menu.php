@@ -9,15 +9,15 @@ return [
                 'active' => true,
                 'default' => true,
                 'deny_edit' => true,
-                'deny_delete' => true
+                'deny_delete' => true,
             ],
             [
                 'name' => 'admin_menu',
                 'active' => true,
                 'default' => true,
                 'deny_edit' => true,
-                'deny_delete' => true
-            ]
+                'deny_delete' => true,
+            ],
         ],
         'defaults' => [
             'url' => '#',
@@ -27,6 +27,6 @@ return [
             'target' => '_self',
             'children' => [],
             'desc' => '',
-        ]
-    ]
+        ],
+    ],
 ];

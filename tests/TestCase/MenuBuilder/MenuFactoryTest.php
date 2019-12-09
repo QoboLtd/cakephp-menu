@@ -36,7 +36,7 @@ class MenuFactoryTest extends TestCase
      */
     public $fixtures = [
         'plugin.menu.menus',
-        'plugin.menu.menu_items'
+        'plugin.menu.menu_items',
     ];
 
     public function setUp()
