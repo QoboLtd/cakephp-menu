@@ -23,7 +23,7 @@ echo $this->Html->scriptBlock(
 <section class="content-header">
     <div class="row">
         <div class="col-xs-12 col-md-6">
-            <h4><?= __(('add' === $this->request->getParam('action') ? 'Create' : 'Edit') . ' {0}', ['Menu']) ?></h4>
+            <h4><?= __d('Qobo/Menu', '{0} {1}', ('add' === $this->request->getParam('action') ? 'Create' : 'Edit'), 'Menu') ?></h4>
         </div>
     </div>
 </section>
@@ -65,7 +65,7 @@ echo $this->Html->scriptBlock(
                     </div>
                 </div>
                 <div class="box-footer">
-                    <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
+                    <?= $this->Form->button(__d('Qobo/Menu', 'Submit'), ['class' => 'btn btn-primary']) ?>
                 </div>
                 <?= $this->Form->end() ?>
             </div>

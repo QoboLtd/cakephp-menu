@@ -35,15 +35,15 @@ echo $this->Html->scriptBlock(
 <section class="content-header">
     <div class="row">
         <div class="col-xs-12 col-md-6">
-            <h4><?= $this->Html->link(__('Menu'), ['action' => 'index']) . ' &raquo; ' . h(Inflector::humanize($navMenu->name)) ?></h4>
+            <h4><?= $this->Html->link(__d('Qobo/Menu', 'Menu'), ['action' => 'index']) . ' &raquo; ' . h(Inflector::humanize($navMenu->name)) ?></h4>
         </div>
         <div class="col-xs-12 col-md-6">
             <div class="pull-right">
                 <div class="btn-group btn-group-sm" role="group">
                 <?= $this->Html->link(
-                    '<i class="fa fa-plus"></i> ' . __('Add'),
+                    '<i class="fa fa-plus"></i> ' . __d('Qobo/Menu', 'Add'),
                     ['controller' => 'MenuItems', 'action' => 'add', $navMenu->id],
-                    ['escape' => false, 'title' => __('Add'), 'class' => 'btn btn-default']
+                    ['escape' => false, 'title' => __d('Qobo/Menu', 'Add'), 'class' => 'btn btn-default']
                 ); ?>
                 </div>
             </div>
@@ -60,12 +60,12 @@ echo $this->Html->scriptBlock(
                 </div>
                 <div class="box-body">
                     <dl class="dl-horizontal">
-                        <dt><?= __('Name') ?></dt>
+                        <dt><?= __d('Qobo/Menu', 'Name') ?></dt>
                         <dd><?= h(Inflector::humanize($navMenu->name)) ?></dd>
-                        <dt><?= __('Active') ?></dt>
-                        <dd><?= $navMenu->active ? __('Yes') : __('No') ?></dd>
-                        <dt><?= __('Default') ?></dt>
-                        <dd><?= $navMenu->default ? __('Yes') : __('No') ?></dd>
+                        <dt><?= __d('Qobo/Menu', 'Active') ?></dt>
+                        <dd><?= $navMenu->active ? __d('Qobo/Menu', 'Yes') : __d('Qobo/Menu', 'No') ?></dd>
+                        <dt><?= __d('Qobo/Menu', 'Default') ?></dt>
+                        <dd><?= $navMenu->default ? __d('Qobo/Menu', 'Yes') : __d('Qobo/Menu', 'No') ?></dd>
                     </dl>
                 </div>
             </div>
@@ -74,18 +74,18 @@ echo $this->Html->scriptBlock(
     <?php if (!empty($navMenu->menu_items)) : ?>
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title"><?= __('Related Menu Items') ?></h3>
+            <h3 class="box-title"><?= __d('Qobo/Menu', 'Related Menu Items') ?></h3>
         </div>
         <div class="box-body">
             <table class="table table-hover table-condensed table-vertical-align table-datatable">
                 <thead>
                     <tr>
-                        <th><?= __('Label') ?></th>
-                        <th><?= __('Icon') ?></th>
-                        <th><?= __('Type') ?></th>
-                        <th><?= __('URL') ?></th>
-                        <th><?= __('New Window') ?></th>
-                        <th class="actions"><?= __('Actions') ?></th>
+                        <th><?= __d('Qobo/Menu', 'Label') ?></th>
+                        <th><?= __d('Qobo/Menu', 'Icon') ?></th>
+                        <th><?= __d('Qobo/Menu', 'Type') ?></th>
+                        <th><?= __d('Qobo/Menu', 'URL') ?></th>
+                        <th><?= __d('Qobo/Menu', 'New Window') ?></th>
+                        <th class="actions"><?= __d('Qobo/Menu', 'Actions') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,21 +98,21 @@ echo $this->Html->scriptBlock(
                             $this->Html->link($menuItem->url, $menuItem->url, ['target' => '_blank']) :
                             h($menuItem->url)
                         ?></td>
-                        <td><?= $menuItem->new_window ? __('Yes') : __('No') ?></td>
+                        <td><?= $menuItem->new_window ? __d('Qobo/Menu', 'Yes') : __d('Qobo/Menu', 'No') ?></td>
                         <td class="actions">
                             <div class="btn-toolbar" role="toolbar">
                                 <div class="btn-group btn-group-xs" role="group">
                                 <?= $this->Html->link(
                                     '<i class="fa fa-pencil"></i>',
                                     ['controller' => 'MenuItems', 'action' => 'edit', $menuItem->id],
-                                    ['title' => __('Edit'), 'class' => 'btn btn-default', 'escape' => false]
+                                    ['title' => __d('Qobo/Menu', 'Edit'), 'class' => 'btn btn-default', 'escape' => false]
                                 ) ?>
                                 <?= $this->Form->postLink(
                                     '<i class="fa fa-trash"></i>',
                                     ['controller' => 'MenuItems', 'action' => 'delete', $menuItem->id],
                                     [
-                                        'confirm' => __('Are you sure you want to delete # {0}?', $menuItem->label),
-                                        'title' => __('Delete'),
+                                        'confirm' => __d('Qobo/Menu', 'Are you sure you want to delete # {0}?', $menuItem->label),
+                                        'title' => __d('Qobo/Menu', 'Delete'),
                                         'class' => 'btn btn-default',
                                         'escape' => false
                                     ]
@@ -122,12 +122,12 @@ echo $this->Html->scriptBlock(
                                     <?= $this->Form->postLink(
                                         '<i class="fa fa-arrow-up"></i>',
                                         ['controller' => 'MenuItems', 'action' => 'moveNode', $menuItem->id, 'up'],
-                                        ['title' => __('Move up'), 'class' => 'btn btn-default', 'escape' => false]
+                                        ['title' => __d('Qobo/Menu', 'Move up'), 'class' => 'btn btn-default', 'escape' => false]
                                     ) ?>
                                     <?= $this->Form->postLink(
                                         '<i class="fa fa-arrow-down"></i>',
                                         ['controller' => 'MenuItems', 'action' => 'moveNode', $menuItem->id, 'down'],
-                                        ['title' => __('Move down'), 'class' => 'btn btn-default', 'escape' => false]
+                                        ['title' => __d('Qobo/Menu', 'Move down'), 'class' => 'btn btn-default', 'escape' => false]
                                     ) ?>
                                 </div>
                             </div>
