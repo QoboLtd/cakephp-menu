@@ -11,11 +11,11 @@
  */
 namespace Menu\MenuBuilder;
 
+use BadMethodCallException;
 use Cake\View\View;
+use ReflectionClass;
+use ReflectionException;
 use Webmozart\Assert\Assert;
-use \BadMethodCallException;
-use \ReflectionClass;
-use \ReflectionException;
 
 /**
  *  BaseMenuRenderClass class
