@@ -78,7 +78,7 @@ class MenuItemsController extends AppController
     public function edit(string $id = null): void
     {
         $menuItem = $this->MenuItems->get($id, [
-            'contain' => ['Menus']
+            'contain' => ['Menus'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = (array)$this->request->getData();
