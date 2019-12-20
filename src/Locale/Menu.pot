@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2019-12-06 15:05+0000\n"
+"POT-Creation-Date: 2019-12-19 14:19+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,108 +14,159 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+#: Controller/MenuItemsController.php:54;87
 msgid "The menu item has been saved."
 msgstr ""
 
+#: Controller/MenuItemsController.php:59;92
 msgid "The menu item could not be saved. Please, try again."
 msgstr ""
 
+#: Controller/MenuItemsController.php:116
 msgid "The menu item has been deleted."
 msgstr ""
 
+#: Controller/MenuItemsController.php:118
 msgid "The menu item could not be deleted. Please, try again."
 msgstr ""
 
+#: Controller/MenuItemsController.php:135
 msgid "Unknown move action."
 msgstr ""
 
+#: Controller/MenuItemsController.php:143
 msgid "{0} has been moved {1} successfully."
 msgstr ""
 
+#: Controller/MenuItemsController.php:145
 msgid "Fail to move {0} {1}."
 msgstr ""
 
+#: Controller/MenusController.php:85;112
 msgid "The menu has been saved."
 msgstr ""
 
+#: Controller/MenusController.php:90;117
 msgid "The menu could not be saved. Please, try again."
 msgstr ""
 
+#: Controller/MenusController.php:136
 msgid "The menu has been deleted."
 msgstr ""
 
+#: Controller/MenusController.php:138
 msgid "The menu could not be deleted. Please, try again."
 msgstr ""
 
+#: MenuBuilder/BaseMenuRenderClass.php:193;200
+msgid "{0}"
+msgstr ""
+
+#: Template/Element/MenuItems/post.ctp:51
+#: Template/Element/Menus/post.ctp:26
 msgid "{0} {1}"
 msgstr ""
 
+#: Template/Element/MenuItems/post.ctp:89;137
+#: Template/Menus/view.ctp:86
 msgid "URL"
 msgstr ""
 
+#: Template/Element/MenuItems/post.ctp:100;148
 msgid "Module"
 msgstr ""
 
+#: Template/Element/MenuItems/post.ctp:130
+#: Template/Element/Menus/post.ctp:68
 msgid "Submit"
 msgstr ""
 
+#: Template/Menus/index.ctp:37
 msgid "Menus"
 msgstr ""
 
+#: Template/Menus/index.ctp:47
+#: Template/Menus/view.ctp:63
 msgid "Name"
 msgstr ""
 
+#: Template/Menus/index.ctp:48
+#: Template/Menus/view.ctp:65
 msgid "Active"
 msgstr ""
 
+#: Template/Menus/index.ctp:49
+#: Template/Menus/view.ctp:67
 msgid "Default"
 msgstr ""
 
+#: Template/Menus/index.ctp:50
+#: Template/Menus/view.ctp:88
 msgid "Actions"
 msgstr ""
 
+#: Template/Menus/index.ctp:57;58
+#: Template/Menus/view.ctp:66;68;101
 msgid "Yes"
 msgstr ""
 
+#: Template/Menus/index.ctp:57;58
+#: Template/Menus/view.ctp:66;68;101
 msgid "No"
 msgstr ""
 
+#: Template/Menus/index.ctp:65
 msgid "View"
 msgstr ""
 
+#: Template/Menus/index.ctp:70
+#: Template/Menus/view.ctp:108
 msgid "Edit"
 msgstr ""
 
+#: Template/Menus/index.ctp:77
+#: Template/Menus/view.ctp:114
 msgid "Are you sure you want to delete # {0}?"
 msgstr ""
 
+#: Template/Menus/index.ctp:78
+#: Template/Menus/view.ctp:115
 msgid "Delete"
 msgstr ""
 
+#: Template/Menus/view.ctp:38
 msgid "Menu"
 msgstr ""
 
+#: Template/Menus/view.ctp:44;46
 msgid "Add"
 msgstr ""
 
+#: Template/Menus/view.ctp:77
 msgid "Related Menu Items"
 msgstr ""
 
+#: Template/Menus/view.ctp:83
 msgid "Label"
 msgstr ""
 
+#: Template/Menus/view.ctp:84
 msgid "Icon"
 msgstr ""
 
+#: Template/Menus/view.ctp:85
 msgid "Type"
 msgstr ""
 
+#: Template/Menus/view.ctp:87
 msgid "New Window"
 msgstr ""
 
+#: Template/Menus/view.ctp:125
 msgid "Move up"
 msgstr ""
 
+#: Template/Menus/view.ctp:130
 msgid "Move down"
 msgstr ""
 
