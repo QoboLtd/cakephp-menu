@@ -190,14 +190,14 @@ class BaseMenuRenderClass implements MenuRenderInterface
      */
     protected function buildLink(MenuItemInterface $item, string $extLabel = '', array $params = []): string
     {
-        $params['title'] = __d('Qobo/Menu', "{0}", $item->getLabel());
+        $params['title'] = __($item->getLabel());
         $params['escape'] = false;
         $params['target'] = $item->getTarget();
 
         $label = '<i class="menu-icon fa fa-' . $item->getIcon() . '"></i> ';
         $label .= !empty($this->format['itemHeaderStart']) ? $this->format['itemHeaderStart'] : '';
         $label .= !empty($this->format['itemWrapperStart']) ? $this->format['itemWrapperStart'] : '';
-        $label .= $this->noLabel ? '' : __d('Qobo/Menu', "{0}", $item->getLabel());
+        $label .= $this->noLabel ? '' : __($item->getLabel());
         $label .= !empty($this->format['itemWrapperEnd']) ? $this->format['itemWrapperEnd'] : '';
         $label .= $extLabel;
         $label .= !empty($item->getDescription()) ? $this->format['itemDescrStart'] . $item->getDescription() . $this->format['itemDescrEnd'] : '';
