@@ -56,18 +56,20 @@ class MenusTable extends Table
     {
         $validator
             ->uuid('id')
-            ->allowEmptyString('id', 'create');
+            ->allowEmpty('id', 'create');
 
         $validator
             ->requirePresence('name', 'create')
-            ->notEmptyString('name')
+            ->notEmpty('name')
             ->add('name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-            ->boolean('active');
+            ->boolean('active')
+            ->allowEmpty('active');
 
         $validator
-            ->boolean('default');
+            ->boolean('default')
+            ->allowEmpty('default');
 
         return $validator;
     }
