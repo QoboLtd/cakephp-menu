@@ -71,29 +71,28 @@ class MenuItemsTable extends Table
     {
         $validator
             ->uuid('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         $validator
             ->requirePresence('label', 'create')
-            ->notEmpty('label');
+            ->notEmptyString('label');
 
         $validator
-            ->allowEmpty('url');
+            ->allowEmptyString('url');
 
         $validator
-            ->boolean('new_window')
-            ->allowEmpty('new_window');
+            ->boolean('new_window');
 
         $validator
             ->requirePresence('menu_id', 'create')
-            ->notEmpty('menu_id');
+            ->notEmptyString('menu_id');
 
         $validator
-            ->allowEmpty('icon');
+            ->allowEmptyString('icon');
 
         $validator
             ->requirePresence('type', 'create')
-            ->notEmpty('type');
+            ->notEmptyString('type');
 
         return $validator;
     }

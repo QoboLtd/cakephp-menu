@@ -35,17 +35,17 @@ class MenuFactoryTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'plugin.menu.menus',
-        'plugin.menu.menu_items',
+        'plugin.Menu.Menus',
+        'plugin.Menu.MenuItems',
     ];
 
     public function setUp()
     {
         parent::setUp();
-        $configMenus = TableRegistry::exists('Menus') ? [] : ['className' => 'Menu\Model\Table\MenusTable'];
-        $configMenuItems = TableRegistry::exists('MenuItems') ? [] : ['className' => 'Menu\Model\Table\MenuItemsTable'];
-        $this->Menus = TableRegistry::get('Menus', $configMenus);
-        $this->MenuItems = TableRegistry::get('MenuItems', $configMenuItems);
+        $configMenus = TableRegistry::getTableLocator()->exists('Menus') ? [] : ['className' => 'Menu\Model\Table\MenusTable'];
+        $configMenuItems = TableRegistry::getTableLocator()->exists('MenuItems') ? [] : ['className' => 'Menu\Model\Table\MenuItemsTable'];
+        $this->Menus = TableRegistry::getTableLocator()->get('Menus', $configMenus);
+        $this->MenuItems = TableRegistry::getTableLocator()->get('MenuItems', $configMenuItems);
 
         $this->instance = new MenuFactory(['user1'], true);
     }
