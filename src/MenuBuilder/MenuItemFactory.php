@@ -13,7 +13,6 @@ namespace Menu\MenuBuilder;
 
 use Cake\Utility\Inflector;
 use InvalidArgumentException;
-use Menu\MenuBuilder\BaseMenuItem;
 
 /**
  *  MenuItemFactory class

@@ -11,11 +11,9 @@
  */
 namespace Menu\View\Helper;
 
-use Cake\Core\Configure;
 use Cake\Routing\Router;
 use Cake\Utility\Hash;
 use Cake\View\Helper;
-use Cake\View\View;
 
 class MenuHelper extends Helper
 {
