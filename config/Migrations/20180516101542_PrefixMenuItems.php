@@ -13,6 +13,7 @@ class PrefixMenuItems extends AbstractMigration
     public function change()
     {
         $this->table('menu_items')
-            ->rename('qobo_menu_items');
+            ->rename('qobo_menu_items')
+            ->update();
     }
 }

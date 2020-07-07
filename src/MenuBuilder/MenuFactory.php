@@ -22,9 +22,6 @@ use Cake\View\View;
 use Exception;
 use InvalidArgumentException;
 use Menu\Event\EventName;
-use Menu\MenuBuilder\Menu;
-use Menu\MenuBuilder\MenuInterface;
-use Menu\MenuBuilder\MenuItemFactory;
 use RuntimeException;
 
 /**

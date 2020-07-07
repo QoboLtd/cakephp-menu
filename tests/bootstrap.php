@@ -85,6 +85,14 @@ Cake\Core\Configure::write('Session', [
     'defaults' => 'php',
 ]);
 
+Cake\Core\Plugin::getCollection()->add(new \Menu\Plugin([
+    'path' => ROOT . DS,
+    'routes' => true,
+]));
+if (file_exists(ROOT . '/config/bootstrap.php')) {
+    require ROOT . '/config/bootstrap.php';
+}
+
 // Ensure default test connection is defined
 if (!getenv('db_dsn')) {
     putenv('db_dsn=sqlite:///:memory:');
@@ -104,7 +112,3 @@ Cake\Datasource\ConnectionManager::setConfig('test', [
 
 // Alias AppController to the test App
 class_alias($pluginName . '\Test\App\Controller\AppController', 'App\Controller\AppController');
-// If plugin has routes.php/bootstrap.php then load them, otherwise don't.
-$loadPluginRoutes = file_exists(ROOT . DS . 'config' . DS . 'routes.php');
-$loadPluginBootstrap = file_exists(ROOT . DS . 'config' . DS . 'bootstrap.php');
-Cake\Core\Plugin::load($pluginName, ['path' => ROOT . DS, 'autoload' => true, 'routes' => $loadPluginRoutes, 'bootstrap' => $loadPluginBootstrap]);

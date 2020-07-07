@@ -12,7 +12,6 @@
 namespace Menu\Controller;
 
 use Cake\ORM\TableRegistry;
-use Menu\Controller\AppController;
 
 /**
  * Menus Controller

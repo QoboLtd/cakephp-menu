@@ -14,7 +14,6 @@ namespace Menu\Controller;
 use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
-use Menu\Controller\AppController;
 use Qobo\Utils\Utility;
 
 /**
