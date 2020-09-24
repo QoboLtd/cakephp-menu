@@ -11,6 +11,7 @@
  */
 namespace Menu\MenuBuilder;
 
+use Cake\Core\Configure;
 use Cake\View\View;
 
 /**
@@ -38,7 +39,7 @@ class MenuActionsRender extends BaseMenuRenderClass
             'childMenuEnd' => '',
             'itemStart' => '',
             'itemEnd' => '',
-            'item' => '<a href="%url%" title="%label%" class="btn btn-default" data-type="%dataType%" data-confirm-msg="%confirmMsg%"><i class="fa fa-%icon%"></i></a>',
+            'item' => '<a href="%url%" title="%label%" class="btn btn-default" data-type="%dataType%" data-confirm-msg="%confirmMsg%"><i class="' . Configure::read('Icons.prefix') . '%icon%"></i></a>',
             'itemWithChildren' => '',
         ];
 

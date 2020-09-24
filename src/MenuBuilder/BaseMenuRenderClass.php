@@ -12,6 +12,7 @@
 namespace Menu\MenuBuilder;
 
 use BadMethodCallException;
+use Cake\Core\Configure;
 use Cake\View\View;
 use ReflectionClass;
 use ReflectionException;
@@ -194,7 +195,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
         $params['escape'] = false;
         $params['target'] = $item->getTarget();
 
-        $label = '<i class="menu-icon fa fa-' . $item->getIcon() . '"></i> ';
+        $label = '<i class="menu-icon ' . Configure::read('Icons.prefix') . $item->getIcon() . '"></i> ';
         $label .= !empty($this->format['itemHeaderStart']) ? $this->format['itemHeaderStart'] : '';
         $label .= !empty($this->format['itemWrapperStart']) ? $this->format['itemWrapperStart'] : '';
         $label .= $this->noLabel ? '' : __($item->getLabel());
@@ -286,7 +287,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
             $params['confirm'] = $item->getConfirmMsg();
         }
 
-        $label = '<i class="fa fa-' . $item->getIcon() . '"></i> ' . ($this->noLabel ? '' : $item->getLabel()) . $postFix;
+        $label = '<i class="' . Configure::read('Icons.prefix') . $item->getIcon() . '"></i> ' . ($this->noLabel ? '' : $item->getLabel()) . $postFix;
         $result = $this->viewEntity->Form->postLink($label, $item->getUrl(), $params);
 
         return $result;
@@ -337,7 +338,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
 
         $label = $item->getLabel();
         if (!empty($item->getIcon())) {
-            $label = '<i class="fa fa-' . $item->getIcon() . '"></i> ' . $label;
+            $label = '<i class="' . Configure::read('Icons.prefix') . $item->getIcon() . '"></i> ' . $label;
         }
 
         if (!empty($this->format['itemLabelPostfix'])) {
@@ -373,7 +374,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
 
         $label = $item->getLabel();
         if (!empty($item->getIcon())) {
-            $label = '<i class="fa fa-' . $item->getIcon() . '"></i> ' . $label;
+            $label = '<i class="' . Configure::read('Icons.prefix') . $item->getIcon() . '"></i> ' . $label;
         }
 
         if (!empty($this->format['itemLabelPostfix'])) {

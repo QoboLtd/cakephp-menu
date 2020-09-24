@@ -11,6 +11,7 @@
  */
 namespace Menu\MenuBuilder;
 
+use Cake\Core\Configure;
 use Cake\View\View;
 
 /**
@@ -41,9 +42,8 @@ class MainMenuRenderAdminLte extends BaseMenuRenderClass
             'itemEndWithChildren' => '</li>',
             'itemWrapperStart' => '<span>',
             'itemWrapperEnd' => '</span>',
-            //'item' => '<a href="%url%" target="%target%"><i class="fa fa-%icon%"></i> <span>%label%</span></a>',
-            'itemWithChildren' => '<a href="%url%" target="%target%"><i class="fa fa-%icon%"></i> <span>%label%</span><i class="fa fa-angle-left pull-right"></i></a>',
-            'itemWithChildrenPostfix' => '<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>',
+            'itemWithChildren' => '<a href="%url%" target="%target%"><i class="' . Configure::read('Icons.prefix') . '%icon%"></i> <span>%label%</span><i class="' . Configure::read('Icons.prefix') . 'left pull-right"></i></a>',
+            'itemWithChildrenPostfix' => '<span class="pull-right-container"><i class="' . Configure::read('Icons.prefix') . 'angle-left pull-right"></i></span>',
         ];
 
         $this->setFormat($format);
