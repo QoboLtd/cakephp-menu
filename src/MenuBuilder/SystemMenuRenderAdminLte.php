@@ -11,6 +11,7 @@
  */
 namespace Menu\MenuBuilder;
 
+use Cake\Core\Configure;
 use Cake\View\View;
 
 /**
@@ -44,7 +45,7 @@ class SystemMenuRenderAdminLte extends BaseMenuRenderClass
             'itemHeaderEnd' => '</div>',
             'itemDescrStart' => '<p>',
             'itemDescrEnd' => '</p>',
-            'item' => '<a href="%url%"><i class="menu-icon fa fa-%icon%"></i> <div class="menu-info"><h4 class="control-sidebar-subheading">%label%</h4><p>%desc%</p></div></a>',
+            'item' => '<a href="%url%"><i class="menu-icon ' . Configure::read('Icons.prefix') . '%icon%"></i> <div class="menu-info"><h4 class="control-sidebar-subheading">%label%</h4><p>%desc%</p></div></a>',
         ];
 
         $this->setFormat($format);

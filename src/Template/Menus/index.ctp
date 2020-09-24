@@ -60,18 +60,18 @@ echo $this->Html->scriptBlock(
                             <div class="btn-toolbar" role="toolbar">
                                 <div class="btn-group btn-group-xs" role="group">
                                 <?= $this->Html->link(
-                                    '<i class="fa fa-eye"></i>',
+                                    '<i class="' . Configure::read('Icons.prefix') .'eye"></i>',
                                     ['action' => 'view', $menu->id],
                                     ['title' => __d('Qobo/Menu', 'View'), 'class' => 'btn btn-default', 'escape' => false]
                                 ) ?>
                                 <?= $this->Html->link(
-                                    '<i class="fa fa-pencil"></i>',
+                                    '<i class="' . Configure::read('Icons.prefix') . 'pencil"></i>',
                                     ['action' => 'edit', $menu->id],
                                     ['title' => __d('Qobo/Menu', 'Edit'), 'class' => 'btn btn-default', 'escape' => false]
                                 ) ?>
                                 <?php if (!$menu->deny_delete) : ?>
                                     <?= $this->Form->postLink(
-                                        '<i class="fa fa-trash"></i>',
+                                        '<i class="' . Configure::read('Icons.prefix') .'trash"></i>',
                                         ['action' => 'delete', $menu->id],
                                         [
                                             'confirm' => __d('Qobo/Menu', 'Are you sure you want to delete # {0}?', $menu->name),

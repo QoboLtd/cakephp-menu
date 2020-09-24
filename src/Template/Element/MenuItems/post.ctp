@@ -10,6 +10,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
+use Cake\Core\Configure;
 use Menu\Type\TypeFactory;
 
 echo $this->Html->css(
@@ -39,7 +40,7 @@ echo $this->Html->scriptBlock(
 );
 
 foreach ($icons as $k => $v) {
-    $icons[$v] = '<i class="fa fa-' . $v . '"></i>&nbsp;&nbsp;' . $v;
+    $icons[$v] = '<i class="' . Configure::read('Icons.prefix') . $v . '"></i>&nbsp;&nbsp;' . $v;
     unset($icons[$k]);
 }
 

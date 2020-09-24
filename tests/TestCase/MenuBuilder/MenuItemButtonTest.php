@@ -1,6 +1,7 @@
 <?php
 namespace Menu\Test\TestCase\MenuBuilder;
 
+use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use Menu\MenuBuilder\BaseMenuItem;
 use Menu\MenuBuilder\MenuItemButton;
@@ -57,7 +58,7 @@ class MenuItemButtonTest extends TestCase
     public function providerGetButtonIcons(): array
     {
         return [
-            ['fa fa-smile-o', 'fa fa-smile-o'],
+            [Configure::read('Icons.prefix') . 'smile-o', Configure::read('Icons.prefix') . 'smile-o'],
             ['', ''],
         ];
     }

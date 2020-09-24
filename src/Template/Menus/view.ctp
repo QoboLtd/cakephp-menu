@@ -41,7 +41,7 @@ echo $this->Html->scriptBlock(
             <div class="pull-right">
                 <div class="btn-group btn-group-sm" role="group">
                 <?= $this->Html->link(
-                    '<i class="fa fa-plus"></i> ' . __d('Qobo/Menu', 'Add'),
+                    '<i class="' . Configure::read('Icons.prefix') . 'plus"></i> ' . __d('Qobo/Menu', 'Add'),
                     ['controller' => 'MenuItems', 'action' => 'add', $navMenu->id],
                     ['escape' => false, 'title' => __d('Qobo/Menu', 'Add'), 'class' => 'btn btn-default']
                 ); ?>
@@ -55,7 +55,7 @@ echo $this->Html->scriptBlock(
         <div class="col-md-6">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <i class="fa fa-info-circle"></i>
+                    <i class="<?= Configure::read('Icons.prefix') ?>info-circle"></i>
                     <h3 class="box-title">Details</h3>
                 </div>
                 <div class="box-body">
@@ -92,7 +92,7 @@ echo $this->Html->scriptBlock(
                 <?php foreach ($navMenu->menu_items as $menuItem) : ?>
                     <tr>
                         <td><?= $menuItem->node ?></td>
-                        <td><i class="fa fa-<?= h($menuItem->icon) ?>"></i></td>
+                        <td><i class="<?= Configure::read('Icons.prefix') ?><?= h($menuItem->icon) ?>"></i></td>
                         <td><?= h($menuItem->type) ?></td>
                         <td><?= 'module' !== $menuItem->type ?
                             $this->Html->link($menuItem->url, $menuItem->url, ['target' => '_blank']) :
@@ -103,12 +103,12 @@ echo $this->Html->scriptBlock(
                             <div class="btn-toolbar" role="toolbar">
                                 <div class="btn-group btn-group-xs" role="group">
                                 <?= $this->Html->link(
-                                    '<i class="fa fa-pencil"></i>',
+                                    '<i class="' . Configure::read('Icons.prefix') . 'pencil"></i>',
                                     ['controller' => 'MenuItems', 'action' => 'edit', $menuItem->id],
                                     ['title' => __d('Qobo/Menu', 'Edit'), 'class' => 'btn btn-default', 'escape' => false]
                                 ) ?>
                                 <?= $this->Form->postLink(
-                                    '<i class="fa fa-trash"></i>',
+                                    '<i class="' . Configure::read('Icons.prefix') . 'trash"></i>',
                                     ['controller' => 'MenuItems', 'action' => 'delete', $menuItem->id],
                                     [
                                         'confirm' => __d('Qobo/Menu', 'Are you sure you want to delete # {0}?', $menuItem->label),
@@ -120,12 +120,12 @@ echo $this->Html->scriptBlock(
                                 </div>
                                 <div class="btn-group btn-group-xs" role="group">
                                     <?= $this->Form->postLink(
-                                        '<i class="fa fa-arrow-up"></i>',
+                                        '<i class="' . Configure::read('Icons.prefix') . 'arrow-up"></i>',
                                         ['controller' => 'MenuItems', 'action' => 'moveNode', $menuItem->id, 'up'],
                                         ['title' => __d('Qobo/Menu', 'Move up'), 'class' => 'btn btn-default', 'escape' => false]
                                     ) ?>
                                     <?= $this->Form->postLink(
-                                        '<i class="fa fa-arrow-down"></i>',
+                                        '<i class="' . Configure::read('Icons.prefix') . 'arrow-down"></i>',
                                         ['controller' => 'MenuItems', 'action' => 'moveNode', $menuItem->id, 'down'],
                                         ['title' => __d('Qobo/Menu', 'Move down'), 'class' => 'btn btn-default', 'escape' => false]
                                     ) ?>

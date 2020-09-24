@@ -1,6 +1,7 @@
 <?php
 namespace Menu\Test\TestCase\MenuBuilder;
 
+use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 use Menu\MenuBuilder\BaseMenuRenderClass;
@@ -119,7 +120,7 @@ class BaseMenuRenderClassTest extends TestCase
 
         $this->menu->addMenuItem($item);
 
-        $expected = '<ul><li><a href="http://example.com" class="btn btn-default" title="Link Button" target="_self"><i class="menu-icon fa fa-"></i> Link Button</a></li></ul>';
+        $expected = '<ul><li><a href="http://example.com" class="btn btn-default" title="Link Button" target="_self"><i class="menu-icon ' . Configure::read('Icons.prefix') . '"></i> Link Button</a></li></ul>';
 
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
@@ -132,7 +133,7 @@ class BaseMenuRenderClassTest extends TestCase
 
         $this->menu->addMenuItem($item);
 
-        $expected = '<ul><li><a href="#" class="btn btn-default" data-toggle="modal" data-target="#" title="Button Modal" target="_self"><i class="menu-icon fa fa-"></i> Button Modal</a></li></ul>';
+        $expected = '<ul><li><a href="#" class="btn btn-default" data-toggle="modal" data-target="#" title="Button Modal" target="_self"><i class="menu-icon ' . Configure::read('Icons.prefix') . '"></i> Button Modal</a></li></ul>';
 
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
@@ -145,7 +146,7 @@ class BaseMenuRenderClassTest extends TestCase
 
         $this->menu->addMenuItem($item);
 
-        $expected = '<ul><li><a href="#" data-toggle="modal" data-target="#" title="Modal" target="_self"><i class="menu-icon fa fa-"></i> Modal</a></li></ul>';
+        $expected = '<ul><li><a href="#" data-toggle="modal" data-target="#" title="Modal" target="_self"><i class="menu-icon ' . Configure::read('Icons.prefix') . '"></i> Modal</a></li></ul>';
 
         $this->assertEquals($expected, $this->menuRenderer->render());
     }
@@ -164,7 +165,7 @@ class BaseMenuRenderClassTest extends TestCase
             'type="hidden" name="_method" value="POST"\/><\/form><a href="#" title="Post Link" ' .
             'onclick="document.post_' .
             '\w+' .
-            '.submit\(\); event.returnValue = false; return false;"><i class="fa fa-"><\/i> Post Link<\/a><\/li><\/ul>';
+            '.submit\(\); event.returnValue = false; return false;"><i class="' . Configure::read('Icons.prefix') . '"><\/i> Post Link<\/a><\/li><\/ul>';
 
         $this->assertRegExp('/' . $pattern . '/', $this->menuRenderer->render());
     }
@@ -183,7 +184,7 @@ class BaseMenuRenderClassTest extends TestCase
             'type="hidden" name="_method" value="POST"\/><\/form><a href="#" class="btn ' .
             'btn-default" title="Postlink Button" onclick="document.post_' .
             '(\w+)' .
-            '.submit\(\); event.returnValue = false; return false;"><i class="fa fa-"><\/i> Postlink Button<\/a><\/li><\/ul>';
+            '.submit\(\); event.returnValue = false; return false;"><i class="' . Configure::read('Icons.prefix') . '"><\/i> Postlink Button<\/a><\/li><\/ul>';
 
         $this->assertRegExp('/' . $pattern . '/', $this->menuRenderer->render());
     }
