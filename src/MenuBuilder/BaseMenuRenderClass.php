@@ -48,7 +48,6 @@ class BaseMenuRenderClass implements MenuRenderInterface
      */
     protected $noLabel = false;
 
-
     /**
      * @var bool Indicate whether we should skip displaying the icons
      */
