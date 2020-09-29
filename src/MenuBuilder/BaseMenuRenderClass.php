@@ -293,7 +293,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
         }
 
         $icon = $this->noIcon ? '' : '<i class="' . Configure::read('Icons.prefix') . $item->getIcon() . '"></i> ';
-        $label =  $icon . ($this->noLabel ? '' : $item->getLabel()) . $postFix;
+        $label = $icon . ($this->noLabel ? '' : $item->getLabel()) . $postFix;
         $result = $this->viewEntity->Form->postLink($label, $item->getUrl(), $params);
 
         return $result;
