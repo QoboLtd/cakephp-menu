@@ -49,6 +49,11 @@ class BaseMenuRenderClass implements MenuRenderInterface
     protected $noLabel = false;
 
     /**
+     * @var bool Indicate whether we should skip displaying the icons
+     */
+    protected $noIcon = false;
+
+    /**
      *  __construct method
      *
      * @param \Menu\MenuBuilder\Menu $menu menu to render
@@ -195,7 +200,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
         $params['escape'] = false;
         $params['target'] = $item->getTarget();
 
-        $label = '<i class="menu-icon ' . Configure::read('Icons.prefix') . $item->getIcon() . '"></i> ';
+        $label = $this->noIcon ? '' : '<i class="menu-icon ' . Configure::read('Icons.prefix') . $item->getIcon() . '"></i> ';
         $label .= !empty($this->format['itemHeaderStart']) ? $this->format['itemHeaderStart'] : '';
         $label .= !empty($this->format['itemWrapperStart']) ? $this->format['itemWrapperStart'] : '';
         $label .= $this->noLabel ? '' : __($item->getLabel());
@@ -287,7 +292,8 @@ class BaseMenuRenderClass implements MenuRenderInterface
             $params['confirm'] = $item->getConfirmMsg();
         }
 
-        $label = '<i class="' . Configure::read('Icons.prefix') . $item->getIcon() . '"></i> ' . ($this->noLabel ? '' : $item->getLabel()) . $postFix;
+        $icon = $this->noIcon ? '' : '<i class="' . Configure::read('Icons.prefix') . $item->getIcon() . '"></i> ';
+        $label = $icon . ($this->noLabel ? '' : $item->getLabel()) . $postFix;
         $result = $this->viewEntity->Form->postLink($label, $item->getUrl(), $params);
 
         return $result;
@@ -337,7 +343,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
         }
 
         $label = $item->getLabel();
-        if (!empty($item->getIcon())) {
+        if (!$this->noIcon && !empty($item->getIcon())) {
             $label = '<i class="' . Configure::read('Icons.prefix') . $item->getIcon() . '"></i> ' . $label;
         }
 
@@ -373,7 +379,7 @@ class BaseMenuRenderClass implements MenuRenderInterface
         }
 
         $label = $item->getLabel();
-        if (!empty($item->getIcon())) {
+        if (!$this->noIcon && !empty($item->getIcon())) {
             $label = '<i class="' . Configure::read('Icons.prefix') . $item->getIcon() . '"></i> ' . $label;
         }
 

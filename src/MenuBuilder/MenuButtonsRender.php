@@ -30,6 +30,7 @@ class MenuButtonsRender extends BaseMenuRenderClass
     public function __construct(Menu $menu, View $viewEntity)
     {
         parent::__construct($menu, $viewEntity);
+        $this->noIcon = true;
         $this->format = [
             'menuStart' => '<div class="btn-group btn-group-sm">',
             'menuEnd' => '</div>',
